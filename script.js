@@ -215,6 +215,14 @@ const setTintAndShadePanels = (shades, tints) => {
         child.style.backgroundColor = `rgb(${shades[i][0].map((val) =>
           Math.trunc(val)
         )})`;
+        const colourTextEls = child.querySelectorAll(`.rgb-text, .hex-text`);
+        colourTextEls.forEach((el) => {
+          el.innerHTML = el.classList.contains(`rgb-text`)
+            ? `rgb(${shades[i][0].map((val) => Math.round(val)).join(`, `)})`
+            : `${convertRGBToHex(
+                `rgb(${shades[i][0].map((val) => Math.round(val)).join(`, `)})`
+              )}`;
+        });
       } else if (child.classList.contains(`tint`)) {
         child.style.backgroundColor = `rgb(${tints[i][0].map((val) =>
           Math.trunc(val)
@@ -232,7 +240,7 @@ const setTintAndShadePanels = (shades, tints) => {
           (val) => Math.trunc(val)
         )})"><span class="rgb-text">rgb(${shade[0].join(
           `, `
-        )})</span><span class="hex-text">${convertRGBToHex(
+        )})</span><span class="hex-text">#${convertRGBToHex(
           `rgb(${shade[0].join(`, `)})`
         )}</span></div></div>`
       );
