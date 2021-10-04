@@ -25,12 +25,14 @@ const buttons = document.querySelectorAll(`.btn`);
 const tintPanel = document.querySelector(`.tints`);
 const shadesPanel = document.querySelector(`.shades`);
 
-let colorTextEl, color, tintEls, shadeEls;
+let colourTextEl, color, tintEls, shadeEls, colourTextEls;
+
+//#region Colour Functions
 
 const randomInt = (min, max) =>
   Math.floor(Math.random(min, max) * (max - min + 1));
 
-const randomColor = () =>
+const randomColour = () =>
   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
 
 const convertDecimalToHex = (dec) => {
@@ -45,36 +47,27 @@ const convertDecimalToHex = (dec) => {
   return remainderString.padStart(2, `0`);
 };
 
-const convertRGBToHex = (color) => {
-  const hueList = getHueList(color);
+const convertRGBToHex = (colour) => {
+  const hueList = getHueList(colour);
   return `#${hueList.reduce((hex, cur) => hex + convertDecimalToHex(cur), ``)}`;
 };
 
 // Maths
 // Tints - New value = current value + ((255 - current value) x tint factor)
 // Shades - New value = current value x shade factor
-const generateTint = (color, factor) =>
-  color.map((val) => val + (255 - val) * factor);
-const generateShade = (color, factor) => color.map((val) => val * factor);
+const generateTint = (colour, factor) =>
+  colour.map((val) => val + (255 - val) * factor);
+const generateShade = (colour, factor) => colour.map((val) => val * factor);
 
-const generateShadesTints = (color) => {
+const generateShadesTints = (colour) => {
   const tints = [];
   const shades = [];
   for (let i = 0; i < 10; i++) {
-    tints.push(generateTint(color, (i + 1) / 10));
-    shades.push(generateShade(color, (i + 1) / 10));
+    tints.push(generateTint(colour, (i + 1) / 10));
+    shades.push(generateShade(colour, (i + 1) / 10));
   }
 
   return [shades, tints];
-};
-
-const colourCodeClick = (el) => {
-  el.addEventListener(`click`, function (e) {
-    const text = this.innerHTML;
-    navigator.clipboard.writeText(text);
-    console.log(text);
-    e.stopPropagation();
-  });
 };
 
 // const [backgroundTints, backgroundShades] = generateShadesTints();
@@ -87,8 +80,8 @@ const colourCodeClick = (el) => {
 
 // L = 0.2126 * Rg + 0.7152 * Gg + 0.0722 * Bg
 
-const calculateRelativeLuminance = (color) => {
-  const hueValues = color.map((val) =>
+const calculateRelativeLuminance = (colour) => {
+  const hueValues = colour.map((val) =>
     val <= 10 ? val / 3294 : (val / 269 + 0.0513) ** 2.4
   );
   if (
@@ -102,10 +95,10 @@ const calculateRelativeLuminance = (color) => {
   return 0.2126 * hueValues[0] + 0.7152 * hueValues[1] + 0.0722 * hueValues[2];
 };
 
-const calculateContrastRatio = (colors) => {
+const calculateContrastRatio = (colours) => {
   luminosities = [
-    calculateRelativeLuminance(colors[0]),
-    calculateRelativeLuminance(colors[1]),
+    calculateRelativeLuminance(colours[0]),
+    calculateRelativeLuminance(colours[1]),
   ];
   if (
     typeof (
@@ -119,24 +112,25 @@ const calculateContrastRatio = (colors) => {
   );
 };
 
-const calculateVariationsAndContrasts = (color) => {
-  const hueList = getHueList(color).map((hue) => Number(hue));
+const calculateVariationsAndContrasts = (colour) => {
+  const hueList = getHueList(colour).map((hue) => Number(hue));
 
   const [shades, tints] = generateShadesTints(hueList);
 
   const shadeContrasts = shades.map((shade) => [
-    shade,
-    calculateContrastRatio([hueList, shade]),
+    shade.map((val) => Math.round(val)),
+    calculateContrastRatio([hueList, shade.map((val) => Math.round(val))]),
   ]);
   const tintContrasts = tints.map((tint) => [
-    tint,
-    calculateContrastRatio([hueList, tint]),
+    tint.map((val) => Math.round(val)),
+    calculateContrastRatio([hueList, tint.map((val) => Math.round(val))]),
   ]);
 
   return [shadeContrasts, tintContrasts];
 };
 
 const getDarkestContrastColour = (contrasts) => {
+  console.log(`CONTRASTS`, contrasts[0]);
   const selectedColour = contrasts
     .sort((a, b) => a[1] - b[1])
     .find((c) => c[1] > 7);
@@ -149,17 +143,29 @@ const getDarkestContrastColour = (contrasts) => {
 const getLightestContrastColour = (contrasts) => {
   const selectedColour = contrasts
     .sort((a, b) => a[1] + b[1])
-    .find((c) => c[1] > 7);
+    .find((c) => c[1] > 5.5);
   if (!selectedColour)
     return contrasts.reduce((acc, c) => (c[1] > acc[1] ? c : acc), [[], 0])[0];
 
   return selectedColour[0];
 };
 
-const setContrastColours = (color) => {
+// #endregion
+
+//#region General DOM functions
+
+const colourCodeClick = (el) => {
+  el.addEventListener(`click`, function (e) {
+    const text = this.innerHTML;
+    navigator.clipboard.writeText(text);
+    console.log(text);
+    e.stopPropagation();
+  });
+};
+
+const setContrastColours = (colour) => {
   const [shadeContrasts, tintContrasts] =
-    calculateVariationsAndContrasts(color);
-  const colorEl = document.querySelector(`.color-text`);
+    calculateVariationsAndContrasts(colour);
 
   const textColour = getLightestContrastColour([
     ...shadeContrasts,
@@ -182,60 +188,66 @@ const setContrastColours = (color) => {
     });
   }
 
-  if (colorTextEl) colorTextEl.remove();
-  colorTextEl = document.createElement(`div`);
+  if (colourTextEl) colourTextEl.remove();
+  colourTextEl = document.createElement(`div`);
 
-  colorTextEl.classList.add(`color-text`);
-  colorTextEl.innerHTML = `<div class="rgb-text">${color}</div><div class="hex-text">${convertRGBToHex(
-    color
+  colourTextEl.classList.add(`color-text`);
+  colourTextEl.innerHTML = `<div class="rgb-text">${colour}</div><div class="hex-text">${convertRGBToHex(
+    colour
   )}</div>`;
 
-  colorTextEl.querySelectorAll(`div`).forEach((el) => colourCodeClick(el));
-  colorTextEl.style.opacity = `60%`;
+  colourTextEl.querySelectorAll(`div`).forEach((el) => colourCodeClick(el));
+  colourTextEl.style.opacity = `60%`;
   const colourTextColour = getDarkestContrastColour([
     ...shadeContrasts,
     ...tintContrasts,
   ]);
-  colorTextEl.style.color = `rgb(${colourTextColour.join(`,`)})`;
-  body.append(colorTextEl);
+  colourTextEl.style.color = `rgb(${colourTextColour.join(`,`)})`;
+  body.append(colourTextEl);
 
-  return [shadeContrasts, color, tintContrasts];
+  return [shadeContrasts, colour, tintContrasts];
+};
+
+const setTintShadeColour = (colour, child) => {
+  // Set background colour of the colour box
+  child.style.backgroundColor = `rgb(${colour[0].map((val) =>
+    Math.trunc(val)
+  )})`;
+
+  // Grab and set the rgb and hex codes shown in box
+  colourTextEls = child.querySelectorAll(`.rgb-text, .hex-text`);
+
+  colourTextEls.forEach((el) => {
+    el.innerHTML = el.classList.contains(`rgb-text`)
+      ? `rgb(${colour[0].map((val) => Math.round(val)).join(`, `)})`
+      : `${convertRGBToHex(
+          `rgb(${colour[0].map((val) => Math.round(val)).join(`, `)})`
+        )}`;
+    console.log(`rgb(${colour.join(`,`)})`);
+
+    const textColour = getDarkestContrastColour(
+      calculateVariationsAndContrasts(`rgb(${colour[0].join(`,`)})`).flat(1)
+    );
+    console.log(`text`, textColour);
+    el.style.color = `rgb(${textColour})`;
+  });
+
+  // Set text colour of codes to good contrast colour
 };
 
 const setTintAndShadePanels = (shades, tints) => {
   shades.sort((a, b) => a[1] - b[1]);
   console.log(shades);
   const shadeContainers = document.querySelectorAll(`.shade-container`);
-  let colourTextEls;
   // if shades and tints exist, just change the background colors of boxes
   if (shadeContainers.length !== 0) {
     shadeContainers.forEach((container) => {
       const child = container.children[0];
       const i = child.dataset.index;
       if (child.classList.contains(`shade`)) {
-        child.style.backgroundColor = `rgb(${shades[i][0].map((val) =>
-          Math.trunc(val)
-        )})`;
-        colourTextEls = child.querySelectorAll(`.rgb-text, .hex-text`);
-        colourTextEls.forEach((el) => {
-          el.innerHTML = el.classList.contains(`rgb-text`)
-            ? `rgb(${shades[i][0].map((val) => Math.round(val)).join(`, `)})`
-            : `${convertRGBToHex(
-                `rgb(${shades[i][0].map((val) => Math.round(val)).join(`, `)})`
-              )}`;
-        });
+        setTintShadeColour(shades[i], child);
       } else if (child.classList.contains(`tint`)) {
-        child.style.backgroundColor = `rgb(${tints[i][0].map((val) =>
-          Math.trunc(val)
-        )})`;
-        colourTextEls = child.querySelectorAll(`.rgb-text, .hex-text`);
-        colourTextEls.forEach((el) => {
-          el.innerHTML = el.classList.contains(`rgb-text`)
-            ? `rgb(${tints[i][0].map((val) => Math.round(val)).join(`, `)})`
-            : `${convertRGBToHex(
-                `rgb(${tints[i][0].map((val) => Math.round(val)).join(`, `)})`
-              )}`;
-        });
+        setTintShadeColour(tints[i], child);
       }
     });
     // else create new shade container elements
@@ -296,10 +308,12 @@ const init = () => {
 
 init();
 
+//#endregion
+
 //#region event listeners and listener functions
 
 body.addEventListener(`click`, () => {
-  color = randomColor();
+  color = randomColour();
   body.style.backgroundColor = color;
   const [shades, _, tints] = setContrastColours(color);
 
