@@ -112,7 +112,8 @@ body {
 
 .btn--tints:hover,
 .btn--shades:hover,
-.color-text:hover {
+.hex-text:hover,
+.rgb-text:hover {
   cursor: pointer !important;
 }
 

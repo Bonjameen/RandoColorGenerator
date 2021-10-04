@@ -68,6 +68,15 @@ const generateShadesTints = (color) => {
   return [shades, tints];
 };
 
+const colourCodeClick = (el) => {
+  el.addEventListener(`click`, function (e) {
+    const text = this.innerHTML;
+    navigator.clipboard.writeText(text);
+    console.log(text);
+    e.stopPropagation();
+  });
+};
+
 // const [backgroundTints, backgroundShades] = generateShadesTints();
 
 // if R <= 10 then Rg = R/3294, else Rg = (R/269 + 0.0513)^2.4
@@ -181,14 +190,7 @@ const setContrastColours = (color) => {
     color
   )}</div>`;
 
-  colorTextEl.querySelectorAll(`div`).forEach((el) => {
-    el.addEventListener(`click`, function (e) {
-      const text = this.innerHTML;
-      navigator.clipboard.writeText(text);
-      console.log(text);
-      e.stopPropagation();
-    });
-  });
+  colorTextEl.querySelectorAll(`div`).forEach((el) => colourCodeClick(el));
   colorTextEl.style.opacity = `60%`;
   const colourTextColour = getDarkestContrastColour([
     ...shadeContrasts,
@@ -228,7 +230,11 @@ const setTintAndShadePanels = (shades, tints) => {
         `beforeend`,
         `<div class="shade-container"><div class="shade" data-index="${i}" style="background-color: rgb(${shade[0].map(
           (val) => Math.trunc(val)
-        )})">${convertRGBToHex(`rgb(${shade[0].join(`, `)})`)}</div></div>`
+        )})"><span class="rgb-text">rgb(${shade[0].join(
+          `, `
+        )})</span><span class="hex-text">${convertRGBToHex(
+          `rgb(${shade[0].join(`, `)})`
+        )}</span></div></div>`
       );
     });
     tints.forEach((tint, i) => {
@@ -242,6 +248,10 @@ const setTintAndShadePanels = (shades, tints) => {
       );
     });
   }
+  return [
+    document.querySelectorAll(`.shade`),
+    document.querySelectorAll(`.tint`),
+  ];
 };
 
 const getHueList = (color) => color.slice(4, -1).split(`,`);
@@ -250,11 +260,17 @@ const init = () => {
   const backgroundColor = `#343a40`;
   body.style.backgroundColor = backgroundColor;
 
-  const [shades, color, tints] = setContrastColours(body.style.backgroundColor);
-  setTintAndShadePanels(shades.slice(0, -1), tints.slice(0, -1));
-
-  shadeEls = document.querySelectorAll(`.shade`);
-  tintEls = document.querySelectorAll(`.tint`);
+  const [shades, _, tints] = setContrastColours(body.style.backgroundColor);
+  [shadeEls, tintEls] = setTintAndShadePanels(
+    shades.slice(0, -1),
+    tints.slice(0, -1)
+  );
+  [...shadeEls]
+    .map((shade) => [
+      shade.querySelector(`.hex-text`),
+      shade.querySelector(`.rgb-text`),
+    ])
+    .forEach((item) => item.forEach((el) => colourCodeClick(el)));
 };
 
 init();
