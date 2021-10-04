@@ -228,7 +228,7 @@ const setTintAndShadePanels = (shades, tints) => {
         `beforeend`,
         `<div class="shade-container"><div class="shade" data-index="${i}" style="background-color: rgb(${shade[0].map(
           (val) => Math.trunc(val)
-        )})"></div></div>`
+        )})">${convertRGBToHex(`rgb(${shade[0].join(`, `)})`)}</div></div>`
       );
     });
     tints.forEach((tint, i) => {
@@ -238,7 +238,7 @@ const setTintAndShadePanels = (shades, tints) => {
         `beforeend`,
         `<div class="shade-container"><div class="tint" data-index="${i}" style="background-color: rgb(${tint[0].map(
           (val) => Math.trunc(val)
-        )})"></div></div>`
+        )})">${convertRGBToHex(`rgb(${tint[0].join(`,`)})`)}</div></div>`
       );
     });
   }
