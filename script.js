@@ -206,6 +206,7 @@ const setTintAndShadePanels = (shades, tints) => {
   shades.sort((a, b) => a[1] - b[1]);
   console.log(shades);
   const shadeContainers = document.querySelectorAll(`.shade-container`);
+  let colourTextEls;
   // if shades and tints exist, just change the background colors of boxes
   if (shadeContainers.length !== 0) {
     shadeContainers.forEach((container) => {
@@ -215,7 +216,7 @@ const setTintAndShadePanels = (shades, tints) => {
         child.style.backgroundColor = `rgb(${shades[i][0].map((val) =>
           Math.trunc(val)
         )})`;
-        const colourTextEls = child.querySelectorAll(`.rgb-text, .hex-text`);
+        colourTextEls = child.querySelectorAll(`.rgb-text, .hex-text`);
         colourTextEls.forEach((el) => {
           el.innerHTML = el.classList.contains(`rgb-text`)
             ? `rgb(${shades[i][0].map((val) => Math.round(val)).join(`, `)})`
@@ -227,6 +228,14 @@ const setTintAndShadePanels = (shades, tints) => {
         child.style.backgroundColor = `rgb(${tints[i][0].map((val) =>
           Math.trunc(val)
         )})`;
+        colourTextEls = child.querySelectorAll(`.rgb-text, .hex-text`);
+        colourTextEls.forEach((el) => {
+          el.innerHTML = el.classList.contains(`rgb-text`)
+            ? `rgb(${tints[i][0].map((val) => Math.round(val)).join(`, `)})`
+            : `${convertRGBToHex(
+                `rgb(${tints[i][0].map((val) => Math.round(val)).join(`, `)})`
+              )}`;
+        });
       }
     });
     // else create new shade container elements
@@ -240,7 +249,7 @@ const setTintAndShadePanels = (shades, tints) => {
           (val) => Math.trunc(val)
         )})"><span class="rgb-text">rgb(${shade[0].join(
           `, `
-        )})</span><span class="hex-text">#${convertRGBToHex(
+        )})</span><span class="hex-text">${convertRGBToHex(
           `rgb(${shade[0].join(`, `)})`
         )}</span></div></div>`
       );
@@ -252,7 +261,11 @@ const setTintAndShadePanels = (shades, tints) => {
         `beforeend`,
         `<div class="shade-container"><div class="tint" data-index="${i}" style="background-color: rgb(${tint[0].map(
           (val) => Math.trunc(val)
-        )})">${convertRGBToHex(`rgb(${tint[0].join(`,`)})`)}</div></div>`
+        )})"><span class="rgb-text">rgb(${tint[0].join(
+          `, `
+        )})</span><span class="hex-text">${convertRGBToHex(
+          `rgb(${tint[0].join(`, `)})`
+        )}</span></div></div>`
       );
     });
   }
@@ -282,6 +295,8 @@ const init = () => {
 };
 
 init();
+
+//#region event listeners and listener functions
 
 body.addEventListener(`click`, () => {
   color = randomColor();
@@ -331,3 +346,5 @@ const slideIndividualColour = (type, i) => {
     colour.classList.toggle(`${type}--active`);
   }, i * 100);
 };
+
+//#endregion
