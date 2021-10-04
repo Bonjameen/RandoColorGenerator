@@ -204,27 +204,41 @@ const setTintAndShadePanels = (shades, tints) => {
   shades.sort((a, b) => a[1] - b[1]);
   console.log(shades);
   const shadeContainers = document.querySelectorAll(`.shade-container`);
+  // if shades and tints exist, just change the background colors of boxes
   if (shadeContainers.length !== 0) {
     shadeContainers.forEach((container) => {
       const child = container.children[0];
       const i = child.dataset.index;
       if (child.classList.contains(`shade`)) {
-        child.style.backgroundColor = `rgb(${shades[i]})`;
+        child.style.backgroundColor = `rgb(${shades[i][0].map((val) =>
+          Math.trunc(val)
+        )})`;
       } else if (child.classList.contains(`tint`)) {
-        child.style.backgroundColor = `rgb(${tints[i]})`;
+        child.style.backgroundColor = `rgb(${tints[i][0].map((val) =>
+          Math.trunc(val)
+        )})`;
       }
     });
+    // else create new shade container elements
   } else {
     shades.forEach((shade, i) => {
+      shade[0] = shade[0].map((val) => Math.trunc(val));
+      console.log(`shade`, shades[0]);
       shadesPanel.insertAdjacentHTML(
         `beforeend`,
-        `<div class="shade-container"><div class="shade" data-index="${i}" style="background-color: rgb(${shade[0]})"></div></div>`
+        `<div class="shade-container"><div class="shade" data-index="${i}" style="background-color: rgb(${shade[0].map(
+          (val) => Math.trunc(val)
+        )})"></div></div>`
       );
     });
     tints.forEach((tint, i) => {
+      tint[0] = tint[0].map((val) => Math.trunc(val));
+      console.log(tints[0]);
       tintPanel.insertAdjacentHTML(
         `beforeend`,
-        `<div class="shade-container"><div class="tint" data-index="${i}" style="background-color: rgb(${tint[0]})"></div></div>`
+        `<div class="shade-container"><div class="tint" data-index="${i}" style="background-color: rgb(${tint[0].map(
+          (val) => Math.trunc(val)
+        )})"></div></div>`
       );
     });
   }
