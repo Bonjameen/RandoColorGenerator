@@ -84,14 +84,6 @@ const calculateRelativeLuminance = (colour) => {
   const hueValues = colour.map((val) =>
     val <= 10 ? val / 3294 : (val / 269 + 0.0513) ** 2.4
   );
-  if (
-    typeof (
-      0.2126 * hueValues[0] +
-      0.7152 * hueValues[1] +
-      0.0722 * hueValues[2]
-    ) !== `number`
-  )
-    console.log(`calcRelLum`);
   return 0.2126 * hueValues[0] + 0.7152 * hueValues[1] + 0.0722 * hueValues[2];
 };
 
@@ -112,6 +104,15 @@ const calculateContrastRatio = (colours) => {
   );
 };
 
+const getOppositeColour = (colour) => {
+  if (calculateRelativeLuminance(colour) > 0.5) {
+    return colour.map((val) => Math.abs(225 - val));
+  } else
+    return colour.map((val) =>
+      Math.abs(275 - val) > 255 ? 255 : Math.abs(275 - val)
+    );
+};
+
 const calculateVariationsAndContrasts = (colour) => {
   const hueList = getHueList(colour).map((hue) => Number(hue));
 
@@ -129,8 +130,20 @@ const calculateVariationsAndContrasts = (colour) => {
   return [shadeContrasts, tintContrasts];
 };
 
+const calculateContrasts = (colour, shades, tints) => {
+  const shadeContrasts = shades.map((shade) => [
+    shade.map((val) => Math.round(val)),
+    calculateContrastRatio([colour, shade.map((val) => Math.round(val))]),
+  ]);
+  const tintContrasts = tints.map((tint) => [
+    tint.map((val) => Math.round(val)),
+    calculateContrastRatio([colour, tint.map((val) => Math.round(val))]),
+  ]);
+
+  return [shadeContrasts, tintContrasts];
+};
+
 const getDarkestContrastColour = (contrasts) => {
-  console.log(`CONTRASTS`, contrasts[0]);
   const selectedColour = contrasts
     .sort((a, b) => a[1] - b[1])
     .find((c) => c[1] > 7);
@@ -158,7 +171,6 @@ const colourCodeClick = (el) => {
   el.addEventListener(`click`, function (e) {
     const text = this.innerHTML;
     navigator.clipboard.writeText(text);
-    console.log(text);
     e.stopPropagation();
   });
 };
@@ -223,16 +235,19 @@ const setTintShadeColour = (colour, child) => {
       : `${convertRGBToHex(
           `rgb(${colour[0].map((val) => Math.round(val)).join(`, `)})`
         )}`;
-    console.log(`rgb(${colour.join(`,`)})`);
 
-    const textColour = getDarkestContrastColour(
-      calculateVariationsAndContrasts(`rgb(${colour[0].join(`,`)})`).flat(1)
+    // Set text colour of codes to good contrast colour
+    const textColour = getOppositeColour(
+      colour[0].map((val) => Math.round(val))
     );
-    console.log(`text`, textColour);
     el.style.color = `rgb(${textColour})`;
+    if (calculateContrastRatio([colour[0], textColour]) < 5.5) {
+      // el.style.textShadow =
+      //   calculateRelativeLuminance(textColour) < 0.6
+      //     ? `0 0 1px rgb(225,225,225,0.8)`
+      //     : `0 0 1px rgb(22,22,22,0.8)`;
+    }
   });
-
-  // Set text colour of codes to good contrast colour
 };
 
 const setTintAndShadePanels = (shades, tints) => {
@@ -248,6 +263,34 @@ const setTintAndShadePanels = (shades, tints) => {
         setTintShadeColour(shades[i], child);
       } else if (child.classList.contains(`tint`)) {
         setTintShadeColour(tints[i], child);
+        if (
+          calculateContrastRatio([
+            getHueList(child.querySelector(`.rgb-text`).style.color),
+            getHueList(child.style.backgroundColor),
+          ]) < 4.5
+        ) {
+          const hueListColour = getHueList(
+            child.querySelector(`.rgb-text`).style.color
+          );
+          const hueListBackgroundColour = getHueList(
+            child.style.backgroundColor
+          );
+          const [shades, tints] = generateShadesTints(hueListColour);
+          const [shadeContrasts, tintContrasts] = calculateContrasts(
+            hueListBackgroundColour,
+            shades,
+            tints
+          );
+          const selectedColour = getDarkestContrastColour([
+            ...shadeContrasts,
+            ...tintContrasts,
+          ]);
+          child
+            .querySelectorAll(`.rgb-text .hex-text`)
+            .forEach(
+              (el) => (el.style.color = `rgb(${selectedColour.join(`,`)})`)
+            );
+        }
       }
     });
     // else create new shade container elements
@@ -287,7 +330,11 @@ const setTintAndShadePanels = (shades, tints) => {
   ];
 };
 
-const getHueList = (color) => color.slice(4, -1).split(`,`);
+const getHueList = (color) =>
+  color
+    .slice(4, -1)
+    .split(`,`)
+    .map((val) => Number(val));
 
 const init = () => {
   const backgroundColor = `#343a40`;
