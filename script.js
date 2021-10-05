@@ -304,6 +304,12 @@ const init = () => {
       shade.querySelector(`.rgb-text`),
     ])
     .forEach((item) => item.forEach((el) => colourCodeClick(el)));
+  [...tintEls]
+    .map((tint) => [
+      tint.querySelector(`.hex-text`),
+      tint.querySelector(`.rgb-text`),
+    ])
+    .forEach((item) => item.forEach((el) => colourCodeClick(el)));
 };
 
 init();

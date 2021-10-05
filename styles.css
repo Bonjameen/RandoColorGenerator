@@ -162,6 +162,9 @@ body {
   .shades {
     width: 33%;
   }
+  .message {
+    padding: 0 34%;
+  }
 }
 
 @media (max-width: 64em) {
