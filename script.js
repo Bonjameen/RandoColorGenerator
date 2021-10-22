@@ -1,23 +1,23 @@
 `use strict`;
 
-const decToHex = [
-  `0`,
-  `1`,
-  `2`,
-  `3`,
-  `4`,
-  `5`,
-  `6`,
-  `7`,
-  `8`,
-  `9`,
-  `A`,
-  `B`,
-  `C`,
-  `D`,
-  `E`,
-  `F`,
-];
+// const decToHex = [
+//   `0`,
+//   `1`,
+//   `2`,
+//   `3`,
+//   `4`,
+//   `5`,
+//   `6`,
+//   `7`,
+//   `8`,
+//   `9`,
+//   `A`,
+//   `B`,
+//   `C`,
+//   `D`,
+//   `E`,
+//   `F`,
+// ];
 
 const body = document.querySelector(`body`);
 const message = document.querySelector(`.message`);
@@ -27,7 +27,11 @@ const shadesPanel = document.querySelector(`.shades`);
 
 let colourTextEl, color, tintEls, shadeEls, colourTextEls;
 
+const colourous = new Colourous();
+
 //#region Colour Functions
+
+/*
 
 const randomInt = (min, max) =>
   Math.floor(Math.random(min, max) * (max - min + 1));
@@ -46,6 +50,12 @@ const convertDecimalToHex = (dec) => {
 
   return remainderString.padStart(2, `0`);
 };
+
+const getHueList = (color) =>
+  color
+    .slice(4, -1)
+    .split(`,`)
+    .map((val) => Number(val));
 
 const convertRGBToHex = (colour) => {
   const hueList = getHueList(colour);
@@ -162,7 +172,7 @@ const getLightestContrastColour = (contrasts) => {
 
   return selectedColour[0];
 };
-
+*/
 // #endregion
 
 //#region General DOM functions
@@ -177,18 +187,16 @@ const colourCodeClick = (el) => {
 
 const setContrastColours = (colour) => {
   const [shadeContrasts, tintContrasts] =
-    calculateVariationsAndContrasts(colour);
+    colourous.calculateVariationsAndContrasts(colour);
 
-  const textColour = getLightestContrastColour([
+  const textColour = colourous.getLightestContrastColour([
     ...shadeContrasts,
     ...tintContrasts,
   ]);
-  const btnColour = getDarkestContrastColour([
+  const btnColour = colourous.getDarkestContrastColour([
     ...shadeContrasts,
     ...tintContrasts,
   ]);
-
-  getLightestContrastColour([...shadeContrasts, ...tintContrasts]);
 
   if (textColour) {
     message.style.color = `rgb(${textColour.join(`,`)})`;
@@ -204,13 +212,13 @@ const setContrastColours = (colour) => {
   colourTextEl = document.createElement(`div`);
 
   colourTextEl.classList.add(`color-text`);
-  colourTextEl.innerHTML = `<div class="rgb-text">${colour}</div><div class="hex-text">${convertRGBToHex(
+  colourTextEl.innerHTML = `<div class="rgb-text">${colour}</div><div class="hex-text">${colourous.convertRGBToHex(
     colour
   )}</div>`;
 
   colourTextEl.querySelectorAll(`div`).forEach((el) => colourCodeClick(el));
   colourTextEl.style.opacity = `60%`;
-  const colourTextColour = getDarkestContrastColour([
+  const colourTextColour = colourous.getDarkestContrastColour([
     ...shadeContrasts,
     ...tintContrasts,
   ]);
@@ -232,16 +240,16 @@ const setTintShadeColour = (colour, child) => {
   colourTextEls.forEach((el) => {
     el.innerHTML = el.classList.contains(`rgb-text`)
       ? `rgb(${colour[0].map((val) => Math.round(val)).join(`, `)})`
-      : `${convertRGBToHex(
+      : `${colourous.convertRGBToHex(
           `rgb(${colour[0].map((val) => Math.round(val)).join(`, `)})`
         )}`;
 
     // Set text colour of codes to good contrast colour
-    const textColour = getOppositeColour(
+    const textColour = colourous.getOppositeColour(
       colour[0].map((val) => Math.round(val))
     );
     el.style.color = `rgb(${textColour})`;
-    if (calculateContrastRatio([colour[0], textColour]) < 5.5) {
+    if (colourous.calculateContrastRatio([colour[0], textColour]) < 5.5) {
       // el.style.textShadow =
       //   calculateRelativeLuminance(textColour) < 0.6
       //     ? `0 0 1px rgb(225,225,225,0.8)`
@@ -264,24 +272,24 @@ const setTintAndShadePanels = (shades, tints) => {
       } else if (child.classList.contains(`tint`)) {
         setTintShadeColour(tints[i], child);
         if (
-          calculateContrastRatio([
-            getHueList(child.querySelector(`.rgb-text`).style.color),
-            getHueList(child.style.backgroundColor),
+          colourous.calculateContrastRatio([
+            colourous.getHueList(child.querySelector(`.rgb-text`).style.color),
+            colourous.getHueList(child.style.backgroundColor),
           ]) < 4.5
         ) {
-          const hueListColour = getHueList(
+          const hueListColour = colourous.getHueList(
             child.querySelector(`.rgb-text`).style.color
           );
-          const hueListBackgroundColour = getHueList(
+          const hueListBackgroundColour = colourous.getHueList(
             child.style.backgroundColor
           );
-          const [shades, tints] = generateShadesTints(hueListColour);
-          const [shadeContrasts, tintContrasts] = calculateContrasts(
+          const [shades, tints] = colourous.generateShadesTints(hueListColour);
+          const [shadeContrasts, tintContrasts] = colourous.calculateContrasts(
             hueListBackgroundColour,
             shades,
             tints
           );
-          const selectedColour = getDarkestContrastColour([
+          const selectedColour = colourous.getDarkestContrastColour([
             ...shadeContrasts,
             ...tintContrasts,
           ]);
@@ -304,7 +312,7 @@ const setTintAndShadePanels = (shades, tints) => {
           (val) => Math.trunc(val)
         )})"><span class="rgb-text">rgb(${shade[0].join(
           `, `
-        )})</span><span class="hex-text">${convertRGBToHex(
+        )})</span><span class="hex-text">${colourous.convertRGBToHex(
           `rgb(${shade[0].join(`, `)})`
         )}</span></div></div>`
       );
@@ -318,7 +326,7 @@ const setTintAndShadePanels = (shades, tints) => {
           (val) => Math.trunc(val)
         )})"><span class="rgb-text">rgb(${tint[0].join(
           `, `
-        )})</span><span class="hex-text">${convertRGBToHex(
+        )})</span><span class="hex-text">${colourous.convertRGBToHex(
           `rgb(${tint[0].join(`, `)})`
         )}</span></div></div>`
       );
@@ -329,12 +337,6 @@ const setTintAndShadePanels = (shades, tints) => {
     document.querySelectorAll(`.tint`),
   ];
 };
-
-const getHueList = (color) =>
-  color
-    .slice(4, -1)
-    .split(`,`)
-    .map((val) => Number(val));
 
 const init = () => {
   const backgroundColor = `#343a40`;
@@ -366,7 +368,7 @@ init();
 //#region event listeners and listener functions
 
 body.addEventListener(`click`, () => {
-  color = randomColour();
+  color = colourous.randomColour();
   body.style.backgroundColor = color;
   const [shades, _, tints] = setContrastColours(color);
 
