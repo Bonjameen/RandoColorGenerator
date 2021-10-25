@@ -1,1 +1,5 @@
+# node-modules folder
 node_modules
+
+# Parcel library cache
+.parcel-cache

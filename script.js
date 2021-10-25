@@ -1,3 +1,5 @@
+import icons from "url:./src/img/icons.svg";
+
 `use strict`;
 
 // const decToHex = [
