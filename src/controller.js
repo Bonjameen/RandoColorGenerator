@@ -1,3 +1,4 @@
+`use strict`;
 import * as model from "./model.js";
 import generatorView from "./generatorView.js";
 import variationsView from "./views/variationsView.js";
@@ -6,17 +7,21 @@ import colourous from "../colourous.js";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
+if (module.hot) module.hot.accept();
+
 const controlGenerator = function () {
-  const [rgb, hex] = colourous.generateRandomColour();
-  model.state.colour = { rgb: rgb, hex: hex };
-  generatorView.render();
+  const colour = [model.state.colour.rgb, model.state.colour.hex];
+  const type = model.state.type;
+  if (model.state.tints.length === 0) {
+    model.setShadesTints();
+    generatorView.render({ colour, type });
+  } else {
+    model.setNewColour();
+    generatorView.update({ colour, type });
+  }
 };
 
-const controlVariations = function () {
-  const [shades, tints] = colourous.generateShadesTints(model.state.colour);
-  model.state.shades = shades;
-  model.state.tints = tints;
+const init = () => {
+  generatorView.addHandlerRender(controlGenerator);
 };
-
-const init = () => {};
 init();

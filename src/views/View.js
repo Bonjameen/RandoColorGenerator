@@ -1,7 +1,9 @@
+`use strict`;
+
 import icons from "url:../../img/icons.svg";
 
 export default class View {
-  _data;
+  #data;
 
   /**
    * Render the received object to the DOM
@@ -14,26 +16,26 @@ export default class View {
    */
   render(data, render = true) {
     if (!data || (Array.isArray(data) && data.length === 0))
-      return this.renderError();
+      console.error(`render data is empty`);
 
-    this._data = data;
-    const markup = this._generateMarkup();
+    this.#data = data;
+    const markup = this.#generateMarkup();
 
     if (!render) return markup;
 
-    this._clear();
-    this._parentElement.insertAdjacentHTML(`afterbegin`, markup);
+    this.#clear();
+    this.#parentEl.insertAdjacentHTML(`afterbegin`, markup);
   }
 
   update(data) {
-    this._data = data;
+    this.#data = data;
 
     const newMarkup = this._generateMarkup();
 
     const newDOM = document.createRange().createContextualFragment(newMarkup);
 
     const newElements = Array.from(newDOM.querySelectorAll(`*`));
-    const curElements = Array.from(this._parentElement.querySelectorAll(`*`));
+    const curElements = Array.from(this.#parentEl.querySelectorAll(`*`));
 
     newElements.forEach((newEl, i) => {
       const curEl = curElements[i];
@@ -52,8 +54,8 @@ export default class View {
     });
   }
 
-  _clear() {
-    this._parentElement.innerHTML = ``;
+  #clear() {
+    this.#parentEl.innerHTML = ``;
   }
 
   renderMessage(message = this._message) {
@@ -67,6 +69,6 @@ export default class View {
             <p>${message}</p>
         </div>`;
     this._clear();
-    this._parentElement.insertAdjacentHTML(`afterbegin`, markup);
+    this.#parentEl.insertAdjacentHTML(`afterbegin`, markup);
   }
 }
