@@ -55,7 +55,7 @@ class Colourous {
     let remainder;
     let remainderString = ``;
     while (dec !== 0) {
-      remainder = dec % 16;
+      remainder = Math.round(dec % 16);
       remainderString = `${this.#decToHex[remainder]}${remainderString}`;
       dec = Math.floor(dec / 16);
     }
@@ -71,11 +71,11 @@ class Colourous {
    */
   getHueList(colour) {
     return colour instanceof Array
-      ? colour
+      ? colour.map((val) => Math.round(val))
       : colour
           .slice(4, -1)
           .split(`,`)
-          .map((val) => Number(val));
+          .map((val) => Math.round(Number(val)));
   }
 
   /**
@@ -96,10 +96,12 @@ class Colourous {
    */
   convertRGBToHex(colour) {
     const hueList = this.getHueList(colour);
-    return `#${hueList.reduce(
+    const hex = `#${hueList.reduce(
       (hex, cur) => hex + this._convertDecimalToHex(cur),
       ``
     )}`;
+    if (hex.includes(`undefined`)) console.error(`💥💥💥 ${hex}, ${hueList}`);
+    return hex;
   }
 
   // Maths
@@ -127,7 +129,7 @@ class Colourous {
    * @author Ben Pinner
    */
   _generateShade(colour, factor) {
-    const shadeList = colour.map((val) => val * factor);
+    const shadeList = colour.map((val) => val * (1 - factor));
     const shade = this.getRGBFromHueList(shadeList);
     const shadeHex = this.convertRGBToHex(shadeList);
     return [shade, shadeHex];
@@ -150,10 +152,8 @@ class Colourous {
    * @author Ben Pinner
    */
   calculateRelativeLuminance(colour) {
-    const hueValues = this.getHueList(colour);
-    return (
-      0.2126 * hueValues[0] + 0.7152 * hueValues[1] + 0.0722 * hueValues[2]
-    );
+    const hueList = this.getHueList(colour);
+    return 0.2126 * hueList[0] + 0.7152 * hueList[1] + 0.0722 * hueList[2];
   }
 
   /**
@@ -169,8 +169,8 @@ class Colourous {
     for (let i = 0; i < 10; i++) {
       const tint = this._generateTint(hueList, (i + 1) / 10);
       const shade = this._generateShade(hueList, (i + 1) / 10);
-      tints.push([tint, this.calculateRelativeLuminance(tint)]);
-      shades.push([shade, this.calculateRelativeLuminance(shade)]);
+      tints.push([tint, this.calculateRelativeLuminance(tint[0])]);
+      shades.push([shade, this.calculateRelativeLuminance(shade[0])]);
     }
 
     return [shades, tints];
@@ -222,10 +222,7 @@ class Colourous {
         rgb: shade[0][0],
         hex: shade[0][1],
         luminance: shade[1],
-        contrast: this.calculateContrastRatio([
-          hueList,
-          shade.map((val) => Math.round(val)),
-        ]),
+        contrast: this.calculateContrastRatio([hueList, shade[0][0]]),
       };
     });
 

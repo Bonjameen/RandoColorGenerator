@@ -12,35 +12,17 @@
     />
 
     <link rel="stylesheet" href="styles.css" />
-
     <script
       type="module"
       defer
-      src="colourous.js"
+      src="./src/controller.js"
       type="text/javascript"
     ></script>
-    <script type="module" defer src="script.js" type="text/javascript"></script>
     <title>Random Color Generator</title>
   </head>
   <body>
-    <div class="message">Click the screen to generate a new colour</div>
-    <div class="tints">
-      <div class="btn btn--tints" data-type="tint">
-        <ion-icon
-          name="chevron-forward-outline"
-          class="arrow arrow__tints"
-        ></ion-icon
-        ><span class="tints-text">Tints</span>
-      </div>
-    </div>
-    <div class="shades">
-      <div class="btn btn--shades" data-type="shade">
-        <span class="shades-text">Shades</span>
-        <ion-icon
-          name="chevron-back-outline"
-          class="arrow arrow__shades"
-        ></ion-icon>
-      </div>
-    </div>
+    <div class="container"></div>
+
+    <div class="variations"></div>
   </body>
 </html>

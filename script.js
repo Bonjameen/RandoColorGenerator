@@ -397,11 +397,6 @@ const slidePanel = (type) => {
   children.find((child) => child.classList.contains(`arrow`)).name = `chevron-${
     buttonName === `forward` ? `back` : `forward`
   }-outline`;
-  console.log(
-    children
-      .find((child) => child.tagName.toLowerCase() === `span`)
-      .classList.toggle(`hidden`)
-  );
 
   // Sliding colours
   if (type === `tint`) {

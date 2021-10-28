@@ -13,6 +13,8 @@ export const state = {
   },
   tints: [],
   shades: [],
+  tintsActive: false,
+  shadesActive: false,
 };
 
 export const setNewColour = function () {
@@ -32,7 +34,7 @@ export const setShadesTints = function () {
 
   // Calculate variations and contrasts of main colour
   [state.shades, state.tints] = calculateShadesTints();
-  const contrasts = getRGBContrastValues([...state.tints, ...state.shades]);
+  const contrasts = getRGBContrastValues(state.tints, state.shades);
   state.colour.contrastColour = colourous.getDarkestContrastColour(contrasts);
   const [tintTextColours, shadeTextColours] = calculateShadesTintsContrasts(
     state.tints,
@@ -47,6 +49,10 @@ export const setShadesTints = function () {
   );
 };
 
+export const toggleVariation = function (type) {
+  state[`${type}sActive`] = !state[`${type}sActive`];
+};
+
 const calculateShadesTints = function (colour) {
   if (!colour)
     return colourous.calculateVariationsAndContrasts(state.colour.rgb);
@@ -56,18 +62,12 @@ const calculateShadesTints = function (colour) {
 const calculateShadesTintsContrasts = function (tints, shades) {
   const tintTextColours = tints.map((tint) => {
     const [shadeVariations, tintVariations] = calculateShadesTints(tint.rgb);
-    const contrasts = getRGBContrastValues([
-      ...tintVariations,
-      ...shadeVariations,
-    ]);
+    const contrasts = getRGBContrastValues(tintVariations, shadeVariations);
     return colourous.getDarkestContrastColour(contrasts);
   });
   const shadeTextColours = shades.map((shade) => {
     const [shadeVariations, tintVariations] = calculateShadesTints(shade.rgb);
-    const contrasts = getRGBContrastValues([
-      ...tintVariations,
-      ...shadeVariations,
-    ]);
+    const contrasts = getRGBContrastValues(tintVariations, shadeVariations);
     return colourous.getDarkestContrastColour(contrasts);
   });
   return [tintTextColours, shadeTextColours];
@@ -86,4 +86,4 @@ const getTintsShadesRGB = function () {
 };
 
 const getRGBContrastValues = (tints, shades) =>
-  [tints, shades].map((colour) => [colour.rgb, colour.contrast]);
+  [...tints, ...shades].map((colour) => [colour.rgb, colour.contrast]);

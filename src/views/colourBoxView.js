@@ -1,21 +1,22 @@
 `use strict`;
 
-class VariationsView extends View {
-  #generateMarkup() {
-    const colour = this.#data.colour;
+import View from "./View";
+
+class ColourBoxView extends View {
+  _generateMarkup() {
+    const colour = this._data.colour;
+    const index = this._data.index;
+    const type = this._data.type;
+    const activeClass = this._data.active ? `${type}--active` : ``;
     return `
       <div class="shade-container">
-          <div class="${
-            this.#data.type
-          }" data-index="${i}" style="background-color: rgb(${colour[0].map(
-      Math.trunc
-    )})">
-              <span class="rgb-text">${colour[0]})
+          <div class="${type} ${activeClass}" data-index="${index}" style="background-color: ${colour.rgb}">
+              <span class="rgb-text">${colour.rgb}
               </span>
-              <span class="hex-text">${colourous.convertRGBToHex(colour[0])}
+              <span class="hex-text">${colour.hex}
           </div>
       </div>`;
   }
 }
 
-export default new VariationView();
+export default new ColourBoxView();

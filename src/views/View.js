@@ -1,9 +1,9 @@
 `use strict`;
 
-import icons from "url:../../img/icons.svg";
+import icons from "url:../img/icons.svg";
 
 export default class View {
-  #data;
+  _data;
 
   /**
    * Render the received object to the DOM
@@ -18,24 +18,24 @@ export default class View {
     if (!data || (Array.isArray(data) && data.length === 0))
       console.error(`render data is empty`);
 
-    this.#data = data;
-    const markup = this.#generateMarkup();
+    this._data = data;
+    const markup = this._generateMarkup();
 
     if (!render) return markup;
 
-    this.#clear();
-    this.#parentEl.insertAdjacentHTML(`afterbegin`, markup);
+    this._clear();
+    this._parentEl.insertAdjacentHTML(`afterbegin`, markup);
   }
 
   update(data) {
-    this.#data = data;
+    this._data = data;
 
     const newMarkup = this._generateMarkup();
 
     const newDOM = document.createRange().createContextualFragment(newMarkup);
 
     const newElements = Array.from(newDOM.querySelectorAll(`*`));
-    const curElements = Array.from(this.#parentEl.querySelectorAll(`*`));
+    const curElements = Array.from(this._parentEl.querySelectorAll(`*`));
 
     newElements.forEach((newEl, i) => {
       const curEl = curElements[i];
@@ -54,8 +54,8 @@ export default class View {
     });
   }
 
-  #clear() {
-    this.#parentEl.innerHTML = ``;
+  _clear() {
+    this._parentEl.innerHTML = ``;
   }
 
   renderMessage(message = this._message) {
@@ -69,6 +69,6 @@ export default class View {
             <p>${message}</p>
         </div>`;
     this._clear();
-    this.#parentEl.insertAdjacentHTML(`afterbegin`, markup);
+    this._parentEl.insertAdjacentHTML(`afterbegin`, markup);
   }
 }
