@@ -116,6 +116,7 @@ body {
   opacity: 0.6;
   align-items: center;
   transition: all 1.3s;
+  z-index: 1000;
 }
 
 .btn--tints {
@@ -162,10 +163,6 @@ body {
   opacity: 0;
 }
 
-/* :not(.hidden) {
-  opacity: 1;
-} */
-
 @media (max-width: 87.5em) {
   html {
     font-size: 57%;
@@ -204,6 +201,24 @@ body {
   .shades {
     width: 50%;
   }
+
+  .btn--shades__active {
+    left: -85%;
+  }
+
+  .btn--tints__active {
+    right: -85%;
+  }
+}
+
+@media (max-width: 34em) {
+  .btn--shades__active {
+    left: -80%;
+  }
+
+  .btn--tints__active {
+    right: -80%;
+  }
 }
 
 @media (max-width: 20em) {
@@ -221,11 +236,11 @@ body {
   }
 
   .btn--tints__active {
-    right: -100%;
-    transform: translateX(100%);
+    right: -75%;
+    /* transform: translateX(100%); */
   }
   .btn--shades__active {
-    left: -100%;
-    transform: translateX(-100%);
+    left: -75%;
+    /* transform: translateX(-100%); */
   }
 }

@@ -58,11 +58,21 @@ class VariationsView extends View {
     const colour = this._data.colour;
     const markup = `
                   ${variationView.render(
-                    { colour, type: `tint`, tints, active: tintsActive },
+                    {
+                      colour,
+                      type: `tint`,
+                      tints,
+                      active: tintsActive,
+                    },
                     false
                   )}
                   ${variationView.render(
-                    { colour, type: `shade`, shades, active: shadesActive },
+                    {
+                      colour,
+                      type: `shade`,
+                      shades,
+                      active: shadesActive,
+                    },
                     false
                   )}`;
     return markup;
