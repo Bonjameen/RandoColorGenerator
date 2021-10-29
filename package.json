@@ -1,0 +1,28 @@
+{
+  "name": "randomcolorgenerator",
+  "version": "1.0.0",
+  "description": "",
+  "default": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bonjameen/RandoColorGenerator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bonjameen/RandoColorGenerator/issues"
+  },
+  "homepage": "https://github.com/Bonjameen/RandoColorGenerator#readme",
+  "devDependencies": {
+    "parcel": "^2.0.0"
+  },
+  "dependencies": {
+    "core-js": "^3.19.0",
+    "ionicons": "^5.5.3",
+    "regenerator-runtime": "^0.13.9"
+  }
+}

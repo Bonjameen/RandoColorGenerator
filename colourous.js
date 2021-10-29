@@ -193,6 +193,8 @@ class Colourous {
   }
 }
 
+export default new Colourous();
+
 //#region Colour Functions
 
 // const randomInt = (min, max) =>
