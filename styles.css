@@ -153,10 +153,18 @@ body {
   width: 3.2rem;
 }
 
-.hidden {
-  opacity: 0;
+.tints-text,
+.shades-text {
   transition: all 1s;
 }
+
+.hidden {
+  opacity: 0;
+}
+
+/* :not(.hidden) {
+  opacity: 1;
+} */
 
 @media (max-width: 87.5em) {
   html {
