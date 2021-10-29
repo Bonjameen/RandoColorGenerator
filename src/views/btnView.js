@@ -3,7 +3,7 @@
 import View from "./View";
 import icons from "url:../img/icons.svg";
 
-class ColourBoxView extends View {
+class ButtonView extends View {
   _parentEl;
 
   _generateMarkup() {
@@ -22,7 +22,7 @@ class ColourBoxView extends View {
     const markup = `
             <div class="${btnClassString}" data-type="${type}">
                 <span class="${type}s-text ${active ? `hidden` : ``}" 
-                    style="color: ${colour.contrastColour}">
+                    style="color: ${colour.contrastColour};">
                     ${type[0].toUpperCase()}${type.slice(1)}s
                 </span>
                 <svg class="arrow arrow__${type}s" viewBox="0 0 32 32" style="color: 
@@ -33,15 +33,18 @@ class ColourBoxView extends View {
     return markup;
   }
 
-  async hideBtn(el) {
+  hideBtnText(type) {
+    const textEl = document.querySelector(`.${type}s-text`);
     setTimeout(() => {
-      el.style.display = "none";
+      textEl.textContent = "";
     }, 1000);
   }
 
-  async displayBtn(el) {
-    el.style.display = "block";
+  displayBtnText(type) {
+    const textEl = document.querySelector(`.${type}s-text`);
+    textEl.textContent = `${(type[0].toUpperCase(), type.slice(1))}s`;
+    console.log(`opacity`, textEl);
   }
 }
 
-export default new ColourBoxView();
+export default new ButtonView();

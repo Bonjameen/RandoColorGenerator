@@ -54,8 +54,11 @@ const controlGenerator = function () {
 const controlPanelSlide = function (type) {
   model.toggleVariation(type);
   const active = model.state[`${type}sActive`];
+  console.log("💥💥💥", active);
   const data = { colour: model.state.colour, type, active };
+  if (!active) btnView.displayBtnText(type);
   btnView.update(data);
+  if (active) btnView.hideBtnText(type);
   model.state[`${type}s`].forEach((colour, i) => {
     const data = {
       colour,
