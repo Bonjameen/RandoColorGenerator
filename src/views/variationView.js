@@ -7,9 +7,9 @@ import btnView from "./btnView";
 class VariationView extends View {
   _generateMarkup() {
     const type = this._data.type;
-    const colour = this._data.colour;
-    const colours = type === `tint` ? this._data.tints : this._data.shades;
     const active = this._data.active;
+    const colour = this._data.colour;
+    const colours = this._data[`${type}s`];
 
     const markup = `
     <div class="${type}s">
