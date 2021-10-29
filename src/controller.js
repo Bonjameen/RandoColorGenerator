@@ -6,12 +6,15 @@ import colourous from "../colourous.js";
 
 import "core-js/stable";
 import "regenerator-runtime/runtime";
+import colourBoxView from "./views/colourBoxView.js";
+import btnView from "./views/btnView.js";
 
 if (module.hot) module.hot.accept();
 
 const controlGenerator = function () {
   const colour = model.state.colour;
-  const type = model.state.type;
+  const tintsActive = model.state.tintsActive;
+  const shadesActive = model.state.shadesActive;
   let tints, shades;
   if (model.state.tints.length === 0) {
     model.setShadesTints();
@@ -23,16 +26,11 @@ const controlGenerator = function () {
       shades,
     });
     variationsView.render({
-      colour: colour,
+      colour,
+      tints,
       shades,
-      type: `tint`,
-      active: tintsActive,
-    });
-    variationsView.render({
-      colour: colour,
-      shades,
-      type: `shade`,
-      active: shadesActive,
+      tintsActive,
+      shadesActive,
     });
   } else {
     model.setNewColour();
@@ -43,19 +41,31 @@ const controlGenerator = function () {
       tints,
       shades,
     });
-    variationsView.update({});
+    variationsView.update({
+      colour,
+      tints,
+      shades,
+      tintsActive,
+      shadesActive,
+    });
   }
 };
 
 const controlPanelSlide = function (type) {
   model.toggleVariation(type);
-  const data = {
-    shades: model.state.tints,
-    tints: model.state.tints,
-    active: model.state[`${type}sActive`],
-    type,
-  };
-  variationsView.update(data);
+  const active = model.state[`${type}sActive`];
+  const data = { colour: model.state.colour, type, active };
+  btnView.update(data);
+  model.state[`${type}s`].forEach((colour, i) => {
+    const data = {
+      colour,
+      index: i,
+      type,
+      active,
+    };
+    setTimeout(() => colourBoxView.update(data), i * 100);
+  });
+
   // variationsView.slidePanel(type, model.state[`${type}sActive`]);
 };
 

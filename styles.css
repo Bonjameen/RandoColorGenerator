@@ -20,6 +20,10 @@ body {
   height: 100%;
 }
 
+.generator {
+  height: 100%;
+}
+
 .message {
   height: 13rem;
   color: #adb5bd;
@@ -111,13 +115,14 @@ body {
   transform: translateY(-50%);
   opacity: 0.6;
   align-items: center;
-  transition: all 1s;
+  transition: all 1.3s;
 }
 
 .btn--tints {
   right: 0%;
   transform: translateX(100%);
   padding-left: 1.6rem;
+  flex-direction: row-reverse;
 }
 .btn--shades {
   left: 0%;

@@ -153,7 +153,12 @@ class Colourous {
    */
   calculateRelativeLuminance(colour) {
     const hueList = this.getHueList(colour);
-    return 0.2126 * hueList[0] + 0.7152 * hueList[1] + 0.0722 * hueList[2];
+    const hueValues = hueList.map((val) =>
+      val <= 10 ? val / 3294 : (val / 269 + 0.0513) ** 2.4
+    );
+    return Math.round(
+      0.2126 * hueValues[0] + 0.7152 * hueValues[1] + 0.0722 * hueValues[2]
+    );
   }
 
   /**
@@ -166,7 +171,7 @@ class Colourous {
     const hueList = this.getHueList(colour);
     const tints = [];
     const shades = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 9; i++) {
       const tint = this._generateTint(hueList, (i + 1) / 10);
       const shade = this._generateShade(hueList, (i + 1) / 10);
       tints.push([tint, this.calculateRelativeLuminance(tint[0])]);
@@ -182,12 +187,17 @@ class Colourous {
    * @returns {number} The contrast ratio of the two colours
    * @author Ben Pinner
    */
-  calculateContrastRatio(colours) {
-    const luminances = [
-      this.calculateRelativeLuminance(colours[0]),
-      this.calculateRelativeLuminance(colours[1]),
-    ];
-    return (Math.max(...luminances) + 0.05) / (Math.min(...luminances) + 0.05);
+  calculateContrastRatio(colours, luminances = null) {
+    if (!luminances) {
+      luminances = [
+        this.calculateRelativeLuminance(colours[0]),
+        this.calculateRelativeLuminance(colours[1]),
+      ];
+    }
+
+    return Math.round(
+      (Math.max(...luminances) + 0.05) / (Math.min(...luminances) + 0.05)
+    );
   }
 
   /**
@@ -209,10 +219,11 @@ class Colourous {
   /**
    * Calculates colour variations (tints and shades) and their contrast ratio with the colour passed in
    * @param {string | number[]} colour The colour to calculate variations for
+   * @param {number} luminance Value measuring the luminance (brightness) of the passed in hue
    * @returns {Object[][]} A list holding the shades and tints lists, each of the format: [rgbString, hexString, contrast]
    * @author Ben Pinner
    */
-  calculateVariationsAndContrasts(colour) {
+  calculateVariationsAndContrasts(colour, luminance = null) {
     const hueList = this.getHueList(colour).map((hue) => Number(hue));
 
     const [shades, tints] = this.generateShadesTints(hueList);
@@ -222,7 +233,10 @@ class Colourous {
         rgb: shade[0][0],
         hex: shade[0][1],
         luminance: shade[1],
-        contrast: this.calculateContrastRatio([hueList, shade[0][0]]),
+        contrast: this.calculateContrastRatio(
+          [hueList, shade[0][0]],
+          [luminance, shade[1]]
+        ),
       };
     });
 
@@ -231,10 +245,10 @@ class Colourous {
         rgb: tint[0][0],
         hex: tint[0][1],
         luminance: tint[1],
-        contrast: this.calculateContrastRatio([
-          hueList,
-          tint.map((val) => Math.round(val)),
-        ]),
+        contrast: this.calculateContrastRatio(
+          [hueList, tint[0][0]],
+          [luminance, tint[1]]
+        ),
       };
     });
 
@@ -277,12 +291,12 @@ class Colourous {
       .sort((a, b) => a[1] - b[1])
       .find((c) => c[1] > 5.5);
     if (!selectedColour)
-      return contrasts.reduce(
-        (acc, c) => (c[1] > acc[1] ? c : acc),
-        [[], 0]
-      )[0];
+      // return contrasts.reduce(
+      //   (acc, c) => (c[1] > acc[1] ? c : acc),
+      //   [[], 0]
+      // )[0];
 
-    return selectedColour[0];
+      return selectedColour[0];
   }
 
   getLightestContrastColour(contrasts) {
