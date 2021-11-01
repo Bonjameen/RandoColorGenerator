@@ -202,12 +202,19 @@ body {
     width: 50%;
   }
 
+  .btn {
+  }
+
   .btn--shades__active {
     left: -85%;
+
+    opacity: 1;
   }
 
   .btn--tints__active {
     right: -85%;
+
+    opacity: 1;
   }
 }
 
