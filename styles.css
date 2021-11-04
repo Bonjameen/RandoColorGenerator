@@ -25,6 +25,7 @@ body {
 }
 
 .message {
+  display: inline-block;
   height: 13rem;
   color: #adb5bd;
   font-weight: 600;
@@ -44,7 +45,8 @@ body {
   gap: 2.4rem;
   display: flex;
   align-items: center;
-  z-index: -1;
+
+  z-index: 50;
 }
 
 .shade .rgb-text,
@@ -131,10 +133,6 @@ body {
   padding-right: 1.6rem;
 }
 
-.color-text {
-  z-index: 50;
-}
-
 .btn--tints:hover,
 .btn--shades:hover,
 .hex-text:hover,
@@ -179,7 +177,7 @@ body {
     width: 33%;
   }
   .message {
-    padding: 0 34%;
+    padding: 2.4rem 34%;
   }
 }
 
@@ -202,19 +200,16 @@ body {
     width: 50%;
   }
 
-  .btn {
-  }
-
   .btn--shades__active {
     left: -85%;
-
-    opacity: 1;
   }
 
   .btn--tints__active {
     right: -85%;
+  }
 
-    opacity: 1;
+  .message {
+    padding: 2.4rem 20%;
   }
 }
 
@@ -226,13 +221,17 @@ body {
   .btn--tints__active {
     right: -80%;
   }
+
+  .color-text {
+    width: 80%;
+  }
+
+  /* .message {
+    padding: 2.4rem 1.6rem;
+  } */
 }
 
 @media (max-width: 20em) {
-  html {
-    font-size: 50%;
-  }
-
   .tints,
   .shades {
     width: 50%;
@@ -249,5 +248,9 @@ body {
   .btn--shades__active {
     left: -75%;
     /* transform: translateX(-100%); */
+  }
+
+  .message {
+    padding: 2.4rem 10%;
   }
 }

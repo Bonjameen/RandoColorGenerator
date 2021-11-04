@@ -55,9 +55,9 @@ const controlPanelSlide = function (type) {
   model.toggleVariation(type);
   const active = model.state[`${type}sActive`];
   const data = { colour: model.state.colour, type, active };
-  if (!active) btnView.displayBtnText(type);
+  if (!active) btnView.slideBtnOut(type, model.state.colour);
   btnView.update(data);
-  if (active) btnView.hideBtnText(type);
+  if (active) btnView.slideBtnIn(type, model.state[`${type}s`][5]);
   model.state[`${type}s`].forEach((colour, i) => {
     const data = {
       colour,
