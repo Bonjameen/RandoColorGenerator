@@ -1,6 +1,7 @@
 `use strict`;
 
 import icons from "url:../img/icons.svg";
+import copyMessageView from "./copyMessageView";
 import variationsView from "./variationsView";
 import View from "./View";
 
@@ -11,29 +12,36 @@ class GeneratorView extends View {
     window.addEventListener(`load`, handler);
   }
 
-  addHandlerClick(handler) {
+  addHandlerClick(pageClickHandler, codeClickHandler) {
     const renderMessage = this.renderMessage;
     this._parentEl.addEventListener(
       `click`,
-      this._handleClick.bind(this, handler)
+      this._handleClick.bind(this, pageClickHandler, codeClickHandler)
     );
   }
 
-  _handleClick(handler, e) {
+  _handleClick(pageClickHandler, codeClickHandler, e) {
     const textEl = e.target.closest(`.rgb-text, .hex-text`);
-    if (!textEl) return handler();
-    this._handleColourTextClick(textEl, e);
+    if (!textEl) return pageClickHandler();
+    codeClickHandler(textEl.innerText);
   }
 
   _generateMarkup() {
     const colour = this._data.colour;
+    const data = { colour, code: null };
     return `
         <div class="generator" style="background-color: ${colour.rgb}">
-          <div class="message" style="color: ${colour.contrastColour}">Click the screen to generate a new colour</div>
+          <div class="message" style="color: ${
+            colour.higherContrastColour
+          }">Click the screen to generate a new colour</div>
           <div class="color-text" style="opacity: 0.6, color: ${colour.rgb}">
-            <div class="rgb-text" style="color: ${colour.contrastColour}">${colour.rgb}</div>
-            <div class="hex-text" style="color: ${colour.contrastColour}">${colour.hex}</div>
+            <div class="rgb-text" style="color: ${colour.higherContrastColour}">
+            ${colour.rgb}</div>
+            <div class="hex-text" style="color: ${colour.higherContrastColour}">
+            ${colour.hex}</div>
           </div>
+          <div class="copy-message-container">
+            ${copyMessageView.render(data, false)}
           </div>
         </div>`;
   }

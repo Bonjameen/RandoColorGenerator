@@ -7,10 +7,10 @@ import variationView from "./variationView";
 class VariationsView extends View {
   _parentEl = document.querySelector(`.variations`);
 
-  addHandlerClick(handler) {
+  addHandlerClick(btnClickHandler, codeClickHandler) {
     this._parentEl.addEventListener(
       `click`,
-      this._handleClick.bind(this, handler)
+      this._handleClick.bind(this, btnClickHandler, codeClickHandler)
     );
   }
 
@@ -34,7 +34,7 @@ class VariationsView extends View {
     }
   };
 
-  _handleClick(handler, e) {
+  _handleClick(btnClickHandler, codeClickHandler, e) {
     const target = e.target;
     const btn = target.closest(`.btn`);
     const textEl = target.closest(`.rgb-text, .hex-text`);
@@ -47,10 +47,10 @@ class VariationsView extends View {
         )
         .split(`--`)[1]
         .slice(0, -1);
-      handler(type);
+      btnClickHandler(type);
     }
     if (textEl) {
-      this._handleColourTextClick(textEl, e);
+      codeClickHandler(textEl.innerText);
     }
   }
 
@@ -59,6 +59,7 @@ class VariationsView extends View {
     const shadesActive = this._data.shadesActive;
     const tints = this._data.tints;
     const shades = this._data.shades;
+    console.log(`shades`, shades);
     const colour = this._data.colour;
     const markup = `
                   ${variationView.render(

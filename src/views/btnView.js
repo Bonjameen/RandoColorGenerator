@@ -22,11 +22,11 @@ class ButtonView extends View {
     const markup = `
             <div class="${btnClassString}" data-type="${type}">
                 <span class="${type}s-text ${active ? `hidden` : ``}" 
-                    style="color: ${colour.contrastColour};">
+                    style="color: ${colour.higherContrastColour};">
                     ${type[0].toUpperCase()}${type.slice(1)}s
                 </span>
                 <svg class="arrow arrow__${type}s" viewBox="0 0 32 32" style="color: 
-                    ${colour.contrastColour}">
+                    ${colour.higherContrastColour}">
                 <use href="${icons}#icon-arrow-${arrowDir}"></use>
             </svg>
             </div>`;
@@ -39,7 +39,7 @@ class ButtonView extends View {
     setTimeout(() => {
       textEl.textContent = "";
       window.screen.width <= 768
-        ? (btn.style.color = colour.contrastColour)
+        ? (btn.style.color = colour.higherContrastColour)
         : ``;
     }, 1000);
   }
@@ -48,7 +48,7 @@ class ButtonView extends View {
     const textEl = document.querySelector(`.${type}s-text`);
     const btn = document.querySelector(`.arrow__${type}s`);
     textEl.textContent = `${(type[0].toUpperCase(), type.slice(1))}s`;
-    btn.style.color = colour.contrastColour;
+    btn.style.color = colour.higherContrastColour;
   }
 }
 

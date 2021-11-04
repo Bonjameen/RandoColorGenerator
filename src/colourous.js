@@ -32,6 +32,18 @@ class Colourous {
   }
 
   /**
+   * Rounds a value to a specified number of decimal places
+   * @param {number} value Value to be rounded
+   * @param {number} precision The number of decimal places to round to, defaults to 0
+   * @returns {number} The rounded value
+   * @author Ben Pinner
+   */
+  _round(value, precision = 0) {
+    var multiplier = Math.pow(10, precision);
+    return Math.round(value * multiplier) / multiplier;
+  }
+
+  /**
    * Generates a random colour returned in rgb and hex format
    * @returns {string[]} Array containing 2 strings: rgb code and hex code
    * @author Ben Pinner
@@ -55,7 +67,7 @@ class Colourous {
     let remainder;
     let remainderString = ``;
     while (dec !== 0) {
-      remainder = Math.round(dec % 16);
+      remainder = this._round(dec % 16);
       remainderString = `${this.#decToHex[remainder]}${remainderString}`;
       dec = Math.floor(dec / 16);
     }
@@ -71,11 +83,11 @@ class Colourous {
    */
   getHueList(colour) {
     return colour instanceof Array
-      ? colour.map((val) => Math.round(val))
+      ? colour.map((val) => this._round(val))
       : colour
           .slice(4, -1)
           .split(`,`)
-          .map((val) => Math.round(Number(val)));
+          .map((val) => this._round(Number(val)));
   }
 
   /**
@@ -85,7 +97,7 @@ class Colourous {
    * @author Ben Pinner
    */
   getRGBFromHueList(colour) {
-    return `rgb(${colour.map((val) => Math.round(val)).join(`,`)})`;
+    return `rgb(${colour.map((val) => this._round(val)).join(`,`)})`;
   }
 
   /**
@@ -156,8 +168,9 @@ class Colourous {
     const hueValues = hueList.map((val) =>
       val <= 10 ? val / 3294 : (val / 269 + 0.0513) ** 2.4
     );
-    return Math.round(
-      0.2126 * hueValues[0] + 0.7152 * hueValues[1] + 0.0722 * hueValues[2]
+    return this._round(
+      0.2126 * hueValues[0] + 0.7152 * hueValues[1] + 0.0722 * hueValues[2],
+      3
     );
   }
 
@@ -195,8 +208,9 @@ class Colourous {
       ];
     }
 
-    return Math.round(
-      (Math.max(...luminances) + 0.05) / (Math.min(...luminances) + 0.05)
+    return this._round(
+      (Math.max(...luminances) + 0.05) / (Math.min(...luminances) + 0.05),
+      2
     );
   }
 
@@ -253,17 +267,17 @@ class Colourous {
     });
 
     // const shadeContrasts = shades.map((shade) => [
-    //   this.getRGBFromHueList(shade.map((val) => Math.round(val))),
+    //   this.getRGBFromHueList(shade.map((val) => this._round(val))),
     //   this.calculateContrastRatio([
     //     hueList,
-    //     shade.map((val) => Math.round(val)),
+    //     shade.map((val) => this._round(val)),
     //   ]),
     // ]);
     // const tintContrasts = tints.map((tint) => [
-    //   this.getRGBFromHueList(tint.map((val) => Math.round(val))),
+    //   this.getRGBFromHueList(tint.map((val) => this._round(val))),
     //   this.calculateContrastRatio([
     //     hueList,
-    //     tint.map((val) => Math.round(val)),
+    //     tint.map((val) => this._round(val)),
     //   ]),
     // ]);
 
@@ -272,42 +286,38 @@ class Colourous {
 
   // calculateContrasts(colour, shades, tints) {
   //   const shadeContrasts = shades.map((shade) => [
-  //     shade.map((val) => Math.round(val)),
+  //     shade.map((val) => this._round(val)),
   //     this.calculateContrastRatio([
   //       colour,
-  //       shade.map((val) => Math.round(val)),
+  //       shade.map((val) => this._round(val)),
   //     ]),
   //   ]);
   //   const tintContrasts = tints.map((tint) => [
-  //     tint.map((val) => Math.round(val)),
-  //     this.calculateContrastRatio([colour, tint.map((val) => Math.round(val))]),
+  //     tint.map((val) => this._round(val)),
+  //     this.calculateContrastRatio([colour, tint.map((val) => this._round(val))]),
   //   ]);
 
   //   return [shadeContrasts, tintContrasts];
   // }
 
-  getDarkestContrastColour(contrasts) {
+  getHigherContrastColour(contrasts) {
     const selectedColour = contrasts
       .sort((a, b) => a[1] - b[1])
-      .find((c) => c[1] > 5.5);
-    if (!selectedColour)
-      // return contrasts.reduce(
-      //   (acc, c) => (c[1] > acc[1] ? c : acc),
-      //   [[], 0]
-      // )[0];
-
-      return selectedColour[0];
-  }
-
-  getLightestContrastColour(contrasts) {
-    const selectedColour = contrasts
-      .sort((a, b) => a[1] + b[1])
-      .find((c) => c[1] > 5.5);
+      .find((c) => c[1] > 7);
     if (!selectedColour)
       return contrasts.reduce(
         (acc, c) => (c[1] > acc[1] ? c : acc),
         [[], 0]
       )[0];
+
+    return selectedColour[0];
+  }
+
+  getLowerContrastColour(contrasts) {
+    const selectedColour = contrasts
+      .sort((a, b) => a[1] - b[1])
+      .find((c) => c[1] > 5);
+    if (!selectedColour) return contrasts.find((c) => c[1] > 3.5)[0];
 
     return selectedColour[0];
   }

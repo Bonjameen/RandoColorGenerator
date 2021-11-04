@@ -7,6 +7,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import colourBoxView from "./views/colourBoxView.js";
 import btnView from "./views/btnView.js";
+import copyMessageView from "./views/copyMessageView.js";
 
 if (module.hot) module.hot.accept();
 
@@ -70,9 +71,15 @@ const controlPanelSlide = function (type) {
   // variationsView.slidePanel(type, model.state[`${type}sActive`]);
 };
 
+const controlColourCodeClick = function (code) {
+  const colour = model.state.colour;
+  const data = { colour, code };
+  copyMessageView.update(data);
+};
+
 const init = () => {
   generatorView.addHandlerRender(controlGenerator);
-  generatorView.addHandlerClick(controlGenerator);
-  variationsView.addHandlerClick(controlPanelSlide);
+  generatorView.addHandlerClick(controlGenerator, controlColourCodeClick);
+  variationsView.addHandlerClick(controlPanelSlide, controlColourCodeClick);
 };
 init();

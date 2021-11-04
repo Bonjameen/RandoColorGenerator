@@ -8,7 +8,8 @@ export const state = {
   colour: {
     rgb: `rgb(52, 58, 64)`,
     hex: `#343a40`,
-    contrastColour: ``,
+    higherContrastColour: ``,
+    lowerContrastColour: { rgb: ``, contrastColour: `` },
     luminance: ``,
   },
   tints: [],
@@ -35,12 +36,27 @@ export const setShadesTints = function () {
   // Calculate variations and contrasts of main colour
   [state.shades, state.tints] = calculateShadesTints();
   const contrasts = getRGBContrastValues(state.tints, state.shades);
+
+  console.log(state.shades, state.tints);
   if (![...state.shades, ...state.tints].find((c) => c[1] > 7)) {
-    state.colour.contrastColour =
+    state.colour.higherContrastColour =
       state.colour.luminance < 0.5 ? `rgb(220,220,220)` : `rgb(35,35,35)`;
   } else {
-    state.colour.contrastColour = colourous.getDarkestContrastColour(contrasts);
+    state.colour.higherContrastColour =
+      colourous.getHigherContrastColour(contrasts);
   }
+  const lowerContrastColour = colourous.getLowerContrastColour(contrasts);
+  state.colour.lowerContrastColour.rgb = lowerContrastColour;
+  colourous.getLowerContrastColour(contrasts);
+  state.colour.lowerContrastColour.luminance =
+    colourous.calculateRelativeLuminance(lowerContrastColour);
+  const [shades, tints] = calculateShadesTints(
+    lowerContrastColour,
+    state.colour.lowerContrastColour.luminance
+  );
+  const contrastValues = getRGBContrastValues(shades, tints);
+  state.colour.lowerContrastColour.contrastColour =
+    colourous.getHigherContrastColour(contrastValues);
   const [tintTextColours, shadeTextColours] = calculateShadesTintsContrasts(
     state.tints,
     state.shades
@@ -74,11 +90,7 @@ const calculateShadesTintsContrasts = function (tints, shades) {
       tint.luminance
     );
     const contrasts = getRGBContrastValues(tintVariations, shadeVariations);
-    if (![...shadeVariations, ...shadeVariations].find((c) => c[1] > 7)) {
-      return tint.luminance < 0.5 ? `rgb(220,220,220)` : `rgb(35,35,35)`;
-    } else {
-      return colourous.getDarkestContrastColour(contrasts);
-    }
+    return colourous.getHigherContrastColour(contrasts);
   });
   const shadeTextColours = shades.map((shade) => {
     const [shadeVariations, tintVariations] = calculateShadesTints(
@@ -86,11 +98,7 @@ const calculateShadesTintsContrasts = function (tints, shades) {
       shade.luminance
     );
     const contrasts = getRGBContrastValues(tintVariations, shadeVariations);
-    if (![...state.shades, ...state.tints].find((c) => c[1] < 7)) {
-      return shade.luminance < 0.5 ? `rgb(220,220,220)` : `rgb(35,35,35)`;
-    } else {
-      return colourous.getDarkestContrastColour(contrasts);
-    }
+    return colourous.getHigherContrastColour(contrasts);
   });
   return [tintTextColours, shadeTextColours];
 };

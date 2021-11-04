@@ -61,19 +61,20 @@ export default class View {
     e.stopPropagation();
     navigator.clipboard.writeText(textEl.innerText);
     console.log(`${textEl.innerText} copied to clipboard`);
-    // renderMessage(`${textEl.innerText} copied to clipboard`);
+    this._renderMessage(`${textEl.innerText} copied to clipboard`);
   }
 
-  renderMessage(message = this._message) {
+  _renderMessage(message = this._message) {
+    const container = document.querySelector(`.copy`);
     const markup = `
-        <div class="message">
+        <div class="copy-message">
             <div>
                 <svg>
-                <use href="${icons}#icon-smile"></use>
+                <use href="${icons}#icon-double-check"></use>
                 </svg>
             </div>
             <p>${message}</p>
         </div>`;
-    this._parentEl.insertAdjacentHTML(`afterbegin`, markup);
+    container.insertAdjacentHTML(`beforeend`, markup);
   }
 }
