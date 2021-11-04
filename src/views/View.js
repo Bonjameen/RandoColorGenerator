@@ -57,6 +57,13 @@ export default class View {
     this._parentEl.innerHTML = ``;
   }
 
+  _handleColourTextClick(textEl, e) {
+    e.stopPropagation();
+    navigator.clipboard.writeText(textEl.innerText);
+    console.log(`${textEl.innerText} copied to clipboard`);
+    // renderMessage(`${textEl.innerText} copied to clipboard`);
+  }
+
   renderMessage(message = this._message) {
     const markup = `
         <div class="message">
@@ -67,7 +74,6 @@ export default class View {
             </div>
             <p>${message}</p>
         </div>`;
-    this._clear();
     this._parentEl.insertAdjacentHTML(`afterbegin`, markup);
   }
 }

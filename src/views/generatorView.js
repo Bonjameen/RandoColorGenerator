@@ -15,28 +15,15 @@ class GeneratorView extends View {
     const renderMessage = this.renderMessage;
     this._parentEl.addEventListener(
       `click`,
-      this.handleGeneratorClick.bind(this, handler)
+      this._handleClick.bind(this, handler)
     );
   }
 
-  handleGeneratorClick(handler, e) {
+  _handleClick(handler, e) {
     const textEl = e.target.closest(`.rgb-text, .hex-text`);
     if (!textEl) return handler();
-    e.stopPropagation();
-    navigator.clipboard.writeText(textEl.innerText);
-    console.log(`${textEl.innerText} copied to clipboard`);
-    // renderMessage(`${textEl.innerText} copied to clipboard`);
+    this._handleColourTextClick(textEl, e);
   }
-
-  // addHandlerColourClick() {
-  //   this._parentEl.addEventListener(`click`, (e) => {
-  //     const textEl = e.target.closest(`.rgb-text, .hex-text`);
-  //     console.trace(textEl);
-  //     if (!textEl) return;
-  //     e.stopPropagation();
-  //     navigator.clipboard.writeText(textEl.innerText);
-  //   });
-  // }
 
   _generateMarkup() {
     const colour = this._data.colour;

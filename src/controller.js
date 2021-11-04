@@ -2,7 +2,6 @@
 import * as model from "./model.js";
 import generatorView from "./views/generatorView.js";
 import variationsView from "./views/variationsView.js";
-import colourous from "../colourous.js";
 
 import "core-js/stable";
 import "regenerator-runtime/runtime";
@@ -74,6 +73,6 @@ const controlPanelSlide = function (type) {
 const init = () => {
   generatorView.addHandlerRender(controlGenerator);
   generatorView.addHandlerClick(controlGenerator);
-  variationsView.addHandlerBtnClick(controlPanelSlide);
+  variationsView.addHandlerClick(controlPanelSlide);
 };
 init();
