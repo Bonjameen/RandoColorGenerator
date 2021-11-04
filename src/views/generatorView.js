@@ -12,17 +12,21 @@ class GeneratorView extends View {
   }
 
   addHandlerClick(handler) {
-    this._parentEl.addEventListener(`click`, (e) => {
-      const textEl = e.target.closest(`.rgb-text, .hex-text`);
-      if (!textEl) return handler();
-      e.stopPropagation();
-      navigator.clipboard.writeText(textEl.innerText);
-    });
+    const renderMessage = this.renderMessage;
+    this._parentEl.addEventListener(
+      `click`,
+      this.handleGeneratorClick.bind(this, handler)
+    );
   }
 
-  // handleColourClick(e) {
-  //   navigator.clipboard.writeText(textEl.innerText);
-  // }
+  handleGeneratorClick(handler, e) {
+    const textEl = e.target.closest(`.rgb-text, .hex-text`);
+    if (!textEl) return handler();
+    e.stopPropagation();
+    navigator.clipboard.writeText(textEl.innerText);
+    console.log(`${textEl.innerText} copied to clipboard`);
+    // renderMessage(`${textEl.innerText} copied to clipboard`);
+  }
 
   // addHandlerColourClick() {
   //   this._parentEl.addEventListener(`click`, (e) => {
