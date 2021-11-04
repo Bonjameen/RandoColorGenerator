@@ -57,7 +57,7 @@ const controlPanelSlide = function (type) {
   const data = { colour: model.state.colour, type, active };
   if (!active) btnView.slideBtnOut(type, model.state.colour);
   btnView.update(data);
-  if (active) btnView.slideBtnIn(type, model.state[`${type}s`][5]);
+  if (active) btnView.slideBtnIn(type, model.state[`${type}s`][4]);
   model.state[`${type}s`].forEach((colour, i) => {
     const data = {
       colour,
