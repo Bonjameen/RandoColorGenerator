@@ -33,17 +33,22 @@ class ButtonView extends View {
     return markup;
   }
 
-  hideBtnText(type) {
+  slideBtnIn(type, colour) {
     const textEl = document.querySelector(`.${type}s-text`);
+    const btn = document.querySelector(`.arrow__${type}s`);
     setTimeout(() => {
       textEl.textContent = "";
+      window.screen.width <= 768
+        ? (btn.style.color = colour.contrastColour)
+        : ``;
     }, 1000);
   }
 
-  displayBtnText(type) {
+  slideBtnOut(type, colour) {
     const textEl = document.querySelector(`.${type}s-text`);
+    const btn = document.querySelector(`.arrow__${type}s`);
     textEl.textContent = `${(type[0].toUpperCase(), type.slice(1))}s`;
-    console.log(`opacity`, textEl);
+    btn.style.color = colour.contrastColour;
   }
 }
 
