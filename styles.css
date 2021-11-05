@@ -104,9 +104,6 @@ svg {
   z-index: 5;
 }
 
-[href*="caret-down"] {
-}
-
 .shade .rgb-text,
 .shade .hex-text,
 .tint .rgb-text,
