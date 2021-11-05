@@ -16,6 +16,8 @@ export const state = {
   shades: [],
   tintsActive: false,
   shadesActive: false,
+  likesActive: false,
+  likes: [],
 };
 
 export const setNewColour = function () {
@@ -37,7 +39,6 @@ export const setShadesTints = function () {
   [state.shades, state.tints] = calculateShadesTints();
   const contrasts = getRGBContrastValues(state.tints, state.shades);
 
-  console.log(state.shades, state.tints);
   if (![...state.shades, ...state.tints].find((c) => c[1] > 7)) {
     state.colour.higherContrastColour =
       state.colour.luminance < 0.5 ? `rgb(220,220,220)` : `rgb(35,35,35)`;
@@ -68,6 +69,30 @@ export const setShadesTints = function () {
   shadeTextColours.forEach(
     (colour, i) => (state.shades[i].contrastColour = colour)
   );
+};
+
+export const addLike = function (like) {
+  if (state.likes.some((item) => item.rgb === like.rgb)) return;
+  state.likes.push(like);
+  persistLikes();
+};
+
+export const deleteLike = function (code) {
+  state.likes = state.likes.filter((like) => like.rgb === code);
+  persistLikes();
+};
+
+export const storeLikes = function () {
+  localStorage.setItem(`likes`, JSON.stringify(state.likes));
+};
+
+export const retrieveLikes = function () {
+  const likes = JSON.parse(localStorage.getItem(`likes`));
+  if (likes instanceof Array) state.likes = likes;
+};
+
+const persistLikes = function () {
+  localStorage.setItem(`likes`, JSON.stringify(state.likes));
 };
 
 export const toggleVariation = function (type) {

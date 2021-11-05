@@ -84,6 +84,29 @@ svg {
   z-index: 50;
 }
 
+.likes {
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.heart {
+  cursor: pointer;
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  z-index: 5;
+}
+
+[href*="caret-down"] {
+}
+
 .shade .rgb-text,
 .shade .hex-text,
 .tint .rgb-text,
@@ -105,10 +128,18 @@ svg {
   transition: all 1s;
 }
 
-.shade-container {
+.shade-container,
+.like-container {
   position: relative;
   height: calc(100% / 9);
   width: 100%;
+}
+
+.like {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .tint,
@@ -148,22 +179,33 @@ svg {
 .btn {
   position: absolute;
   display: flex;
-  top: 50%;
   transform: translateY(-50%);
   opacity: 0.6;
   align-items: center;
+  justify-content: center;
   transition: all 1.3s;
   z-index: 1000;
 }
 
+.btn--likes {
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  flex-direction: column;
+  text-align: center;
+  cursor: pointer;
+}
+
 .btn--tints {
   right: 0%;
+  top: 50%;
   transform: translateX(100%);
   padding-left: 1.6rem;
   flex-direction: row-reverse;
 }
 .btn--shades {
   left: 0%;
+  top: 50%;
   transform: translateX(-100%);
   padding-right: 1.6rem;
 }
