@@ -89,6 +89,7 @@ svg {
   font-size: 1.8rem;
   position: absolute;
   top: 0;
+  transform: translateY(-100%);
   right: 0;
   width: 20rem;
   display: flex;
