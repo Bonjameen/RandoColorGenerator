@@ -6,6 +6,11 @@ import icons from "url:../img/icons.svg";
 class ButtonView extends View {
   _parentEl;
 
+  /**
+   * Generates the html markup for the view
+   * @returns {string} The html markup to render or update the view with
+   * @author Ben Pinner
+   */
   _generateMarkup() {
     const colour = this._data.colour;
     const type = this._data.type;
@@ -33,9 +38,19 @@ class ButtonView extends View {
     return markup;
   }
 
+  /**
+   * Handles minor technical aspects of button animation to improve usability
+   * @param {"tint"|"shade"} type The type of panel that has been clicked
+   * @param {Object} colour The colour object that the button will overlay if on a mobile device
+   * @author Ben Pinner
+   */
   slideBtnIn(type, colour) {
     const textEl = document.querySelector(`.${type}s-text`);
     const btn = document.querySelector(`.arrow__${type}s`);
+
+    // After a second, delete the content of textEl
+    // and if on mobile device, change the colour of
+    // the button to contrast better with the panel
     setTimeout(() => {
       textEl.textContent = "";
       window.screen.width <= 768
@@ -44,9 +59,17 @@ class ButtonView extends View {
     }, 1000);
   }
 
+  /**
+   * Handles minor technical aspects of button animation to improve usability
+   * @param {"tint"|"shade"} type The type of panel that has been clicked
+   * @param {Object} colour The colour object that the button will overlay
+   * @author Ben Pinner
+   */
   slideBtnOut(type, colour) {
     const textEl = document.querySelector(`.${type}s-text`);
     const btn = document.querySelector(`.arrow__${type}s`);
+
+    // Restore textEl content, and reset button colour
     textEl.textContent = `${(type[0].toUpperCase(), type.slice(1))}s`;
     btn.style.color = colour.higherContrastColour;
   }

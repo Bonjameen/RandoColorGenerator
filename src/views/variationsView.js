@@ -55,6 +55,11 @@ class VariationsView extends View {
     }
   }
 
+  /**
+   * Generates the html markup for the view
+   * @returns {string} The html markup to render or update the view with
+   * @author Ben Pinner
+   */
   _generateMarkup() {
     const tintsActive = this._data.tintsActive;
     const shadesActive = this._data.shadesActive;

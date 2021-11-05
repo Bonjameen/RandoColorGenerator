@@ -5,6 +5,11 @@ import btnView from "./btnView";
 `use strict`;
 
 class VariationView extends View {
+  /**
+   * Generates the html markup for the view
+   * @returns {string} The html markup to render or update the view with
+   * @author Ben Pinner
+   */
   _generateMarkup() {
     const type = this._data.type;
     const active = this._data.active;

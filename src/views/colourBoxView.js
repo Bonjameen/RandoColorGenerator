@@ -5,6 +5,11 @@ import View from "./View";
 class ColourBoxView extends View {
   _parentEl;
 
+  /**
+   * Generates the html markup for the view
+   * @returns {string} The html markup to render or update the view with
+   * @author Ben Pinner
+   */
   _generateMarkup() {
     const colour = this._data.colour;
     const index = this._data.index;
