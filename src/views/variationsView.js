@@ -36,11 +36,11 @@ class VariationsView extends View {
 
   _handleClick(btnClickHandler, codeClickHandler, e) {
     const target = e.target;
-    const btn = target.closest(`.btn`);
+    const btnEl = target.closest(`.btn`);
     const textEl = target.closest(`.rgb-text, .hex-text`);
-    if (btn) {
+    if (btnEl) {
       e.stopPropagation();
-      const type = [...btn.classList]
+      const type = [...btnEl.classList]
         .find(
           (className) =>
             className.includes(`tint`) || className.includes(`shade`)
@@ -50,6 +50,7 @@ class VariationsView extends View {
       btnClickHandler(type);
     }
     if (textEl) {
+      e.stopPropagation();
       codeClickHandler(textEl.innerText);
     }
   }

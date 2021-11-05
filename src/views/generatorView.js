@@ -12,18 +12,31 @@ class GeneratorView extends View {
     window.addEventListener(`load`, handler);
   }
 
-  addHandlerClick(pageClickHandler, codeClickHandler) {
+  addHandlerClick(pageClickHandler, codeClickHandler, closeClickHandler) {
     const renderMessage = this.renderMessage;
     this._parentEl.addEventListener(
       `click`,
-      this._handleClick.bind(this, pageClickHandler, codeClickHandler)
+      this._handleClick.bind(
+        this,
+        pageClickHandler,
+        codeClickHandler,
+        closeClickHandler
+      )
     );
   }
 
-  _handleClick(pageClickHandler, codeClickHandler, e) {
+  _handleClick(pageClickHandler, codeClickHandler, closeClickHandler, e) {
     const textEl = e.target.closest(`.rgb-text, .hex-text`);
-    if (!textEl) return pageClickHandler();
-    codeClickHandler(textEl.innerText);
+    const btnEl = e.target.closest(`.close`);
+    if (textEl) {
+      e.stopPropagation();
+      return codeClickHandler(textEl.innerText);
+    }
+    if (btnEl) {
+      e.stopPropagation();
+      return closeClickHandler();
+    }
+    pageClickHandler();
   }
 
   _generateMarkup() {

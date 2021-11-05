@@ -75,11 +75,20 @@ const controlColourCodeClick = function (code) {
   const colour = model.state.colour;
   const data = { colour, code };
   copyMessageView.update(data);
+  model.state.copyMessageTimeout = setTimeout(copyMessageView.close, 6000);
+};
+
+const controlCloseMessageClick = function () {
+  copyMessageView.close(model.state.copyMessageTimeout);
 };
 
 const init = () => {
   generatorView.addHandlerRender(controlGenerator);
-  generatorView.addHandlerClick(controlGenerator, controlColourCodeClick);
+  generatorView.addHandlerClick(
+    controlGenerator,
+    controlColourCodeClick,
+    controlCloseMessageClick
+  );
   variationsView.addHandlerClick(controlPanelSlide, controlColourCodeClick);
 };
 init();
