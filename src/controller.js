@@ -2,12 +2,12 @@
 import * as model from "./model.js";
 import generatorView from "./views/generatorView.js";
 import variationsView from "./views/variationsView.js";
-import colourous from "../colourous.js";
 
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 import colourBoxView from "./views/colourBoxView.js";
 import btnView from "./views/btnView.js";
+import copyMessageView from "./views/copyMessageView.js";
 
 if (module.hot) module.hot.accept();
 
@@ -71,9 +71,24 @@ const controlPanelSlide = function (type) {
   // variationsView.slidePanel(type, model.state[`${type}sActive`]);
 };
 
+const controlColourCodeClick = function (code) {
+  const colour = model.state.colour;
+  const data = { colour, code };
+  copyMessageView.update(data);
+  model.state.copyMessageTimeout = setTimeout(copyMessageView.close, 6000);
+};
+
+const controlCloseMessageClick = function () {
+  copyMessageView.close(model.state.copyMessageTimeout);
+};
+
 const init = () => {
   generatorView.addHandlerRender(controlGenerator);
-  generatorView.addHandlerClick(controlGenerator);
-  variationsView.addHandlerBtnClick(controlPanelSlide);
+  generatorView.addHandlerClick(
+    controlGenerator,
+    controlColourCodeClick,
+    controlCloseMessageClick
+  );
+  variationsView.addHandlerClick(controlPanelSlide, controlColourCodeClick);
 };
 init();

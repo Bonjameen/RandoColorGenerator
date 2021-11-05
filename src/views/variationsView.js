@@ -7,27 +7,11 @@ import variationView from "./variationView";
 class VariationsView extends View {
   _parentEl = document.querySelector(`.variations`);
 
-  addHandlerBtnClick(handler) {
-    this._parentEl.addEventListener(`click`, function (e) {
-      const target = e.target;
-      const btn = target.closest(`.btn`);
-      const textEl = target.closest(`.rgb-text, .hex-text`);
-      if (btn) {
-        e.stopPropagation();
-        const type = [...btn.classList]
-          .find(
-            (className) =>
-              className.includes(`tint`) || className.includes(`shade`)
-          )
-          .split(`--`)[1]
-          .slice(0, -1);
-        handler(type);
-      }
-      if (textEl) {
-        e.stopPropagation();
-        navigator.clipboard.writeText(textEl.innerText);
-      }
-    });
+  addHandlerClick(btnClickHandler, codeClickHandler) {
+    this._parentEl.addEventListener(
+      `click`,
+      this._handleClick.bind(this, btnClickHandler, codeClickHandler)
+    );
   }
 
   slidePanel = (type, active) => {
@@ -50,11 +34,33 @@ class VariationsView extends View {
     }
   };
 
+  _handleClick(btnClickHandler, codeClickHandler, e) {
+    const target = e.target;
+    const btnEl = target.closest(`.btn`);
+    const textEl = target.closest(`.rgb-text, .hex-text`);
+    if (btnEl) {
+      e.stopPropagation();
+      const type = [...btnEl.classList]
+        .find(
+          (className) =>
+            className.includes(`tint`) || className.includes(`shade`)
+        )
+        .split(`--`)[1]
+        .slice(0, -1);
+      btnClickHandler(type);
+    }
+    if (textEl) {
+      e.stopPropagation();
+      codeClickHandler(textEl.innerText);
+    }
+  }
+
   _generateMarkup() {
     const tintsActive = this._data.tintsActive;
     const shadesActive = this._data.shadesActive;
     const tints = this._data.tints;
     const shades = this._data.shades;
+    console.log(`shades`, shades);
     const colour = this._data.colour;
     const markup = `
                   ${variationView.render(

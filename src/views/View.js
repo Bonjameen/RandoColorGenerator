@@ -57,17 +57,24 @@ export default class View {
     this._parentEl.innerHTML = ``;
   }
 
-  renderMessage(message = this._message) {
+  _handleColourTextClick(textEl, e) {
+    e.stopPropagation();
+    navigator.clipboard.writeText(textEl.innerText);
+    console.log(`${textEl.innerText} copied to clipboard`);
+    this._renderMessage(`${textEl.innerText} copied to clipboard`);
+  }
+
+  _renderMessage(message = this._message) {
+    const container = document.querySelector(`.copy`);
     const markup = `
-        <div class="message">
+        <div class="copy-message">
             <div>
                 <svg>
-                <use href="${icons}#icon-smile"></use>
+                <use href="${icons}#icon-double-check"></use>
                 </svg>
             </div>
             <p>${message}</p>
         </div>`;
-    this._clear();
-    this._parentEl.insertAdjacentHTML(`afterbegin`, markup);
+    container.insertAdjacentHTML(`beforeend`, markup);
   }
 }

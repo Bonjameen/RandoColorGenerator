@@ -16,6 +16,11 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+svg {
+  height: 3.2rem;
+  width: 3.2rem;
+}
+
 .container {
   height: 100%;
 }
@@ -33,6 +38,36 @@ body {
   text-align: center;
   padding: 2.4rem;
   font-size: 2rem;
+}
+
+.copy-message {
+  position: absolute;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 3px solid;
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  padding: 1.4rem 1.8rem;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+
+  backface-visibility: hidden;
+  z-index: 2000;
+}
+
+.copy-message--active {
+  animation: moveInUp 1s ease-out;
+}
+
+.close {
+  position: absolute;
+  right: 2%;
+  top: 5%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .color-text {
@@ -147,11 +182,6 @@ body {
   left: -100%;
 }
 
-.arrow {
-  height: 3.2rem;
-  width: 3.2rem;
-}
-
 .tints-text,
 .shades-text {
   transition: all 1s;
@@ -159,7 +189,45 @@ body {
 
 .hidden {
   opacity: 0;
+  z-index: -1000;
 }
+
+@keyframes moveInUp {
+  0% {
+    transform: translate(-50%, 5rem);
+    opacity: 0.2;
+  }
+
+  20% {
+    opacity: 0.5;
+  }
+
+  80% {
+    transform: translate(-50%, -0.5rem);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+/* @keyframes moveOutDown {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+
+  20% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translate(-50%, 5rem);
+    opacity: 0;
+  }
+} */
 
 @media (max-width: 87.5em) {
   html {
@@ -232,6 +300,10 @@ body {
 }
 
 @media (max-width: 20em) {
+  html {
+    font-size: 45%;
+  }
+
   .tints,
   .shades {
     width: 50%;
