@@ -93,6 +93,7 @@ export const retrieveLikes = function () {
 
 const persistLikes = function () {
   localStorage.setItem(`likes`, JSON.stringify(state.likes));
+  state.likes = JSON.parse(localStorage.getItem(`likes`));
 };
 
 export const toggleVariation = function (type) {

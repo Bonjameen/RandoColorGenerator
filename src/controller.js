@@ -8,6 +8,7 @@ import "regenerator-runtime/runtime";
 import colourBoxView from "./views/colourBoxView.js";
 import btnView from "./views/btnView.js";
 import copyMessageView from "./views/copyMessageView.js";
+import likesView from "./views/likesView.js";
 
 if (module.hot) module.hot.accept();
 
@@ -91,8 +92,13 @@ const controlLike = function () {
     model.addLike(colour);
   else model.deleteLike(colour);
   const likes = model.state.likes;
-  const data = { colour, likes };
-  generatorView.update(data);
+  const likesActive = model.state.likesActive;
+  const data = { colour, likes, likesActive };
+  generatorView.render(data);
+};
+
+const controlLikeBtnClick = function () {
+  likesView.update();
 };
 
 const init = () => {

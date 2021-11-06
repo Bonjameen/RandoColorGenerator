@@ -35,13 +35,16 @@ class LikesView extends View {
         <div class="likes ${active ? `likes--active` : ``}" 
         style="color: ${mainColour.higherContrastColour}">
           <div class="btn btn--likes">
-          <div>
-            <p>Your likes</p></div>
+            <div><p>Your likes</p></div>
             <svg style="fill: ${mainColour.higherContrastColour}">
               <use href="${icons}#icon-caret-down"></use>
             </svg>
           </div>
-          ${this._generateLikeBoxes(colours, active)}
+          <div class="colours-container">
+            <div class="colours">
+              ${this._generateLikeBoxes(colours, active)}
+            </div>
+          </div>
         </div>`;
     return markup;
   }
