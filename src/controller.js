@@ -97,8 +97,13 @@ const controlLike = function () {
   generatorView.render(data);
 };
 
-const controlLikeBtnClick = function () {
-  likesView.update();
+const controlLikesBtnClick = function () {
+  model.toggleLikesActive();
+  const colour = model.state.colour;
+  const colours = model.state.likes;
+  const active = model.state.likesActive;
+  const data = { colour, colours, active };
+  likesView.update(data);
 };
 
 const init = () => {
@@ -107,7 +112,8 @@ const init = () => {
     controlGenerator,
     controlColourCodeClick,
     controlCloseMessageClick,
-    controlLike
+    controlLike,
+    controlLikesBtnClick
   );
   variationsView.addHandlerClick(controlPanelSlide, controlColourCodeClick);
   model.retrieveLikes();

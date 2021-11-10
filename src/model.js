@@ -96,6 +96,10 @@ const persistLikes = function () {
   state.likes = JSON.parse(localStorage.getItem(`likes`));
 };
 
+export const toggleLikesActive = function () {
+  state.likesActive = !state.likesActive;
+};
+
 export const toggleVariation = function (type) {
   state[`${type}sActive`] = !state[`${type}sActive`];
 };

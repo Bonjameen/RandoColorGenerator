@@ -31,8 +31,13 @@ class LikesView extends View {
     const active = this._data.active;
     this._parentEl = document.querySelector(`.likes-container`);
 
+    const likesClass = `likes ${active ? `likes--active` : ``}`;
+    const likesStyle = `color: ${mainColour.higherContrastColour}; ${
+      colours.length >= 9 ? `height: 100vh` : ``
+    }`;
+
     const markup = `
-        <div class="likes ${active ? `likes--active` : ``}" 
+        <div class="${likesClass}" 
         style="color: ${mainColour.higherContrastColour}">
           <div class="btn btn--likes">
             <div><p>Your likes</p></div>
@@ -40,7 +45,12 @@ class LikesView extends View {
               <use href="${icons}#icon-caret-down"></use>
             </svg>
           </div>
-          <div class="colours-container">
+          <div class="colours-container"
+              ${
+                colours.length >= 8
+                  ? `style="height: calc((100vh / 9) * 8)"`
+                  : ``
+              }>
             <div class="colours">
               ${this._generateLikeBoxes(colours, active)}
             </div>

@@ -29,7 +29,8 @@ class GeneratorView extends View {
     pageClickHandler,
     codeClickHandler,
     closeClickHandler,
-    likeClickHandler
+    likeClickHandler,
+    likesBtnClickHandler
   ) {
     const renderMessage = this.renderMessage;
     this._parentEl.addEventListener(
@@ -39,7 +40,8 @@ class GeneratorView extends View {
         pageClickHandler,
         codeClickHandler,
         closeClickHandler,
-        likeClickHandler
+        likeClickHandler,
+        likesBtnClickHandler
       )
     );
   }
@@ -57,11 +59,13 @@ class GeneratorView extends View {
     codeClickHandler,
     closeClickHandler,
     likeClickHandler,
+    likesBtnClickHandler,
     e
   ) {
     const textEl = e.target.closest(`.rgb-text, .hex-text`);
     const btnEl = e.target.closest(`.close`);
     const likeBtnEl = e.target.closest(`.heart`);
+    const likesBtnEl = e.target.closest(`.btn--likes`);
 
     e.stopPropagation();
     if (textEl) {
@@ -72,6 +76,9 @@ class GeneratorView extends View {
     }
     if (likeBtnEl) {
       return likeClickHandler();
+    }
+    if (likesBtnEl) {
+      return likesBtnClickHandler();
     }
     pageClickHandler();
   }

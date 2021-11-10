@@ -6,6 +6,8 @@
 
 html {
   font-size: 62.5%;
+  overflow: hidden;
+  height: 100%;
 }
 
 body {
@@ -89,9 +91,9 @@ svg {
   font-size: 1.8rem;
   position: absolute;
   top: 0;
-  transform: translateY(-100%);
+  transform: translateY(-101%);
   right: 0;
-  width: 30rem;
+  width: 45rem;
   font-size: 2.4rem;
   font-weight: 500;
   z-index: 10;
@@ -99,10 +101,11 @@ svg {
 
 .likes--active {
   transform: translateY(0);
+  z-index: 1000;
 }
 
 .colours-container {
-  overflow: scroll;
+  overflow-y: scroll;
   width: 100%;
   scroll-behavior: smooth;
 }
@@ -137,7 +140,6 @@ svg {
   top: 0;
   font-size: 2.4rem;
   font-weight: 500;
-  overflow: visible;
   transition: all 1s;
 }
 
@@ -150,9 +152,22 @@ svg {
 
 .like {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  height: calc(100vh / 9);
+}
+
+.tints {
+  left: 0%;
+  transform: translateX(-100%);
+  z-index: 100;
+}
+
+.shades {
+  right: 0%;
+  transform: translateX(100%);
+  z-index: 100;
 }
 
 .tint,
@@ -167,18 +182,6 @@ svg {
   width: 100%;
   transition: all 1s;
   z-index: 5;
-}
-
-.tints {
-  left: 0%;
-  transform: translateX(-100%);
-  z-index: 100;
-}
-
-.shades {
-  right: 0%;
-  transform: translateX(100%);
-  z-index: 100;
 }
 
 .tint--active {
@@ -204,6 +207,7 @@ svg {
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 100%);
+  padding-top: 0.6rem;
   flex-direction: column;
   text-align: center;
   cursor: pointer;
