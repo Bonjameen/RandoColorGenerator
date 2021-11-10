@@ -36,14 +36,16 @@ class LikesView extends View {
       colours.length >= 9 ? `height: 100vh` : ``
     }`;
 
+    const btnDirection = active ? `up` : `down`;
+
     const markup = `
         <div class="${likesClass}" 
         style="color: ${mainColour.higherContrastColour}">
           <div class="btn btn--likes">
-            <div><p>Your likes</p></div>
             <svg style="fill: ${mainColour.higherContrastColour}">
-              <use href="${icons}#icon-caret-down"></use>
+              <use href="${icons}#icon-caret-${btnDirection}"></use>
             </svg>
+            <div><p>Your likes</p></div>
           </div>
           <div class="colours-container"
               ${

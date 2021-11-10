@@ -20,8 +20,9 @@ export const state = {
   likes: [],
 };
 
-export const setNewColour = function () {
-  [state.colour.rgb, state.colour.hex] = colourous.generateRandomColour();
+export const setNewColour = function (colour = null) {
+  [state.colour.rgb, state.colour.hex] =
+    colour ?? colourous.generateRandomColour();
   setShadesTints();
 };
 
