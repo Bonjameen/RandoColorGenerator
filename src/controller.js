@@ -90,7 +90,7 @@ const controlLike = function () {
   const colour = model.state.colour;
   if (!model.state.likes.some((like) => like.rgb === colour.rgb))
     model.addLike(colour);
-  else model.deleteLike(colour);
+  else model.deleteLike(colour.rgb);
   const likes = model.state.likes;
   const likesActive = model.state.likesActive;
   const data = { colour, likes, likesActive };

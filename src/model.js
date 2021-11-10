@@ -79,7 +79,7 @@ export const addLike = function (like) {
 };
 
 export const deleteLike = function (code) {
-  state.likes = state.likes.filter((like) => like.rgb === code);
+  state.likes = state.likes.filter((like) => like.rgb !== code);
   persistLikes();
 };
 
