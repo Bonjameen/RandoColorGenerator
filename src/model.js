@@ -1,5 +1,6 @@
 `use strict`;
 import colourous from "./colourous";
+import colourNames from "./data/data";
 
 /**
  * The app state, stores the colour generated, all tints and shades, and also contrast colours for each individual colour
@@ -36,8 +37,10 @@ export const setShadesTints = function () {
     state.colour.rgb
   );
 
-  // Calculate variations and contrasts of main colour
-  [state.shades, state.tints] = calculateShadesTints();
+  state.colour.name = getColourHue(state.colour.rgb)[
+    // Calculate variations and contrasts of main colour
+    (state.shades, state.tints)
+  ] = calculateShadesTints();
   const contrasts = getRGBContrastValues(state.tints, state.shades);
 
   if (![...state.shades, ...state.tints].find((c) => c[1] > 7)) {
@@ -153,4 +156,14 @@ export const getHexFromRGB = function (code) {
 };
 export const getRGBFromHex = function (code) {
   return colourous.convertHexToRGB(code);
+};
+
+const getColourHue = (code) => {
+  return colourous.generateHueNumber(code);
+};
+
+const setColourNames = () => {
+  const names = colourNames;
+  console.log(names);
+  state.names = reader.readAsText(`data/colours.csv`);
 };
