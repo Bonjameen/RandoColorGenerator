@@ -58,6 +58,30 @@ const controlGenerator = function () {
   }
 };
 
+const controlSetNewColour = function (code) {
+  const hex = model.getHexFromRGB(code);
+  model.setNewColour([code, hex]);
+  const tints = model.state.tints;
+  const shades = model.state.shades;
+  const tintsActive = model.state.tintsActive;
+  const shadesActive = model.state.shadesActive;
+  const colour = model.state.colour;
+  const likes = model.state.likes;
+  generatorView.update({
+    colour,
+    tints,
+    shades,
+    likes,
+  });
+  variationsView.update({
+    colour,
+    tints,
+    shades,
+    tintsActive,
+    shadesActive,
+  });
+};
+
 const controlPanelSlide = function (type) {
   model.toggleVariation(type);
   const active = model.state[`${type}sActive`];
@@ -124,7 +148,7 @@ const init = () => {
     controlLike
   );
   variationsView.addHandlerClick(controlPanelSlide, controlColourCodeClick);
-  likesView.addHandlerClick(controlLikesBtnClick);
+  likesView.addHandlerClick(controlLikesBtnClick, controlSetNewColour);
   model.retrieveLikes();
 };
 init();

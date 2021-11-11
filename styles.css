@@ -140,6 +140,10 @@ svg {
   flex-direction: column;
 }
 
+.colours .shade-container {
+  cursor: pointer;
+}
+
 .heart {
   cursor: pointer;
   position: absolute;

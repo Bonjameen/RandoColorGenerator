@@ -14,11 +14,11 @@ class LikesView extends View {
    * @param {func} closeClickHandler Handler function for when close button on message pop-up is clicked
    * @author Ben Pinner
    */
-  addHandlerClick(likesBtnClickHandler) {
+  addHandlerClick(likesBtnClickHandler, colourClickHandler) {
     const renderMessage = this.renderMessage;
     this._parentEl.addEventListener(
       `click`,
-      this._handleClick.bind(this, likesBtnClickHandler)
+      this._handleClick.bind(this, likesBtnClickHandler, colourClickHandler)
     );
   }
 
@@ -30,13 +30,15 @@ class LikesView extends View {
    * @param {Event} e The event that has been caught
    * @author Ben Pinner
    */
-  _handleClick(likesBtnClickHandler, e) {
+  _handleClick(likesBtnClickHandler, colourClickHandler, e) {
     const likesBtnEl = e.target.closest(`.btn--likes`);
 
+    const colourBoxEl = e.target.closest(`.like`);
+
     e.stopPropagation();
-    if (likesBtnEl) {
-      return likesBtnClickHandler();
-    }
+    if (likesBtnEl) return likesBtnClickHandler();
+    if (colourBoxEl)
+      return colourClickHandler(colourBoxEl.firstElementChild.textContent);
   }
 
   setScrollbar() {

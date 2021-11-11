@@ -49,7 +49,6 @@ export const setShadesTints = function () {
   }
   const lowerContrastColour = colourous.getLowerContrastColour(contrasts);
   state.colour.lowerContrastColour.rgb = lowerContrastColour;
-  colourous.getLowerContrastColour(contrasts);
   state.colour.lowerContrastColour.luminance =
     colourous.calculateRelativeLuminance(lowerContrastColour);
   const [shades, tints] = calculateShadesTints(
@@ -148,3 +147,7 @@ const getTintsShadesRGB = function () {
 
 const getRGBContrastValues = (tints, shades) =>
   [...tints, ...shades].map((colour) => [colour.rgb, colour.contrast]);
+
+export const getHexFromRGB = function (code) {
+  return colourous.convertRGBToHex(code);
+};
