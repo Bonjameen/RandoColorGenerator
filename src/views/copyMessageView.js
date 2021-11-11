@@ -6,6 +6,11 @@ import icons from "url:../img/icons.svg";
 class CopyMessageView extends View {
   _parentEl;
 
+  /**
+   * Close the copied to clipboard message and if a timeout function has been passed in clear it to avoid executing twice
+   * @param {NodeJS.Timeout} timeoutFunc The timeout function that was initially set to close the window, defaults to null
+   * @author Ben Pinner
+   */
   close(timeoutFunc = null) {
     this._parentEl = document.querySelector(`.copy-message-container`);
     const message = this._parentEl.querySelector(`.copy-message`);
@@ -14,6 +19,11 @@ class CopyMessageView extends View {
     message.classList.toggle(`hidden`);
   }
 
+  /**
+   * Generates the html markup for the view
+   * @returns {string} The html markup to render or update the view with
+   * @author Ben Pinner
+   */
   _generateMarkup() {
     const colour = this._data.colour;
     const code = this._data.code;

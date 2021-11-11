@@ -230,6 +230,24 @@ class Colourous {
       );
   }
 
+  // R = r / 255 = 0.09
+  // G = g / 255 = 0.38
+  // B = b / 255 = 0.46
+
+  // If Red is max, then Hue = (G-B)/(max-min)
+  // If Green is max, then Hue = 2.0 + (B-R)/(max-min)
+  // If Blue is max, then Hue = 4.0 + (R-G)/(max-min)
+
+  generateHueNumber(colour) {
+    const hueList = this.getHueList(colour);
+    const [R, G, B] = hueList.map((hue) => hue / 255);
+    const max = Math.max(R, G, B);
+    const min = Math.min(R, G, B);
+    if (Math.max(R, G, B) === R) return (G - B) / (max - min);
+    if (Math.max(R, G, B) === G) return 2 + (B - R) / (max - min);
+    return 4 + (R - G) / (max - min);
+  }
+
   /**
    * Calculates colour variations (tints and shades) and their contrast ratio with the colour passed in
    * @param {string | number[]} colour The colour to calculate variations for

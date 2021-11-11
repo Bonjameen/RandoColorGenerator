@@ -8,6 +8,7 @@ import "regenerator-runtime/runtime";
 import colourBoxView from "./views/colourBoxView.js";
 import btnView from "./views/btnView.js";
 import copyMessageView from "./views/copyMessageView.js";
+import likesView from "./views/likesView.js";
 
 if (module.hot) module.hot.accept();
 
@@ -15,6 +16,8 @@ const controlGenerator = function () {
   const colour = model.state.colour;
   const tintsActive = model.state.tintsActive;
   const shadesActive = model.state.shadesActive;
+  const likesActive = model.state.likesActive;
+  const likes = model.state.likes;
   let tints, shades;
   if (model.state.tints.length === 0) {
     model.setShadesTints();
@@ -24,7 +27,10 @@ const controlGenerator = function () {
       colour,
       tints,
       shades,
+      likes,
     });
+    likesView.render({ colour, colours: likes, active: likesActive });
+    likesView.setScrollbar();
     variationsView.render({
       colour,
       tints,
@@ -40,6 +46,7 @@ const controlGenerator = function () {
       colour,
       tints,
       shades,
+      likes,
     });
     variationsView.update({
       colour,
@@ -49,6 +56,30 @@ const controlGenerator = function () {
       shadesActive,
     });
   }
+};
+
+const controlSetNewColour = function (code) {
+  const hex = model.getHexFromRGB(code);
+  model.setNewColour([code, hex]);
+  const tints = model.state.tints;
+  const shades = model.state.shades;
+  const tintsActive = model.state.tintsActive;
+  const shadesActive = model.state.shadesActive;
+  const colour = model.state.colour;
+  const likes = model.state.likes;
+  generatorView.update({
+    colour,
+    tints,
+    shades,
+    likes,
+  });
+  variationsView.update({
+    colour,
+    tints,
+    shades,
+    tintsActive,
+    shadesActive,
+  });
 };
 
 const controlPanelSlide = function (type) {
@@ -82,13 +113,42 @@ const controlCloseMessageClick = function () {
   copyMessageView.close(model.state.copyMessageTimeout);
 };
 
+const controlLike = function () {
+  const colour = model.state.colour;
+  if (!model.state.likes.some((like) => like.rgb === colour.rgb))
+    model.addLike(colour);
+  else model.deleteLike(colour.rgb);
+  const colours = model.state.likes;
+  const likes = model.state.likes;
+  const likesActive = model.state.likesActive;
+  const genData = { colour, likes };
+  const likesData = { colour, colours, active: likesActive };
+  generatorView.render(genData);
+  likesView.render(likesData);
+  likesView.setScrollbar();
+};
+
+const controlLikesBtnClick = function () {
+  model.toggleLikesActive();
+  const colour = model.state.colour;
+  const colours = model.state.likes;
+  const active = model.state.likesActive;
+  const data = { colour, colours, active };
+  if (active) likesView.slideBtnIn();
+  likesView.update(data);
+  if (!active) likesView.slideBtnOut();
+};
+
 const init = () => {
   generatorView.addHandlerRender(controlGenerator);
   generatorView.addHandlerClick(
     controlGenerator,
     controlColourCodeClick,
-    controlCloseMessageClick
+    controlCloseMessageClick,
+    controlLike
   );
   variationsView.addHandlerClick(controlPanelSlide, controlColourCodeClick);
+  likesView.addHandlerClick(controlLikesBtnClick, controlSetNewColour);
+  model.retrieveLikes();
 };
 init();
