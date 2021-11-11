@@ -1,0 +1,679 @@
+
+1,Pinkish white
+2,Very pale pink
+3,Pale pink
+4,Light pink
+5,Light brilliant red
+6,Luminous vivid red
+7,Pinkish gray
+8,Pale, grayish pink
+9,Pink
+10,Brilliant red
+11,Vivid red
+12,Reddish gray
+13,Grayish red
+14,Moderate red
+15,Strong red
+16,Reddish brownish gray
+17,Dark grayish reddish brown
+18,Reddish brown
+19,Deep reddish brown
+20,Reddish brownish black
+21,Very reddish brown
+22,Very deep reddish brown
+23,Pale scarlet
+24,Very light scarlet
+25,Light brilliant scarlet
+26,Luminous vivid scarlet
+27,Light scarlet
+28,Brilliant scarlet
+29,Vivid scarlet
+30,Moderate scarlet
+31,Strong scarlet
+32,Dark scarlet
+33,Deep scarlet
+34,Very pale vermilion
+35,Pale vermilion
+36,Very light vermilion
+37,Light brilliant vermilion
+38,Luminous vivid vermilion
+39,Pale, light grayish vermilion
+40,Light vermilion
+41,Brilliant vermilion
+42,Vivid vermilion
+43,Grayish vermilion
+44,Moderate vermilion
+45,Strong vermilion
+46,Dark grayish vermilion
+47,Dark vermilion
+48,Deep vermilion
+49,Pale tangelo
+50,Very light tangelo
+51,Light brilliant tangelo
+52,Luminous vivid tangelo
+53,Light tangelo
+54,Brilliant tangelo
+55,Vivid tangelo
+56,Moderate tangelo
+57,Strong tangelo
+58,Dark tangelo
+59,Deep tangelo
+60,Very pale orange
+61,Pale orange
+62,Very light orange
+63,Light brilliant orange
+64,Luminous vivid orange
+65,Pale, light grayish brown
+66,Light orange
+67,Brilliant orange
+68,Vivid orange
+69,Grayish brown
+70,Moderate orange
+71,Strong orange
+72,Dark grayish brown
+73,Brown
+74,Deep brown
+75,Very brown
+76,Very deep brown
+77,Pale gamboge
+78,Very light gamboge
+79,Light brilliant gamboge
+80,Luminous vivid gamboge
+81,Light gamboge
+82,Brilliant gamboge
+83,Vivid gamboge
+84,Moderate gamboge
+85,Strong gamboge
+86,Dark gamboge
+87,Deep gamboge
+88,Very pale amber
+89,Pale amber
+90,Very light amber
+91,Light brilliant amber
+92,Luminous vivid amber
+93,Pale, light grayish amber
+94,Light amber
+95,Brilliant amber
+96,Vivid amber
+97,Grayish amber
+98,Moderate amber
+99,Strong amber
+100,Dark grayish amber
+101,Dark amber
+102,Deep amber
+103,Pale gold
+104,Very light gold
+105,Light brilliant gold
+106,Luminous vivid gold
+107,Light gold
+108,Brilliant gold
+109,Vivid gold
+110,Moderate gold
+111,Strong gold
+112,Dark gold
+113,Deep gold
+114,Yellowish white
+115,Very pale yellow
+116,Pale yellow
+117,Very light yellow
+118,Light brilliant yellow
+119,Luminous vivid yellow
+120,Light yellowish gray
+121,Pale, light grayish olive
+122,Light yellow
+123,Brilliant yellow
+124,Vivid yellow
+125,Yellowish gray
+126,Grayish olive
+127,Moderate olive
+128,Strong olive
+129,Dark olivish gray
+130,Dark grayish olive
+131,Dark olive
+132,Deep olive
+133,Yellowish black
+134,Very dark olive
+135,Very deep olive
+136,Pale apple green
+137,Very light apple green
+138,Light brilliant apple green
+139,Luminous vivid apple green
+140,Light apple green
+141,Brilliant apple green
+142,Vivid apple green
+143,Moderate apple green
+144,Strong apple green
+145,Dark apple green
+146,Deep apple green
+147,Very pale lime green
+148,Pale lime green
+149,Very light lime green
+150,Light brilliant lime green
+151,Luminous vivid lime green
+152,Pale, light grayish lime green
+153,Light lime green
+154,Brilliant lime green
+155,Vivid lime green
+156,Grayish lime green
+157,Moderate lime green
+158,Strong lime green
+159,Dark grayish lime green
+160,Dark lime green
+161,Deep lime green
+162,Pale spring bud
+163,Very light spring bud
+164,Light brilliant spring bud
+165,Luminous vivid spring bud
+166,Light spring bud
+167,Brilliant spring bud
+168,Vivid spring bud
+169,Moderate spring bud
+170,Strong spring bud
+171,Dark spring bud
+172,Deep spring bud
+173,Very pale chartreuse green
+174,Pale chartreuse green
+175,Very light chartreuse green
+176,Light brilliant chartreuse green
+177,Luminous vivid chartreuse green
+178,Pale, light grayish chartreuse green
+179,Light chartreuse green
+180,Brilliant chartreuse green
+181,Vivid chartreuse green
+182,Grayish chartreuse green
+183,Moderate chartreuse green
+184,Strong chartreuse green
+185,Dark grayish chartreuse green
+186,Dark chartreuse green
+187,Deep chartreuse green
+188,Very dark chartreuse green
+189,Very deep chartreuse green
+190,Pale pistachio
+191,Very light pistachio
+192,Light brilliant pistachio
+193,Luminous vivid pistachio
+194,Light pistachio
+195,Brilliant pistachio
+196,Vivid pistachio
+197,Moderate pistachio
+198,Strong pistachio
+199,Dark pistachio
+200,Deep pistachio
+201,Very pale harlequin
+202,Pale harlequin
+203,Very light harlequin
+204,Light brilliant harlequin
+205,Luminous vivid harlequin
+206,Pale, light grayish harlequin
+207,Light harlequin
+208,Brilliant harlequin
+209,Vivid harlequin
+210,Grayish harlequin
+211,Moderate harlequin
+212,Strong harlequin
+213,Dark grayish harlequin
+214,Dark harlequin
+215,Deep harlequin
+216,Pale sap green
+217,Very light sap green
+218,Light brilliant sap green
+219,Luminous vivid sap green
+220,Light sap green
+221,Brilliant sap green
+222,Vivid sap green
+223,Moderate sap green
+224,Strong sap green
+225,Dark sap green
+226,Deep sap green
+227,Greenish white
+228,Very pale green
+229,Pale green
+230,Very light green
+231,Light brilliant green
+232,Luminous vivid green
+233,Light greenish gray
+234,Pale, light grayish green
+235,Light green
+236,Brilliant green
+237,Vivid green
+238,Greenish gray
+239,Grayish green
+240,Moderate green
+241,Strong green
+242,Dark greenish gray
+243,Dark grayish green
+244,Dark green
+245,Deep green
+246,Greenish black
+247,Very dark green
+248,Very deep green
+249,Pale emerald green
+250,Very light emerald green
+251,Light brilliant emerald green
+252,Luminous vivid emerald green
+253,Light emerald green
+254,Brilliant emerald green
+255,Vivid emerald green
+256,Moderate emerald green
+257,Strong emerald green
+258,Dark emerald green
+259,Deep emerald green
+260,Very pale malachite green
+261,Pale malachite green
+262,Very light malachite green
+263,Light brilliant malachite green
+264,Luminous vivid malachite green
+265,Pale, light grayish malachite green
+266,Light malachite green
+267,Brilliant malachite green
+268,Vivid malachite green
+269,Grayish malachite green
+270,Moderate malachite green
+271,Strong malachite green
+272,Dark grayish malachite green
+273,Dark malachite green
+274,Deep malachite green
+275,Pale sea green
+276,Very light sea green
+277,Light brilliant sea green
+278,Luminous vivid sea green
+279,Light sea green
+280,Brilliant sea green
+281,Vivid sea green
+282,Moderate sea green
+283,Strong sea green
+284,Dark sea green
+285,Deep sea green
+286,Very pale spring green
+287,Pale spring green
+288,Very light spring green
+289,Light brilliant spring green
+290,Luminous vivid spring green
+291,Pale, light grayish spring green
+292,Light spring green
+293,Brilliant spring green
+294,Vivid spring green
+295,Grayish spring green
+296,Moderate spring green
+297,Strong spring green
+298,Dark grayish spring green
+299,Dark spring green
+300,Deep spring green
+301,Very dark spring green
+302,Very deep spring green
+303,Pale aquamarine
+304,Very light aquamarine
+305,Light brilliant aquamarine
+306,Luminous vivid aquamarine
+307,Light aquamarine
+308,Brilliant aquamarine
+309,Vivid aquamarine
+310,Moderate aquamarine
+311,Strong aquamarine
+312,Dark aquamarine
+313,Deep aquamarine
+314,Very pale turquoise
+315,Pale turquoise
+316,Very light turquoise
+317,Light brilliant turquoise
+318,Luminous vivid turquoise
+319,Pale, light grayish turquoise
+320,Light turquoise
+321,Brilliant turquoise
+322,Vivid turquoise
+323,Grayish turquoise
+324,Moderate turquoise
+325,Strong turquoise
+326,Dark grayish turquoise
+327,Dark turquoise
+328,Deep turquoise
+329,Pale opal
+330,Very light opal
+331,Light brilliant opal
+332,Luminous vivid opal
+333,Light opal
+334,Brilliant opal
+335,Vivid opal
+336,Moderate opal
+337,Strong opal
+338,Dark opal
+339,Deep opal
+340,Cyanish white
+341,Very pale cyan
+342,Pale cyan
+343,Very light cyan
+344,Light brilliant cyan
+345,Luminous vivid cyan
+346,Light cyanish gray
+347,Pale, light grayish cyan
+348,Light cyan
+349,Brilliant cyan
+350,Vivid cyan
+351,Cyanish gray
+352,Grayish cyan
+353,Moderate cyan
+354,Strong cyan
+355,Dark cyanish gray
+356,Dark grayish cyan
+357,Dark cyan
+358,Deep cyan
+359,Cyanish black
+360,Very dark cyan
+361,Very deep cyan
+362,Pale arctic blue
+363,Very light arctic blue
+364,Light brilliant arctic blue
+365,Luminous vivid arctic blue
+366,Light arctic blue
+367,Brilliant arctic blue
+368,Vivid arctic blue
+369,Moderate arctic blue
+370,Strong arctic blue
+371,Dark arctic blue
+372,Deep arctic blue
+373,Very pale cerulean
+374,Pale cerulean
+375,Very light cerulean
+376,Light brilliant cerulean
+377,Luminous vivid cerulean
+378,Pale, light grayish cerulean
+379,Light cerulean
+380,Brilliant cerulean
+381,Vivid cerulean
+382,Grayish cerulean
+383,Moderate cerulean
+384,Strong cerulean
+385,Dark grayish cerulean
+386,Dark cerulean
+387,Deep cerulean
+388,Pale cornflower blue
+389,Very light cornflower blue
+390,Light brilliant cornflower blue
+391,Luminous vivid cornflower blue
+392,Light cornflower blue
+393,Brilliant cornflower blue
+394,Vivid cornflower blue
+395,Moderate cornflower blue
+396,Strong cornflower blue
+397,Dark cornflower blue
+398,Deep cornflower blue
+399,Very pale azure
+400,Pale azure
+401,Very light azure
+402,Light brilliant azure
+403,Luminous vivid azure
+404,Pale, light grayish azure
+405,Light azure
+406,Brilliant azure
+407,Vivid azure
+408,Grayish azure
+409,Moderate azure
+410,Strong azure
+411,Dark grayish azure
+412,Dark azure
+413,Deep azure
+414,Very dark azure
+415,Very deep azure
+416,Pale cobalt blue
+417,Very light cobalt blue
+418,Light brilliant cobalt blue
+419,Luminous vivid cobalt blue
+420,Light cobalt blue
+421,Brilliant cobalt blue
+422,Vivid cobalt blue
+423,Moderate cobalt blue
+424,Strong cobalt blue
+425,Dark cobalt blue
+426,Deep cobalt blue
+427,Very pale sapphire blue
+428,Pale sapphire blue
+429,Very light sapphire blue
+430,Light brilliant sapphire blue
+431,Luminous vivid sapphire blue
+432,Pale, light grayish sapphire blue
+433,Light sapphire blue
+434,Brilliant sapphire blue
+435,Vivid sapphire blue
+436,Grayish sapphire blue
+437,Moderate sapphire blue
+438,Strong sapphire blue
+439,Dark grayish sapphire blue
+440,Dark sapphire blue
+441,Deep sapphire blue
+442,Pale phthalo blue
+443,Very light phthalo blue
+444,Light brilliant phthalo blue
+445,Luminous vivid phthalo blue
+446,Light phthalo blue
+447,Brilliant phthalo blue
+448,Vivid phthalo blue
+449,Moderate phthalo blue
+450,Strong phthalo blue
+451,Dark phthalo blue
+452,Deep phthalo blue
+453,Bluish white
+454,Very pale blue
+455,Pale blue
+456,Very light blue
+457,Light brilliant blue
+458,Luminous vivid blue
+459,Light bluish gray
+460,Pale, light grayish blue
+461,Light blue
+462,Brilliant blue
+463,Vivid blue
+464,Bluish gray
+465,Grayish blue
+466,Moderate blue
+467,Strong blue
+468,Dark bluish gray
+469,Dark grayish blue
+470,Dark blue
+471,Deep blue
+472,Bluish black
+473,Very dark blue
+474,Very deep blue
+475,Pale persian blue
+476,Very light persian blue
+477,Light brilliant persian blue
+478,Luminous vivid persian blue
+479,Light persian blue
+480,Brilliant persian blue
+481,Vivid persian blue
+482,Moderate persian blue
+483,Strong persian blue
+484,Dark persian blue
+485,Deep persian blue
+486,Very pale indigo
+487,Pale indigo
+488,Very light indigo
+489,Light brilliant indigo
+490,Luminous vivid indigo
+491,Pale, light grayish indigo
+492,Light indigo
+493,Brilliant indigo
+494,Vivid indigo
+495,Grayish indigo
+496,Moderate indigo
+497,Strong indigo
+498,Dark grayish indigo
+499,Dark indigo
+500,Deep indigo
+501,Pale blue violet
+502,Very light blue violet
+503,Light brilliant blue violet
+504,Luminous vivid blue violet
+505,Light blue violet
+506,Brilliant blue violet
+507,Vivid blue violet
+508,Moderate blue violet
+509,Strong blue violet
+510,Dark blue violet
+511,Deep blue violet
+512,Very pale violet
+513,Pale violet
+514,Very light violet
+515,Light brilliant violet
+516,Luminous vivid violet
+517,Pale, light grayish violet
+518,Light violet
+519,Brilliant violet
+520,Vivid violet
+521,Grayish violet
+522,Moderate violet
+523,Strong violet
+524,Dark grayish violet
+525,Dark violet
+526,Deep violet
+527,Very dark violet
+528,Very deep violet
+529,Pale purple
+530,Very light purple
+531,Light brilliant purple
+532,Luminous vivid purple
+533,Light purple
+534,Brilliant purple
+535,Vivid purple
+536,Moderate purple
+537,Strong purple
+538,Dark purple
+539,Deep purple
+540,Very pale mulberry
+541,Pale mulberry
+542,Very light mulberry
+543,Light brilliant mulberry
+544,Luminous vivid mulberry
+545,Pale, light grayish mulberry
+546,Light mulberry
+547,Brilliant mulberry
+548,Vivid mulberry
+549,Grayish mulberry
+550,Moderate mulberry
+551,Strong mulberry
+552,Dark grayish mulberry
+553,Dark mulberry
+554,Deep mulberry
+555,Pale heliotrope
+556,Very light heliotrope
+557,Light brilliant heliotrope
+558,Luminous vivid heliotrope
+559,Light heliotrope
+560,Brilliant heliotrope
+561,Vivid heliotrope
+562,Moderate heliotrope
+563,Strong heliotrope
+564,Dark heliotrope
+565,Deep heliotrope
+566,Magentaish white
+567,Very pale magenta
+568,Pale magenta
+569,Very light magenta
+570,Light brilliant magenta
+571,Luminous vivid magenta
+572,Light magentaish gray
+573,Pale, light grayish magenta
+574,Light magenta
+575,Brilliant magenta
+576,Vivid magenta
+577,Magentaish gray
+578,Grayish magenta
+579,Moderate magenta
+580,Strong magenta
+581,Dark magentaish gray
+582,Dark grayish magenta
+583,Dark magenta
+584,Deep magenta
+585,Magentaish black
+586,Very dark magenta
+587,Very deep magenta
+588,Pale orchid
+589,Very light orchid
+590,Light brilliant orchid
+591,Luminous vivid orchid
+592,Light orchid
+593,Brilliant orchid
+594,Vivid orchid
+595,Moderate orchid
+596,Strong orchid
+597,Dark orchid
+598,Deep orchid
+599,Very pale fuchsia
+600,Pale fuchsia
+601,Very light fuchsia
+602,Light brilliant fuchsia
+603,Luminous vivid fuchsia
+604,Pale, light grayish fuchsia
+605,Light fuchsia
+606,Brilliant fuchsia
+607,Vivid fuchsia
+608,Grayish fuchsia
+609,Moderate fuchsia
+610,Strong fuchsia
+611,Dark grayish fuchsia
+612,Dark fuchsia
+613,Deep fuchsia
+614,Pale cerise
+615,Very light cerise
+616,Light brilliant cerise
+617,Luminous vivid cerise
+618,Light cerise
+619,Brilliant cerise
+620,Vivid cerise
+621,Moderate cerise
+622,Strong cerise
+623,Dark cerise
+624,Deep cerise
+625,Very pale rose
+626,Pale rose
+627,Very light rose
+628,Light brilliant rose
+629,Luminous vivid rose
+630,Pale, light grayish rose
+631,Light rose
+632,Brilliant rose
+633,Vivid rose
+634,Grayish rose
+635,Moderate rose
+636,Strong rose
+637,Dark grayish rose
+638,Dark rose
+639,Deep rose
+640,Very dark rose
+641,Very deep rose
+642,Pale raspberry
+643,Very light raspberry
+644,Light brilliant raspberry
+645,Luminous vivid raspberry
+646,Light raspberry
+647,Brilliant raspberry
+648,Vivid raspberry
+649,Moderate raspberry
+650,Strong raspberry
+651,Dark raspberry
+652,Deep raspberry
+653,Very pale crimson
+654,Pale crimson
+655,Very light crimson
+656,Light brilliant crimson
+657,Luminous vivid crimson
+658,Pale, light grayish crimson
+659,Light crimson
+660,Brilliant crimson
+661,Vivid crimson
+662,Grayish crimson
+663,Moderate crimson
+664,Strong crimson
+665,Dark grayish crimson
+666,Dark crimson
+667,Deep crimson
+668,Pale amaranth
+669,Very light amaranth
+670,Light brilliant amaranth
+671,Luminous vivid amaranth
+672,Light amaranth
+673,Brilliant amaranth
+674,Vivid amaranth
+675,Moderate amaranth
+676,Strong amaranth
+677,Dark amaranth
+678,Deep amaranth

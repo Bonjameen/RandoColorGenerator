@@ -5,19 +5,43 @@ import icons from "url:../img/icons.svg";
 import colourBoxView from "./colourBoxView";
 
 class LikesView extends View {
-  _parentEl;
+  _parentEl = document.querySelector(`.likes-container`);
 
   /**
-   * Close the copied to clipboard message and if a timeout function has been passed in clear it to avoid executing twice
-   * @param {NodeJS.Timeout} timeoutFunc The timeout function that was initially set to close the window, defaults to null
+   * Triggers handler function when the generator, colour code, or close button is clicked
+   * @param {func} pageClickHandler Handler function for when generator is clicked
+   * @param {func} codeClickHandler Handler function for when colour code is clicked
+   * @param {func} closeClickHandler Handler function for when close button on message pop-up is clicked
    * @author Ben Pinner
    */
-  close(timeoutFunc = null) {
-    this._parentEl = document.querySelector(`.copy-message-container`);
-    const message = this._parentEl.querySelector(`.copy-message`);
-    if (timeoutFunc) clearTimeout(timeoutFunc);
-    message.classList.toggle(`copy-message--active`);
-    message.classList.toggle(`hidden`);
+  addHandlerClick(likesBtnClickHandler) {
+    const renderMessage = this.renderMessage;
+    this._parentEl.addEventListener(
+      `click`,
+      this._handleClick.bind(this, likesBtnClickHandler)
+    );
+  }
+
+  /**
+   * Handles event delegation and calls the correct function
+   * @param {func} pageClickHandler Handler function for when generator is clicked
+   * @param {func} codeClickHandler Handler function for when colour code is clicked
+   * @param {func} closeClickHandler Handler function for when close button on message pop-up is clicked
+   * @param {Event} e The event that has been caught
+   * @author Ben Pinner
+   */
+  _handleClick(likesBtnClickHandler, e) {
+    const likesBtnEl = e.target.closest(`.btn--likes`);
+
+    e.stopPropagation();
+    if (likesBtnEl) {
+      return likesBtnClickHandler();
+    }
+  }
+
+  setScrollbar() {
+    var coloursEl = document.querySelector(".colours-container");
+    coloursEl.scrollTop = coloursEl.scrollHeight;
   }
 
   /**
@@ -32,9 +56,6 @@ class LikesView extends View {
     this._parentEl = document.querySelector(`.likes-container`);
 
     const likesClass = `likes ${active ? `likes--active` : ``}`;
-    const likesStyle = `color: ${mainColour.higherContrastColour}; ${
-      colours.length >= 9 ? `height: 100vh` : ``
-    }`;
 
     const btnDirection = active ? `up` : `down`;
 

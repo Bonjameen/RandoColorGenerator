@@ -29,8 +29,7 @@ class GeneratorView extends View {
     pageClickHandler,
     codeClickHandler,
     closeClickHandler,
-    likeClickHandler,
-    likesBtnClickHandler
+    likeClickHandler
   ) {
     const renderMessage = this.renderMessage;
     this._parentEl.addEventListener(
@@ -40,8 +39,7 @@ class GeneratorView extends View {
         pageClickHandler,
         codeClickHandler,
         closeClickHandler,
-        likeClickHandler,
-        likesBtnClickHandler
+        likeClickHandler
       )
     );
   }
@@ -59,7 +57,6 @@ class GeneratorView extends View {
     codeClickHandler,
     closeClickHandler,
     likeClickHandler,
-    likesBtnClickHandler,
     e
   ) {
     const textEl = e.target.closest(`.rgb-text, .hex-text`);
@@ -77,9 +74,6 @@ class GeneratorView extends View {
     if (likeBtnEl) {
       return likeClickHandler();
     }
-    if (likesBtnEl) {
-      return likesBtnClickHandler();
-    }
     pageClickHandler();
   }
 
@@ -91,22 +85,12 @@ class GeneratorView extends View {
   _generateMarkup() {
     const colour = this._data.colour;
     const likes = this._data.likes;
-    const likesActive = this._data.likesActive;
     const copyData = { colour, code: null };
-    const likesData = { colour, colours: likes, active: likesActive };
     return `
         <div class="generator" style="background-color: ${colour.rgb}">
           <div class="message" style="color: ${
             colour.higherContrastColour
           }">Click the screen to generate a new colour</div>
-          ${
-            likes
-              ? `<div class="likes-container">${likesView.render(
-                  likesData,
-                  false
-                )}</div>`
-              : ``
-          }
           ${this._generateLikeButtonMarkup(likes, colour)}
           <div class="color-text" style="opacity: 0.6, color: ${colour.rgb}">
             <div class="rgb-text" style="color: ${colour.higherContrastColour}">
