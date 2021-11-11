@@ -68,6 +68,7 @@ const controlSetNewColour = function (code, search = false) {
 
   if (search && !isHex && !isRGB) {
     console.error(`💥💥💥 invalid colour code`);
+    return;
   }
   const hex = isHex ? code : model.getHexFromRGB(code);
   const rgb = isRGB ? code : model.getRGBFromHex(code);
@@ -91,6 +92,7 @@ const controlSetNewColour = function (code, search = false) {
     tintsActive,
     shadesActive,
   });
+  likesView.update({ colour, colours: likes, active: false });
 };
 
 const controlPanelSlide = function (type) {
