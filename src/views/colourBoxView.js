@@ -21,11 +21,11 @@ class ColourBoxView extends View {
       }
     );
     const markup = `
-        <div class="${type} ${activeClass}" data-index="${index}" style="background-color: ${
-      colour.rgb
-    }; color: ${colour.higherContrastColour ?? colour.contrastColour}">
-            <span class="rgb-text">${colour.rgb}
-            </span>
+        <div class="${type} ${activeClass}" 
+            data-index="${index}" 
+            style="background-color: ${colour.rgb}; 
+            color: ${colour.higherContrastColour ?? colour.contrastColour}">
+            <span class="rgb-text">${colour.rgb}</span>
             <span class="hex-text">${colour.hex}
         </div>`;
     return markup;

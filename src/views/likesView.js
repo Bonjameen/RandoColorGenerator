@@ -44,6 +44,20 @@ class LikesView extends View {
     coloursEl.scrollTop = coloursEl.scrollHeight;
   }
 
+  slideBtnIn() {
+    const textEl = document.querySelector(`.likes-text`);
+
+    // After a second, delete the content of textEl
+    setTimeout(() => {
+      textEl.textContent = "";
+    }, 1000);
+  }
+
+  slideBtnOut() {
+    const textEl = document.querySelector(`.likes-text`);
+    textEl.textContent = "Your Likes";
+  }
+
   /**
    * Generates the html markup for the view
    * @returns {string} The html markup to render or update the view with
@@ -66,7 +80,7 @@ class LikesView extends View {
             <svg style="fill: ${mainColour.higherContrastColour}">
               <use href="${icons}#icon-caret-${btnDirection}"></use>
             </svg>
-            <div><p>Your likes</p></div>
+            <span class="likes-text ${active ? `hidden` : ``}">Your likes</span>
           </div>
           <div class="colours-container"
               ${
@@ -89,7 +103,7 @@ class LikesView extends View {
         const index = i;
         const data = { colour, index, type, active };
         return `
-          <div class="like-container">
+          <div class="shade-container" data-index="${index}" data-type="like">
             ${colourBoxView.render(data, false)}
           </div>`;
       })

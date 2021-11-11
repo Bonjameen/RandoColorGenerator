@@ -110,7 +110,9 @@ const controlLikesBtnClick = function () {
   const colours = model.state.likes;
   const active = model.state.likesActive;
   const data = { colour, colours, active };
+  if (active) likesView.slideBtnIn();
   likesView.update(data);
+  if (!active) likesView.slideBtnOut();
 };
 
 const init = () => {
