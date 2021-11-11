@@ -151,3 +151,6 @@ const getRGBContrastValues = (tints, shades) =>
 export const getHexFromRGB = function (code) {
   return colourous.convertRGBToHex(code);
 };
+export const getRGBFromHex = function (code) {
+  return colourous.convertHexToRGB(code);
+};

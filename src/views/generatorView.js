@@ -53,7 +53,10 @@ class GeneratorView extends View {
    * @author Ben Pinner
    */
   addHandlerSubmit(handler) {
-    this._parentEl.addEventListener(`submit`, handler);
+    this._parentEl.addEventListener(
+      `submit`,
+      this._handleSubmit.bind(this, handler)
+    );
   }
 
   /**
@@ -75,10 +78,10 @@ class GeneratorView extends View {
     const textEl = e.target.closest(`.rgb-text, .hex-text`);
     const btnEl = e.target.closest(`.close`);
     const likeBtnEl = e.target.closest(`.heart`);
-    const searchBar = e.target.closest(`.search-container`);
+    const searchBarEl = e.target.closest(`.search-container`);
 
     e.stopPropagation();
-    if (searchBar) {
+    if (searchBarEl) {
       return searchClickHandler();
     }
     if (textEl) {
@@ -91,6 +94,25 @@ class GeneratorView extends View {
       return likeClickHandler();
     }
     pageClickHandler();
+  }
+
+  /**
+   * Handles event delegation and calls the correct function
+   * @param {func} pageClickHandler Handler function for when generator is clicked
+   * @param {func} codeClickHandler Handler function for when colour code is clicked
+   * @param {func} closeClickHandler Handler function for when close button on message pop-up is clicked
+   * @param {Event} e The event that has been caught
+   * @author Ben Pinner
+   */
+  _handleSubmit(handler, e) {
+    e.preventDefault();
+    const searchBarEl = e.target.closest(`.search-form`);
+
+    e.stopPropagation();
+    if (searchBarEl) {
+      const colour = searchBarEl.querySelector(`input`).value;
+      return handler(colour, true);
+    }
   }
 
   /**
