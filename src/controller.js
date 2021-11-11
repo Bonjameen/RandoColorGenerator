@@ -178,7 +178,7 @@ const controlSearchClose = function () {
   const colour = model.state.colour;
   const likes = model.state.likes;
   searchView.update({ colour, focused });
-  if (window.screen.width <= 320) {
+  if (window.screen.width <= 540) {
     likesView.update({
       searchFocused: focused,
       colour,
