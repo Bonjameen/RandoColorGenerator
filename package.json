@@ -21,6 +21,7 @@
     "parcel": "^2.0.0"
   },
   "dependencies": {
+    "colors-regex": "^2.0.0",
     "core-js": "^3.19.0",
     "ionicons": "^5.5.3",
     "regenerator-runtime": "^0.13.9"

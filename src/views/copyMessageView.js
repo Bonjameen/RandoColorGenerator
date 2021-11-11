@@ -27,7 +27,6 @@ class CopyMessageView extends View {
   _generateMarkup() {
     const colour = this._data.colour;
     const code = this._data.code;
-    const active = this._data.active;
     this._parentEl = document.querySelector(`.copy-message-container`);
 
     const markup = `

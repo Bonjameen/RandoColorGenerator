@@ -9,6 +9,10 @@ import colourBoxView from "./views/colourBoxView.js";
 import btnView from "./views/btnView.js";
 import copyMessageView from "./views/copyMessageView.js";
 import likesView from "./views/likesView.js";
+import searchView from "./views/searchView.js";
+
+import assert from "assert";
+import colorRegex from "colors-regex";
 
 if (module.hot) module.hot.accept();
 
@@ -58,9 +62,17 @@ const controlGenerator = function () {
   }
 };
 
-const controlSetNewColour = function (code) {
-  const hex = model.getHexFromRGB(code);
-  model.setNewColour([code, hex]);
+const controlSetNewColour = function (code, search = false) {
+  const isHex = search ? validateHex(code) : false;
+  const isRGB = isHex ? false : validateRGB(code);
+
+  if (search && !isHex && !isRGB) {
+    console.error(`💥💥💥 invalid colour code`);
+    return;
+  }
+  const hex = isHex ? code : model.getHexFromRGB(code);
+  const rgb = isRGB ? code : model.getRGBFromHex(code);
+  model.setNewColour([rgb, hex]);
   const tints = model.state.tints;
   const shades = model.state.shades;
   const tintsActive = model.state.tintsActive;
@@ -80,6 +92,7 @@ const controlSetNewColour = function (code) {
     tintsActive,
     shadesActive,
   });
+  likesView.update({ colour, colours: likes, active: false });
 };
 
 const controlPanelSlide = function (type) {
@@ -139,16 +152,34 @@ const controlLikesBtnClick = function () {
   if (!active) likesView.slideBtnOut();
 };
 
+const controlSearchClick = function () {
+  searchView.focusSearchBar();
+};
+
 const init = () => {
   generatorView.addHandlerRender(controlGenerator);
   generatorView.addHandlerClick(
     controlGenerator,
     controlColourCodeClick,
     controlCloseMessageClick,
-    controlLike
+    controlLike,
+    controlSearchClick
   );
+  generatorView.addHandlerSubmit(controlSetNewColour);
   variationsView.addHandlerClick(controlPanelSlide, controlColourCodeClick);
   likesView.addHandlerClick(controlLikesBtnClick, controlSetNewColour);
   model.retrieveLikes();
 };
 init();
+
+const validateCode = (code) => {
+  return !colorRegex.hex.strict.test(code) && !colorRegex.rgb.strict.test(code);
+};
+
+const validateHex = (code) => {
+  return colorRegex.hex.strict.test(code);
+};
+
+const validateRGB = (code) => {
+  return colorRegex.rgb.strict.test(code);
+};
