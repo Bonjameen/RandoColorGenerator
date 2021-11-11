@@ -3,6 +3,7 @@
 import icons from "url:../img/icons.svg";
 import copyMessageView from "./copyMessageView";
 import likesView from "./likesView";
+import searchView from "./searchView";
 import variationsView from "./variationsView";
 import View from "./View";
 
@@ -29,7 +30,8 @@ class GeneratorView extends View {
     pageClickHandler,
     codeClickHandler,
     closeClickHandler,
-    likeClickHandler
+    likeClickHandler,
+    searchClickHandler
   ) {
     const renderMessage = this.renderMessage;
     this._parentEl.addEventListener(
@@ -39,9 +41,19 @@ class GeneratorView extends View {
         pageClickHandler,
         codeClickHandler,
         closeClickHandler,
-        likeClickHandler
+        likeClickHandler,
+        searchClickHandler
       )
     );
+  }
+
+  /**
+   * Triggers handler function when the window has loaded
+   * @param {func} handler Handler function for rendering the DOM
+   * @author Ben Pinner
+   */
+  addHandlerSubmit(handler) {
+    this._parentEl.addEventListener(`submit`, handler);
   }
 
   /**
@@ -57,14 +69,18 @@ class GeneratorView extends View {
     codeClickHandler,
     closeClickHandler,
     likeClickHandler,
+    searchClickHandler,
     e
   ) {
     const textEl = e.target.closest(`.rgb-text, .hex-text`);
     const btnEl = e.target.closest(`.close`);
     const likeBtnEl = e.target.closest(`.heart`);
-    const likesBtnEl = e.target.closest(`.btn--likes`);
+    const searchBar = e.target.closest(`.search-container`);
 
     e.stopPropagation();
+    if (searchBar) {
+      return searchClickHandler();
+    }
     if (textEl) {
       return codeClickHandler(textEl.innerText);
     }
@@ -91,7 +107,13 @@ class GeneratorView extends View {
           <div class="message" style="color: ${
             colour.higherContrastColour
           }">Click the screen to generate a new colour</div>
-          ${this._generateLikeButtonMarkup(likes, colour)}
+          <div class="actions-container">
+            ${this._generateLikeButtonMarkup(likes, colour)}
+            <div class="search-container">${searchView.render(
+              { colour },
+              false
+            )}</div>
+          </div>
           <div class="color-text" style="opacity: 0.6, color: ${colour.rgb}">
             <div class="rgb-text" style="color: ${colour.higherContrastColour}">
             ${colour.rgb}</div>

@@ -9,6 +9,7 @@ import colourBoxView from "./views/colourBoxView.js";
 import btnView from "./views/btnView.js";
 import copyMessageView from "./views/copyMessageView.js";
 import likesView from "./views/likesView.js";
+import searchView from "./views/searchView.js";
 
 if (module.hot) module.hot.accept();
 
@@ -139,13 +140,18 @@ const controlLikesBtnClick = function () {
   if (!active) likesView.slideBtnOut();
 };
 
+const controlSearchClick = function () {
+  searchView.focusSearchBar();
+};
+
 const init = () => {
   generatorView.addHandlerRender(controlGenerator);
   generatorView.addHandlerClick(
     controlGenerator,
     controlColourCodeClick,
     controlCloseMessageClick,
-    controlLike
+    controlLike,
+    controlSearchClick
   );
   variationsView.addHandlerClick(controlPanelSlide, controlColourCodeClick);
   likesView.addHandlerClick(controlLikesBtnClick, controlSetNewColour);
