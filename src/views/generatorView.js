@@ -31,7 +31,8 @@ class GeneratorView extends View {
     codeClickHandler,
     closeClickHandler,
     likeClickHandler,
-    searchClickHandler
+    searchClickHandler,
+    searchCloseHandler
   ) {
     const renderMessage = this.renderMessage;
     this._parentEl.addEventListener(
@@ -42,7 +43,8 @@ class GeneratorView extends View {
         codeClickHandler,
         closeClickHandler,
         likeClickHandler,
-        searchClickHandler
+        searchClickHandler,
+        searchCloseHandler
       )
     );
   }
@@ -59,6 +61,12 @@ class GeneratorView extends View {
     );
   }
 
+  toggleSearch() {
+    this._parentEl
+      .querySelector(`.actions-container`)
+      .classList.toggle(`actions--active`);
+  }
+
   /**
    * Handles event delegation and calls the correct function
    * @param {func} pageClickHandler Handler function for when generator is clicked
@@ -73,14 +81,20 @@ class GeneratorView extends View {
     closeClickHandler,
     likeClickHandler,
     searchClickHandler,
+    searchCloseHandler,
     e
   ) {
     const textEl = e.target.closest(`.rgb-text, .hex-text`);
     const btnEl = e.target.closest(`.close`);
     const likeBtnEl = e.target.closest(`.heart`);
     const searchBarEl = e.target.closest(`.search-container`);
+    const searchBtnEl = e.target.closest(`svg`);
+    const close = searchBtnEl?.firstElementChild.href.baseVal.includes(`close`);
 
     e.stopPropagation();
+    if (close) {
+      return searchCloseHandler();
+    }
     if (searchBarEl) {
       return searchClickHandler();
     }

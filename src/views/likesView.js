@@ -69,6 +69,7 @@ class LikesView extends View {
     const mainColour = this._data.colour;
     const colours = this._data.colours;
     const active = this._data.active;
+    const searchFocused = this._data.searchFocused;
     this._parentEl = document.querySelector(`.likes-container`);
 
     const likesClass = `likes ${active ? `likes--active` : ``}`;
@@ -78,7 +79,7 @@ class LikesView extends View {
     const markup = `
         <div class="${likesClass}" 
         style="color: ${mainColour.higherContrastColour}">
-          <div class="btn btn--likes">
+          <div class="btn btn--likes ${searchFocused ? `hidden` : ``}">
             <svg style="fill: ${mainColour.higherContrastColour}">
               <use href="${icons}#icon-caret-${btnDirection}"></use>
             </svg>

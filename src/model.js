@@ -18,6 +18,7 @@ export const state = {
   tintsActive: false,
   shadesActive: false,
   likesActive: false,
+  searchFocused: false,
   likes: [],
 };
 
@@ -37,10 +38,9 @@ export const setShadesTints = function () {
     state.colour.rgb
   );
 
-  state.colour.name = getColourHue(state.colour.rgb)[
-    // Calculate variations and contrasts of main colour
-    (state.shades, state.tints)
-  ] = calculateShadesTints();
+  // state.colour.name = getColourHue(state.colour.rgb)
+  // Calculate variations and contrasts of main colour
+  [state.shades, state.tints] = calculateShadesTints();
   const contrasts = getRGBContrastValues(state.tints, state.shades);
 
   if (![...state.shades, ...state.tints].find((c) => c[1] > 7)) {
@@ -166,4 +166,8 @@ const setColourNames = () => {
   const names = colourNames;
   console.log(names);
   state.names = reader.readAsText(`data/colours.csv`);
+};
+
+export const toggleSearchFocused = () => {
+  state.searchFocused = !state.searchFocused;
 };
