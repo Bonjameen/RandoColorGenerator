@@ -24,6 +24,7 @@ class ButtonView extends View {
     const btnClassString = `btn btn--${type}s ${
       active ? `btn--${type}s__active` : ``
     }`;
+
     const markup = `
             <div class="${btnClassString}" data-type="${type}">
                 <span class="${type}s-text ${active ? `hidden` : ``}" 
@@ -54,7 +55,8 @@ class ButtonView extends View {
     setTimeout(() => {
       textEl.textContent = "";
       window.screen.width <= 768
-        ? (btn.style.color = colour.higherContrastColour)
+        ? (btn.style.color =
+            colour.higherContrastColour ?? colour.contrastColour)
         : ``;
     }, 1000);
   }

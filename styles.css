@@ -385,6 +385,15 @@ svg {
   .color-text {
     flex-direction: column;
   }
+
+  .search {
+    width: 25rem;
+  }
+
+  .search input {
+    font-size: 1.4rem;
+    width: 15rem;
+  }
 }
 
 @media (max-width: 48em) {
@@ -408,6 +417,37 @@ svg {
   .likes {
     width: 50%;
   }
+
+  .actions-container {
+    gap: 3.6rem;
+    width: 19rem;
+    justify-content: flex-start;
+  }
+
+  .actions--active {
+    width: 34rem;
+  }
+
+  .search {
+    gap: 0rem;
+    width: 4rem;
+    transition: width 1s;
+    opacity: 0.95;
+  }
+
+  .search input {
+    width: 0;
+    transition: width 1s;
+  }
+
+  .search--active {
+    width: 21rem;
+    gap: 1.2rem;
+  }
+
+  .search--active input {
+    width: 15rem;
+  }
 }
 
 @media (max-width: 34em) {
@@ -430,6 +470,13 @@ svg {
   .message {
     padding: 8.6rem 1.6rem 2.4rem;
   }
+
+  .actions-container {
+    width: 85%;
+    justify-content: space-between;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 @media (max-width: 20em) {
@@ -443,7 +490,7 @@ svg {
   }
 
   .btn {
-    z-index: 5000;
+    z-index: 100;
   }
 
   .btn--tints__active {
@@ -457,5 +504,9 @@ svg {
 
   .message {
     padding: 8.6rem 10% 2.4rem;
+  }
+
+  .search--active {
+    z-index: 500;
   }
 }

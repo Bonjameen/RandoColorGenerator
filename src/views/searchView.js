@@ -18,16 +18,24 @@ class SearchView extends View {
    */
   _generateMarkup() {
     const colour = this._data.colour;
+    const focused = this._data.focused;
     this._parentEl = document.querySelector(`.search-container`);
 
     const markup = `
             <form class="search-form">
-                <div class="search"  
-                        style="background-color: ${colour.lowerContrastColour.rgb};
-                                color: ${colour.lowerContrastColour.contrastColour}"
+                <div class="search ${focused ? `search--active` : ``}"  
+                        style="background-color: ${
+                          colour.lowerContrastColour.rgb
+                        };
+                                color: ${
+                                  colour.lowerContrastColour.contrastColour
+                                }"
                         >
                         <svg>
-                            <use href="${icons}#icon-search"></use>
+                            <use href=
+                            "${icons}#icon-${
+      focused ? `close` : `search`
+    }"></use>
                         </svg>
                         <input type="text"
                         placeholder="Enter rgb and hex code"></input>

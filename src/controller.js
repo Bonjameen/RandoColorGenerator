@@ -52,6 +52,7 @@ const controlGenerator = function () {
       shades,
       likes,
     });
+    likesView.update({ colour, colours: likes, active: likesActive });
     variationsView.update({
       colour,
       tints,
@@ -153,7 +154,38 @@ const controlLikesBtnClick = function () {
 };
 
 const controlSearchClick = function () {
+  !model.state.searchFocused ? generatorView.toggleSearch() : null;
+  !model.state.searchFocused ? model.toggleSearchFocused() : null;
+  const focused = model.state.searchFocused;
+  const colour = model.state.colour;
+  const likes = model.state.likes;
+
+  if (window.screen.width <= 320) {
+    likesView.update({
+      searchFocused: focused,
+      colour,
+      colours: likes,
+    });
+    likesView.slideBtnIn();
+  }
   searchView.focusSearchBar();
+  searchView.update({ colour, focused });
+};
+
+const controlSearchClose = function () {
+  model.toggleSearchFocused();
+  const focused = model.state.searchFocused;
+  const colour = model.state.colour;
+  const likes = model.state.likes;
+  searchView.update({ colour, focused });
+  if (window.screen.width <= 320) {
+    likesView.update({
+      searchFocused: focused,
+      colour,
+      colours: likes,
+    });
+    likesView.slideBtnOut();
+  }
 };
 
 const init = () => {
@@ -163,7 +195,8 @@ const init = () => {
     controlColourCodeClick,
     controlCloseMessageClick,
     controlLike,
-    controlSearchClick
+    controlSearchClick,
+    controlSearchClose
   );
   generatorView.addHandlerSubmit(controlSetNewColour);
   variationsView.addHandlerClick(controlPanelSlide, controlColourCodeClick);
