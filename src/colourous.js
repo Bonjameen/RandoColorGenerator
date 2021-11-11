@@ -90,6 +90,18 @@ class Colourous {
           .map((val) => this._round(Number(val)));
   }
 
+  getHexHueList(colour) {
+    return colour instanceof Array
+      ? colour
+      : colour
+          .slice(1)
+          .split(``)
+          .reduce((acc, val, i) => {
+            i % 2 === 0 ? acc.push(val) : (acc[Math.floor(i / 2)] += val);
+            return acc;
+          }, []);
+  }
+
   /**
    * Converts a list of rgb hue values, to a string of format `rgb(redVal, blueVal, greenVal)`
    * @param {string[]} colour The list of hue values to convert to a string
@@ -114,6 +126,24 @@ class Colourous {
     )}`;
     if (hex.includes(`undefined`)) console.error(`💥💥💥 ${hex}, ${hueList}`);
     return hex;
+  }
+
+  convertHexToRGB(colour) {
+    const hexHueList = this.getHexHueList(colour);
+
+    return `rgb(${hexHueList.reduce((acc, val) => {
+      acc.push(
+        val
+          .split(``)
+          .reverse()
+          .reduce(
+            (acc, digit, i) =>
+              acc + this.#decToHex.indexOf(digit.toUpperCase()) * 16 ** i,
+            0
+          )
+      );
+      return acc;
+    }, [])})`;
   }
 
   // Maths
