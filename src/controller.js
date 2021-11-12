@@ -66,6 +66,7 @@ const controlGenerator = function () {
 const controlSetNewColour = function (code, search = false) {
   const isHex = search ? validateHex(code) : false;
   const isRGB = isHex ? false : validateRGB(code);
+  model.state.searchFocused && model.toggleSearchFocused();
 
   if (search && !isHex && !isRGB) {
     console.error(`💥💥💥 invalid colour code`);
@@ -93,7 +94,7 @@ const controlSetNewColour = function (code, search = false) {
     tintsActive,
     shadesActive,
   });
-  likesView.update({ colour, colours: likes, active: false });
+  likesView.render({ colour, colours: likes, active: false });
 };
 
 const controlPanelSlide = function (type) {

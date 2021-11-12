@@ -39,6 +39,7 @@ class SearchView extends View {
                         </svg>
                         <input type="text"
                         placeholder="Enter rgb and hex code"></input>
+                        <input type="submit" style="display: none" />
                         </div>
             </form>`;
     return markup;
