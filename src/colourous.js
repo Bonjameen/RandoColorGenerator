@@ -273,9 +273,18 @@ class Colourous {
     const [R, G, B] = hueList.map((hue) => hue / 255);
     const max = Math.max(R, G, B);
     const min = Math.min(R, G, B);
-    if (Math.max(R, G, B) === R) return (G - B) / (max - min);
-    if (Math.max(R, G, B) === G) return 2 + (B - R) / (max - min);
-    return 4 + (R - G) / (max - min);
+    let hue;
+    if (max === R) {
+      hue = ((G - B) / (max - min)) * 60;
+    }
+    if (max === G) {
+      hue = 2 + ((B - R) / (max - min)) * 60;
+    }
+    if (max === B) {
+      hue = 4 + (R - G) / (max - min);
+    }
+
+    return hue < 0 ? hue + 360 : hue;
   }
 
   /**
