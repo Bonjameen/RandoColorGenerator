@@ -424,12 +424,8 @@ svg {
 
   .actions-container {
     gap: 3.6rem;
-    width: 19rem;
-    justify-content: flex-start;
-  }
-
-  .actions--active {
     width: 34rem;
+    justify-content: flex-start;
   }
 
   .search {
