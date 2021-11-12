@@ -63,17 +63,26 @@ const controlGenerator = function () {
   }
 };
 
-const controlSetNewColour = function (code, search = false) {
-  const isHex = search ? validateHex(code) : false;
+const controlSearchSubmit = function (code) {
+  const isHex = validateHex(code);
   const isRGB = isHex ? false : validateRGB(code);
   model.state.searchFocused && model.toggleSearchFocused();
 
-  if (search && !isHex && !isRGB) {
+  if (!isHex && !isRGB) {
     console.error(`💥💥💥 invalid colour code`);
     return;
   }
+
+  searchView.clear();
+
   const hex = isHex ? code : model.getHexFromRGB(code);
   const rgb = isRGB ? code : model.getRGBFromHex(code);
+
+  controlSetNewColour(rgb, hex);
+};
+
+const controlSetNewColour = function (rgb, hex = null) {
+  hex = hex ? model.getHexFromRGB(rgb) : null;
   model.setNewColour([rgb, hex]);
   const tints = model.state.tints;
   const shades = model.state.shades;
@@ -199,7 +208,7 @@ const init = () => {
     controlSearchClick,
     controlSearchClose
   );
-  generatorView.addHandlerSubmit(controlSetNewColour);
+  generatorView.addHandlerSubmit(controlSearchSubmit);
   variationsView.addHandlerClick(controlPanelSlide, controlColourCodeClick);
   likesView.addHandlerClick(controlLikesBtnClick, controlSetNewColour);
   model.retrieveLikes();

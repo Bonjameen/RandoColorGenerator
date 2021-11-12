@@ -8,7 +8,12 @@ class SearchView extends View {
 
   focusSearchBar() {
     this._parentEl = document.querySelector(`.search-container`);
-    this._parentEl.querySelector(`input`).focus();
+    this._parentEl.querySelector(`.code-search`).focus();
+  }
+
+  clear() {
+    this._parentEl = document.querySelector(`.search-container`);
+    this._parentEl.querySelector(`.code-search`).value = ``;
   }
 
   /**
@@ -37,7 +42,7 @@ class SearchView extends View {
       focused ? `close` : `search`
     }"></use>
                         </svg>
-                        <input type="text"
+                        <input class="code-search" type="text"
                         placeholder="Enter rgb and hex code"></input>
                         <input type="submit" style="display: none" />
                         </div>
