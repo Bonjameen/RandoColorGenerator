@@ -27,7 +27,6 @@ export const state = {
 export const setNewColour = function (colour = null) {
   [state.colour.rgb, state.colour.hex] =
     colour ?? colourous.generateRandomColour();
-  setMainColourName();
   setShadesTints();
 };
 
