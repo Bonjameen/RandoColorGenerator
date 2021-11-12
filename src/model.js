@@ -12,6 +12,7 @@ export const state = {
     higherContrastColour: ``,
     lowerContrastColour: { rgb: ``, contrastColour: `` },
     luminance: ``,
+    name: ``,
   },
   tints: [],
   shades: [],
@@ -20,6 +21,7 @@ export const state = {
   likesActive: false,
   searchFocused: false,
   likes: [],
+  names: [],
 };
 
 export const setNewColour = function (colour = null) {
@@ -162,11 +164,18 @@ const getColourHue = (code) => {
   return colourous.generateHueNumber(code);
 };
 
-const setColourNames = () => {
-  const names = colourNames;
-  console.log(names);
-  state.names = reader.readAsText(`data/colours.csv`);
-};
+// export const setColourNames = () => {
+//   const names = colourNames;
+//   state.names = names;
+//   console.log(state.names);
+// };
+
+// const setMainColourName = () => {
+//   const hueNum = Math.min(getColourHue(state.colour.rgb) * 2, 677);
+//   console.log(hueNum);
+//   state.colour.name = state.names[hueNum];
+//   console.log(state.colour.name);
+// };
 
 export const toggleSearchFocused = () => {
   state.searchFocused = !state.searchFocused;

@@ -6,3 +6,4 @@ node_modules
 
 # Distribution folder
 dist
+src/data/colourValues.json

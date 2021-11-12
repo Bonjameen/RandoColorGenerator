@@ -57,7 +57,7 @@ class LikesView extends View {
 
   slideBtnOut() {
     const textEl = document.querySelector(`.likes-text`);
-    textEl.textContent = "Your Likes";
+    textEl.textContent = "Likes";
   }
 
   /**
@@ -83,7 +83,7 @@ class LikesView extends View {
             <svg style="fill: ${mainColour.higherContrastColour}">
               <use href="${icons}#icon-caret-${btnDirection}"></use>
             </svg>
-            <span class="likes-text ${active ? `hidden` : ``}">Your likes</span>
+            <span class="likes-text ${active ? `hidden` : ``}">Likes</span>
           </div>
           <div class="colours-container"
               ${
