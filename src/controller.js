@@ -82,7 +82,7 @@ const controlSearchSubmit = function (code) {
 };
 
 const controlSetNewColour = function (rgb, hex = null) {
-  hex = hex ? model.getHexFromRGB(rgb) : null;
+  hex = hex ? hex : model.getHexFromRGB(rgb);
   model.setNewColour([rgb, hex]);
   const tints = model.state.tints;
   const shades = model.state.shades;
