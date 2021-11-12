@@ -178,7 +178,7 @@ svg {
   width: 2.8rem;
 }
 
-.search input {
+.code-search {
   border: none;
   background-color: inherit;
   color: inherit;
@@ -186,7 +186,7 @@ svg {
   width: 19.4rem;
 }
 
-.search input:focus {
+.code-search:focus {
   outline: none;
 }
 
@@ -390,7 +390,7 @@ svg {
     width: 25rem;
   }
 
-  .search input {
+  .code-search {
     font-size: 1.4rem;
     width: 15rem;
   }
@@ -435,7 +435,7 @@ svg {
     opacity: 0.95;
   }
 
-  .search input {
+  .code-search {
     width: 0;
     transition: width 1s;
   }
@@ -445,7 +445,7 @@ svg {
     gap: 1.2rem;
   }
 
-  .search--active input {
+  .search--active .code-search {
     width: 15rem;
   }
 }
