@@ -7,7 +7,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import colourBoxView from "./views/colourBoxView.js";
 import btnView from "./views/btnView.js";
-import copyMessageView from "./views/copyMessageView.js";
+import messageView from "./views/messageView.js";
 import likesView from "./views/likesView.js";
 import searchView from "./views/searchView.js";
 
@@ -69,7 +69,9 @@ const controlSearchSubmit = function (code) {
   model.state.searchFocused && model.toggleSearchFocused();
 
   if (!isHex && !isRGB) {
-    console.error(`💥💥💥 invalid colour code`);
+    const colour = model.state.colour;
+    const data = { colour, isError: true };
+    messageView.update(data);
     return;
   }
 
@@ -129,12 +131,12 @@ const controlPanelSlide = function (type) {
 const controlColourCodeClick = function (code) {
   const colour = model.state.colour;
   const data = { colour, code };
-  copyMessageView.update(data);
-  model.state.copyMessageTimeout = setTimeout(copyMessageView.close, 6000);
+  messageView.update(data);
+  model.state.messageTimeout = setTimeout(messageView.close, 6000);
 };
 
 const controlCloseMessageClick = function () {
-  copyMessageView.close(model.state.copyMessageTimeout);
+  messageView.close(model.state.messageTimeout);
 };
 
 const controlLike = function () {

@@ -3,7 +3,7 @@
 import View from "./View";
 import icons from "url:../img/icons.svg";
 
-class CopyMessageView extends View {
+class MessageView extends View {
   _parentEl;
 
   /**
@@ -12,10 +12,12 @@ class CopyMessageView extends View {
    * @author Ben Pinner
    */
   close(timeoutFunc = null) {
-    this._parentEl = document.querySelector(`.copy-message-container`);
-    const message = this._parentEl.querySelector(`.copy-message`);
+    this._parentEl = document.querySelector(`.message-container`);
+    const message = this._parentEl.querySelector(`.message-body`);
     if (timeoutFunc) clearTimeout(timeoutFunc);
-    message.classList.toggle(`copy-message--active`);
+    message.classList.contains(`message-body--active`)
+      ? message.classList.remove(`message-body--active`)
+      : message.classList.remove(`message-body--error`);
     message.classList.toggle(`hidden`);
   }
 
@@ -27,19 +29,28 @@ class CopyMessageView extends View {
   _generateMarkup() {
     const colour = this._data.colour;
     const code = this._data.code;
-    this._parentEl = document.querySelector(`.copy-message-container`);
+    const isError = this._data.isError;
+    this._parentEl = document.querySelector(`.message-container`);
+
+    const iconId = isError ? `icon-close` : `icon-double-check`;
 
     const markup = `
         <div 
           class="
-          copy-message 
-          ${code ? `copy-message--active` : `hidden`}" 
+          message-body 
+          ${
+            code
+              ? `message-body--active`
+              : isError
+              ? `message-body--error`
+              : `hidden`
+          }" 
           style="
           background-color: ${colour.lowerContrastColour.rgb}; 
           color: ${colour.lowerContrastColour.contrastColour};
           border-top-color: ${colour.lowerContrastColour.contrastColour}">
             <svg>
-                <use href="${icons}#icon-double-check"></use>
+                <use href="${icons}#${iconId}"></use>
             </svg>
             <p>${code} copied to clipboard</p>
             <p class="close">close</p>
@@ -48,4 +59,4 @@ class CopyMessageView extends View {
   }
 }
 
-export default new CopyMessageView();
+export default new MessageView();

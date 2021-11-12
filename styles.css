@@ -44,7 +44,7 @@ svg {
   font-size: 2rem;
 }
 
-.copy-message {
+.message-body {
   position: absolute;
   bottom: 5rem;
   left: 50%;
@@ -61,8 +61,13 @@ svg {
   z-index: 2000;
 }
 
-.copy-message--active {
+.message-body--active,
+.message-body--error {
   animation: moveInUp 1s ease-out;
+}
+
+.message-body--error svg {
+  color: #ff3540;
 }
 
 .close {

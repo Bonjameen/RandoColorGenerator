@@ -1,7 +1,7 @@
 `use strict`;
 
 import icons from "url:../img/icons.svg";
-import copyMessageView from "./copyMessageView";
+import messageView from "./messageView";
 import likesView from "./likesView";
 import searchView from "./searchView";
 import variationsView from "./variationsView";
@@ -156,8 +156,8 @@ class GeneratorView extends View {
             <div class="hex-text" style="color: ${colour.higherContrastColour}">
             ${colour.hex}</div>
           </div>
-          <div class="copy-message-container">
-            ${copyMessageView.render(copyData, false)}
+          <div class="message-container">
+            ${messageView.render(copyData, false)}
           </div>
         </div>`;
   }
