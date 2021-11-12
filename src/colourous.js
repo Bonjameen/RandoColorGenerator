@@ -204,6 +204,25 @@ class Colourous {
     );
   }
 
+  // If Luminance is less or equal to 0.5, then Saturation = (max-min)/(max+min)
+  // If Luminance is bigger then 0.5. then Saturation = ( max-min)/(2.0-max-min)
+
+  /**
+   * Calculates the saturation value of a specific colour
+   * @param {Object} colour The colour to calculate saturation for
+   * @returns {number} The saturation of the colour
+   * @author Ben Pinner
+   */
+  calculateSaturation(colour) {
+    const hueList = this.getHueList(colour.rgb);
+    const luminance = colour.luminance;
+    const max = Math.max(hueList);
+    const min = Math.min(hueList);
+    return luminance <= 0.5
+      ? (max - min) / (max + min)
+      : (max - min) / (2 - max - min);
+  }
+
   /**
    * Takes a colour and generates a list of tints and a list of shades
    * @param {string | number[]} colour The colour to generate shades and tints for, either in form `rgb(red,greeb,blue)` or [red,green,blue]
@@ -268,6 +287,12 @@ class Colourous {
   // If Green is max, then Hue = 2.0 + (B-R)/(max-min)
   // If Blue is max, then Hue = 4.0 + (R-G)/(max-min)
 
+  /**
+   * Generates a hue number for a colour
+   * @param {string|number[]} colour The colour calculate the hue number for
+   * @returns {number} The hue number
+   * @author Ben Pinner
+   */
   generateHueNumber(colour) {
     const hueList = this.getHueList(colour);
     const [R, G, B] = hueList.map((hue) => hue / 255);
@@ -284,7 +309,7 @@ class Colourous {
       hue = 4 + (R - G) / (max - min);
     }
 
-    return hue < 0 ? hue + 360 : hue;
+    return Math.round(hue < 0 ? hue + 360 : hue);
   }
 
   /**

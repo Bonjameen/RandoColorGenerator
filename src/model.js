@@ -165,16 +165,18 @@ const getColourHue = (code) => {
   return colourous.generateHueNumber(code);
 };
 
-export const setColourNames = () => {
-  const names = colourNames;
-  state.names = names;
-  console.log(state.names);
-};
+// export const setColourNames = () => {
+//   const names = colourNames;
+//   state.names = names;
+//   console.log(state.names);
+// };
 
-const setMainColourName = () => {
-  const hueNum = getColourHue(state.colour.rgb);
-  state.colour.name = state.names[hueNum];
-};
+// const setMainColourName = () => {
+//   const hueNum = Math.min(getColourHue(state.colour.rgb) * 2, 677);
+//   console.log(hueNum);
+//   state.colour.name = state.names[hueNum];
+//   console.log(state.colour.name);
+// };
 
 export const toggleSearchFocused = () => {
   state.searchFocused = !state.searchFocused;

@@ -212,7 +212,6 @@ const init = () => {
   variationsView.addHandlerClick(controlPanelSlide, controlColourCodeClick);
   likesView.addHandlerClick(controlLikesBtnClick, controlSetNewColour);
   model.retrieveLikes();
-  model.setColourNames();
 };
 init();
 
