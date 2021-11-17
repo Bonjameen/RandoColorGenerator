@@ -7,13 +7,13 @@ class SearchView extends View {
   _parentEl;
 
   focusSearchBar() {
-    this._parentEl = document.querySelector(`.search-container`);
-    this._parentEl.querySelector(`.code-search`).focus();
+    this._parentEl = document.querySelector(`.search`);
+    this._parentEl.querySelector(`.search__input`).focus();
   }
 
   clear() {
-    this._parentEl = document.querySelector(`.search-container`);
-    this._parentEl.querySelector(`.code-search`).value = ``;
+    this._parentEl = document.querySelector(`.search`);
+    this._parentEl.querySelector(`.search__input`).value = ``;
   }
 
   /**
@@ -24,11 +24,13 @@ class SearchView extends View {
   _generateMarkup() {
     const colour = this._data.colour;
     const focused = this._data.focused;
-    this._parentEl = document.querySelector(`.search-container`);
+    this._parentEl = document.querySelector(`.search`);
 
     const markup = `
-            <form class="search-form">
-                <div class="search ${focused ? `search--active` : ``}"  
+            <form class="search__form">
+                <article class="search__article ${
+                  focused ? `search__article--active` : ``
+                }"  
                         style="background-color: ${
                           colour.lowerContrastColour.rgb
                         };
@@ -42,7 +44,7 @@ class SearchView extends View {
       focused ? `close` : `search`
     }"></use>
                         </svg>
-                        <input class="code-search" type="text"
+                        <input class="search__input" type="text"
                         placeholder="Enter rgb and hex code"></input>
                         <input type="submit" style="display: none" />
                         </div>

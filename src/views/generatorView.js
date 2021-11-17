@@ -8,7 +8,7 @@ import variationsView from "./variationsView";
 import View from "./View";
 
 class GeneratorView extends View {
-  _parentEl = document.querySelector(`.container`);
+  _parentEl = document.querySelector(`.generator`);
 
   /**
    * Triggers handler function when the window has loaded
@@ -63,8 +63,8 @@ class GeneratorView extends View {
 
   toggleSearch() {
     this._parentEl
-      .querySelector(`.actions-container`)
-      .classList.toggle(`actions--active`);
+      .querySelector(`.generator__actions`)
+      .classList.toggle(`generator__actions--active`);
   }
 
   /**
@@ -87,9 +87,10 @@ class GeneratorView extends View {
     const textEl = e.target.closest(`.rgb-text, .hex-text`);
     const btnEl = e.target.closest(`.close`);
     const likeBtnEl = e.target.closest(`.heart`);
-    const searchBarEl = e.target.closest(`.search-container`);
-    const searchBtnEl = e.target.closest(`svg`);
-    const close = searchBtnEl?.firstElementChild.href.baseVal.includes(`close`);
+    const searchBarEl = e.target.closest(`.search`);
+    const close = searchBarEl
+      ?.querySelector(`use`)
+      .href.baseVal.includes(`close`);
 
     e.stopPropagation();
     if (close) {
@@ -120,7 +121,7 @@ class GeneratorView extends View {
    */
   _handleSubmit(handler, e) {
     e.preventDefault();
-    const searchBarEl = e.target.closest(`.search-form`);
+    const searchBarEl = e.target.closest(`.search__form`);
 
     e.stopPropagation();
     if (searchBarEl) {
@@ -139,16 +140,15 @@ class GeneratorView extends View {
     const likes = this._data.likes;
     const copyData = { colour, code: null };
     return `
-        <div class="generator" style="background-color: ${colour.rgb}">
-          <div class="message" style="color: ${
+        <article class="generator__article" style="background-color: ${
+          colour.rgb
+        }">
+          <div class="generator__message" style="color: ${
             colour.higherContrastColour
           }">Click the screen to generate a new colour</div>
-          <div class="actions-container">
+          <div class="generator__actions">
             ${this._generateLikeButtonMarkup(likes, colour)}
-            <div class="search-container">${searchView.render(
-              { colour },
-              false
-            )}</div>
+            <div class="search">${searchView.render({ colour }, false)}</div>
           </div>
           <div class="color-text" style="opacity: 0.6, color: ${colour.rgb}">
             <div class="rgb-text" style="color: ${colour.higherContrastColour}">
@@ -159,7 +159,7 @@ class GeneratorView extends View {
           <div class="copy-message-container">
             ${copyMessageView.render(copyData, false)}
           </div>
-        </div>`;
+        </article>`;
   }
 
   _generateLikeButtonMarkup(likes, colour) {

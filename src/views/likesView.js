@@ -5,7 +5,7 @@ import icons from "url:../img/icons.svg";
 import colourBoxView from "./colourBoxView";
 
 class LikesView extends View {
-  _parentEl = document.querySelector(`.likes-container`);
+  _parentEl = document.querySelector(`.likes`);
 
   /**
    * Triggers handler function when the generator, colour code, or close button is clicked
@@ -70,14 +70,14 @@ class LikesView extends View {
     const colours = this._data.colours;
     const active = this._data.active;
     const searchFocused = this._data.searchFocused;
-    this._parentEl = document.querySelector(`.likes-container`);
+    this._parentEl = document.querySelector(`.likes`);
 
-    const likesClass = `likes ${active ? `likes--active` : ``}`;
+    const likesClass = `likes__article ${active ? `likes--active` : ``}`;
 
     const btnDirection = active ? `up` : `down`;
 
     const markup = `
-        <div class="${likesClass}" 
+        <article class="${likesClass}" 
         style="color: ${mainColour.higherContrastColour}">
           <div class="btn btn--likes ${searchFocused ? `hidden` : ``}">
             <svg style="fill: ${mainColour.higherContrastColour}">
@@ -95,7 +95,8 @@ class LikesView extends View {
               ${this._generateLikeBoxes(colours, active)}
             </div>
           </div>
-        </div>`;
+        </article>`;
+    console.log(markup);
     return markup;
   }
 
