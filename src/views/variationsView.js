@@ -38,8 +38,8 @@ class VariationsView extends View {
     const target = e.target;
     const btnEl = target.closest(`.btn`);
     const textEl = target.closest(`.rgb-text, .hex-text`);
+    e.stopPropagation();
     if (btnEl) {
-      e.stopPropagation();
       const type = [...btnEl.classList]
         .find(
           (className) =>
@@ -50,7 +50,6 @@ class VariationsView extends View {
       btnClickHandler(type);
     }
     if (textEl) {
-      e.stopPropagation();
       codeClickHandler(textEl.innerText);
     }
   }

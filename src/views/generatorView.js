@@ -85,8 +85,8 @@ class GeneratorView extends View {
     e
   ) {
     const textEl = e.target.closest(`.rgb-text, .hex-text`);
-    const btnEl = e.target.closest(`.close`);
-    const likeBtnEl = e.target.closest(`.heart`);
+    const closeBtnEl = e.target.closest(`.close`);
+    const likeBtnEl = e.target.closest(`.actions__heart`);
     const searchBarEl = e.target.closest(`.search`);
     const close = searchBarEl
       ?.querySelector(`use`)
@@ -102,7 +102,7 @@ class GeneratorView extends View {
     if (textEl) {
       return codeClickHandler(textEl.innerText);
     }
-    if (btnEl) {
+    if (closeBtnEl) {
       return closeClickHandler();
     }
     if (likeBtnEl) {
@@ -150,13 +150,15 @@ class GeneratorView extends View {
             ${this._generateLikeButtonMarkup(likes, colour)}
             <div class="search">${searchView.render({ colour }, false)}</div>
           </div>
-          <div class="color-text" style="opacity: 0.6, color: ${colour.rgb}">
+          <div class="generator__text-box" style="opacity: 0.6, color: ${
+            colour.rgb
+          }">
             <div class="rgb-text" style="color: ${colour.higherContrastColour}">
             ${colour.rgb}</div>
             <div class="hex-text" style="color: ${colour.higherContrastColour}">
             ${colour.hex}</div>
           </div>
-          <div class="copy-message-container">
+          <div class="copy-message">
             ${copyMessageView.render(copyData, false)}
           </div>
         </article>`;
@@ -164,11 +166,11 @@ class GeneratorView extends View {
 
   _generateLikeButtonMarkup(likes, colour) {
     const markup = likes?.some((like) => like.rgb === colour.rgb)
-      ? `<svg class="heart heart--full" viewBox="0 0 32 32" style="fill: 
+      ? `<svg class="actions__heart actions__heart--full" viewBox="0 0 32 32" style="fill: 
           ${colour.higherContrastColour}">
           <use href="${icons}#icon-heart-filled"></use>
         </svg>`
-      : `<svg class="heart heart--outline" viewBox="0 0 32 32" style="color: 
+      : `<svg class="actions__heart action__heart--outline" viewBox="0 0 32 32" style="color: 
         ${colour.higherContrastColour}">
         <use href="${icons}#icon-heart-outline"></use>
       </svg>`;

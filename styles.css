@@ -44,7 +44,7 @@ svg {
   font-size: 2rem;
 }
 
-.copy-message {
+.copy-message__aside {
   position: absolute;
   bottom: 5rem;
   left: 50%;
@@ -61,7 +61,7 @@ svg {
   z-index: 2000;
 }
 
-.copy-message--active {
+.copy-message__aside--active {
   animation: moveInUp 1s ease-out;
 }
 
@@ -74,7 +74,7 @@ svg {
   cursor: pointer;
 }
 
-.color-text {
+.generator__text-box {
   font-size: 3.4rem;
   position: absolute;
   bottom: 5%;
@@ -155,7 +155,7 @@ svg {
   width: 31%;
 }
 
-.heart {
+.actions__heart {
   cursor: pointer;
 }
 
@@ -381,7 +381,7 @@ svg {
   .tint {
     flex-direction: column;
   }
-  .color-text {
+  .generator__text-box {
     flex-direction: column;
   }
 
@@ -458,7 +458,7 @@ svg {
     right: -80%;
   }
 
-  .color-text {
+  .generator__text-box {
     width: 80%;
   }
 
