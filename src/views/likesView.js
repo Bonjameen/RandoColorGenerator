@@ -98,7 +98,6 @@ class LikesView extends View {
             </div>
           </div>
         </article>`;
-    console.log(markup);
     return markup;
   }
 

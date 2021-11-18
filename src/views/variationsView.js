@@ -21,7 +21,7 @@ class VariationsView extends View {
     // const buttonName = children
     //   .find((child) => child.classList.contains(`arrow`))
     //   .name.split(`-`)[1];
-    button.classList.toggle(`btn--${type}s__active`);
+    button.classList.toggle(`btn--active`);
     children.find((child) =>
       child.classList.contains(`arrow`)
     ).name = `chevron-${buttonName === `forward` ? `back` : `forward`}-outline`;
