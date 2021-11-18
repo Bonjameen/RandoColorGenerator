@@ -42,12 +42,12 @@ class LikesView extends View {
   }
 
   setScrollbar() {
-    var coloursEl = document.querySelector(".colours-container");
+    var coloursEl = document.querySelector(".likes__colours");
     coloursEl.scrollTop = coloursEl.scrollHeight;
   }
 
   slideBtnIn() {
-    const textEl = document.querySelector(`.likes-text`);
+    const textEl = document.querySelector(`.btn--likes-text`);
 
     // After a second, delete the content of textEl
     setTimeout(() => {
@@ -56,7 +56,7 @@ class LikesView extends View {
   }
 
   slideBtnOut() {
-    const textEl = document.querySelector(`.likes-text`);
+    const textEl = document.querySelector(`.btn--likes-text`);
     textEl.textContent = "Likes";
   }
 
@@ -72,7 +72,9 @@ class LikesView extends View {
     const searchFocused = this._data.searchFocused;
     this._parentEl = document.querySelector(`.likes`);
 
-    const likesClass = `likes__article ${active ? `likes--active` : ``}`;
+    const likesClass = `likes__article ${
+      active ? `likes__article--active` : ``
+    }`;
 
     const btnDirection = active ? `up` : `down`;
 
@@ -83,9 +85,9 @@ class LikesView extends View {
             <svg style="fill: ${mainColour.higherContrastColour}">
               <use href="${icons}#icon-caret-${btnDirection}"></use>
             </svg>
-            <span class="likes-text ${active ? `hidden` : ``}">Likes</span>
+            <span class="btn--likes-text ${active ? `hidden` : ``}">Likes</span>
           </div>
-          <div class="colours-container"
+          <div class="likes__colours"
               ${
                 colours.length >= 8
                   ? `style="height: calc((100vh / 9) * 8)"`
@@ -107,7 +109,7 @@ class LikesView extends View {
         const index = i;
         const data = { colour, index, type, active };
         return `
-          <div class="shade-container" data-index="${index}" data-type="like">
+          <div class="colour" data-index="${index}" data-type="like">
             ${colourBoxView.render(data, false)}
           </div>`;
       })

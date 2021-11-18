@@ -150,7 +150,7 @@ class GeneratorView extends View {
             ${this._generateLikeButtonMarkup(likes, colour)}
             <div class="search">${searchView.render({ colour }, false)}</div>
           </div>
-          <div class="generator__text-box" style="opacity: 0.6, color: ${
+          <div class="generator__text-box" style="opacity: 0.6; color: ${
             colour.rgb
           }">
             <div class="rgb-text" style="color: ${colour.higherContrastColour}">

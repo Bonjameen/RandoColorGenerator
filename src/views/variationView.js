@@ -24,7 +24,7 @@ class VariationView extends View {
         ${colours
           .map(
             (colour, i) => `
-            <div class="shade-container" data-index="${i}" data-type="${type}">
+            <div class="colour" data-index="${i}" data-type="${type}">
                 ${colourBoxView.render(
                   { colour, type, index: i, active },
                   false

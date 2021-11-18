@@ -82,6 +82,7 @@ const controlSearchSubmit = function (code) {
 };
 
 const controlSetNewColour = function (rgb, hex = null) {
+  model.state.likesActive ? model.toggleLikesActive() : null;
   hex = hex ? hex : model.getHexFromRGB(rgb);
   model.setNewColour([rgb, hex]);
   const tints = model.state.tints;

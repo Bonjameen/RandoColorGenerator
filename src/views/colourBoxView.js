@@ -15,11 +15,9 @@ class ColourBoxView extends View {
     const index = this._data.index;
     const type = this._data.type;
     const activeClass = this._data.active ? `${type}--active` : ``;
-    this._parentEl = [...document.querySelectorAll(`.shade-container`)].find(
-      (el) => {
-        return +el.dataset.index === index && el.dataset.type === type;
-      }
-    );
+    this._parentEl = [...document.querySelectorAll(`.colour`)].find((el) => {
+      return +el.dataset.index === index && el.dataset.type === type;
+    });
     const markup = `
         <div class="${type} ${activeClass}" 
             data-index="${index}" 
