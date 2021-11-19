@@ -18,7 +18,7 @@ class VariationView extends View {
 
     const markup = `
     <div class="${type}s">
-        <div class="btn--${type}s__container">
+        <div class="btn__container">
         ${btnView.render({ colour, type, active }, false)}
         </div>
         ${colours

@@ -99,7 +99,7 @@ svg {
   font-weight: 500;
   z-index: 10;
 
-  transition: all 1s;
+  transition: transform 1s;
 }
 
 .likes__article--active {
@@ -110,7 +110,7 @@ svg {
 }
 
 .btn--likes-text {
-  transition: all 1s;
+  transition: opacity 1s;
 }
 
 .likes__colours {
@@ -273,7 +273,7 @@ svg {
   left: 50%;
   transform: translate(-50%, 100%);
   padding-top: 0.6rem;
-  flex-direction: column;
+  flex-direction: column-reverse;
   text-align: center;
   cursor: pointer;
 }
@@ -299,15 +299,14 @@ svg {
   cursor: pointer !important;
 }
 
-.btn--tints__active {
+.btn--tints.btn--active {
   right: -100%;
 }
-.btn--shades__active {
+.btn--shades.btn--active {
   left: -100%;
 }
 
-.tints-text,
-.shades-text {
+.btn__text {
   transition: all 1s;
 }
 
@@ -401,11 +400,11 @@ svg {
     width: 50%;
   }
 
-  .btn--shades__active {
+  .btn--shades.btn--active {
     left: -85%;
   }
 
-  .btn--tints__active {
+  .btn--tints.btn--active {
     right: -85%;
   }
 
@@ -450,11 +449,11 @@ svg {
 }
 
 @media (max-width: 34em) {
-  .btn--shades__active {
+  .btn--shades.btn--active {
     left: -80%;
   }
 
-  .btn--tints__active {
+  .btn--tints.btn--active {
     right: -80%;
   }
 
@@ -492,11 +491,11 @@ svg {
     z-index: 100;
   }
 
-  .btn--tints__active {
+  .btn--tints.btn--active {
     right: -75%;
     /* transform: translateX(100%); */
   }
-  .btn--shades__active {
+  .btn--shades.btn--active {
     left: -75%;
     /* transform: translateX(-100%); */
   }

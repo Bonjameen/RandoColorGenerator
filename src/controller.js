@@ -159,9 +159,9 @@ const controlLikesBtnClick = function () {
   const colours = model.state.likes;
   const active = model.state.likesActive;
   const data = { colour, colours, active };
-  if (active) likesView.slideBtnIn();
+  if (active) btnView.slideBtnIn(`like`, colour);
   likesView.update(data);
-  if (!active) likesView.slideBtnOut();
+  if (!active) btnView.slideBtnOut(`like`, colour);
 };
 
 const controlSearchClick = function () {

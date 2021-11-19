@@ -3,6 +3,7 @@
 import View from "./View";
 import icons from "url:../img/icons.svg";
 import colourBoxView from "./colourBoxView";
+import btnView from "./btnView";
 
 class LikesView extends View {
   _parentEl = document.querySelector(`.likes`);
@@ -46,20 +47,6 @@ class LikesView extends View {
     coloursEl.scrollTop = coloursEl.scrollHeight;
   }
 
-  slideBtnIn() {
-    const textEl = document.querySelector(`.btn--likes-text`);
-
-    // After a second, delete the content of textEl
-    setTimeout(() => {
-      textEl.textContent = "";
-    }, 1000);
-  }
-
-  slideBtnOut() {
-    const textEl = document.querySelector(`.btn--likes-text`);
-    textEl.textContent = "Likes";
-  }
-
   /**
    * Generates the html markup for the view
    * @returns {string} The html markup to render or update the view with
@@ -77,15 +64,18 @@ class LikesView extends View {
     }`;
 
     const btnDirection = active ? `up` : `down`;
+    const btnData = {
+      colour: mainColour,
+      type: `like`,
+      active,
+      hide: searchFocused,
+    };
 
     const markup = `
         <article class="${likesClass}" 
         style="color: ${mainColour.higherContrastColour}">
-          <div class="btn btn--likes ${searchFocused ? `hidden` : ``}">
-            <svg style="fill: ${mainColour.higherContrastColour}">
-              <use href="${icons}#icon-caret-${btnDirection}"></use>
-            </svg>
-            <span class="btn--likes-text ${active ? `hidden` : ``}">Likes</span>
+          <div class="btn__container">
+            ${btnView.render(btnData, false)}
           </div>
           <div class="likes__colours"
               ${
@@ -98,7 +88,6 @@ class LikesView extends View {
             </div>
           </div>
         </article>`;
-    console.log(markup);
     return markup;
   }
 

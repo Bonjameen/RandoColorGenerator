@@ -5,6 +5,11 @@ import icons from "url:../img/icons.svg";
 
 class ButtonView extends View {
   _parentEl;
+  _arrowDirs = {
+    tint: [`right`, `left`],
+    shade: [`left`, `right`],
+    like: [`down`, `up`],
+  };
 
   /**
    * Generates the html markup for the view
@@ -15,25 +20,27 @@ class ButtonView extends View {
     const colour = this._data.colour;
     const type = this._data.type;
     const active = this._data.active;
-    this._parentEl = document.querySelector(`.btn--${type}s__container`);
+    const hide = this._data.hide;
+    this._parentEl = document
+      .querySelector(`.btn--${type}s`)
+      ?.closest(`.btn__container`);
 
-    let arrowDir;
-    if (active) arrowDir = type === `tint` ? `left` : `right`;
-    else arrowDir = type === `tint` ? `right` : `left`;
+    const arrowIconId = this._generateButtonIconId(type, active);
 
-    const btnClassString = `btn btn--${type}s ${
-      active ? `btn--${type}s__active` : ``
+    const btnClassString = `btn btn--${type}s ${active ? `btn--active` : ``} ${
+      hide ? `hidden` : ``
     }`;
 
     const markup = `
             <div class="${btnClassString}" data-type="${type}">
-                <span class="${type}s-text ${active ? `hidden` : ``}" 
-                    style="color: ${colour.higherContrastColour};">
+                <span class="btn__text ${active ? `hidden` : ``}" 
+                    style="color: ${colour.higherContrastColour}">
                     ${type[0].toUpperCase()}${type.slice(1)}s
                 </span>
-                <svg class="arrow arrow__${type}s" viewBox="0 0 32 32" style="color: 
-                    ${colour.higherContrastColour}">
-                <use href="${icons}#icon-arrow-${arrowDir}"></use>
+                <svg class="btn__icon" viewBox="0 0 32 32" 
+                style="color: ${colour.higherContrastColour};
+                    fill: ${colour.higherContrastColour}">
+                <use href="${icons}#${arrowIconId}"></use>
             </svg>
             </div>`;
     return markup;
@@ -46,8 +53,11 @@ class ButtonView extends View {
    * @author Ben Pinner
    */
   slideBtnIn(type, colour) {
-    const textEl = document.querySelector(`.${type}s-text`);
-    const btn = document.querySelector(`.arrow__${type}s`);
+    this._parentEl = document
+      .querySelector(`.btn--${type}s`)
+      ?.closest(`.btn__container`);
+    const textEl = this._parentEl.querySelector(`.btn__text`);
+    const btn = this._parentEl.querySelector(`.btn__icon`);
 
     // After a second, delete the content of textEl
     // and if on mobile device, change the colour of
@@ -63,17 +73,25 @@ class ButtonView extends View {
 
   /**
    * Handles minor technical aspects of button animation to improve usability
-   * @param {"tint"|"shade"} type The type of panel that has been clicked
+   * @param {"tint"|"shade"|"like"} type The type of panel that has been clicked
    * @param {Object} colour The colour object that the button will overlay
    * @author Ben Pinner
    */
   slideBtnOut(type, colour) {
-    const textEl = document.querySelector(`.${type}s-text`);
-    const btn = document.querySelector(`.arrow__${type}s`);
+    this._parentEl = document
+      .querySelector(`.btn--${type}s`)
+      ?.closest(`.btn__container`);
+    const textEl = this._parentEl.querySelector(`.btn__text`);
+    const btn = this._parentEl.querySelector(`.btn__icon`);
 
     // Restore textEl content, and reset button colour
-    textEl.textContent = `${(type[0].toUpperCase(), type.slice(1))}s`;
+    textEl.textContent = `${type[0].toUpperCase()}${type.slice(1)}s`;
     btn.style.color = colour.higherContrastColour;
+  }
+
+  _generateButtonIconId(type, active) {
+    const iconId = type === `like` ? `icon-caret-` : `icon-arrow-`;
+    return iconId + this._arrowDirs[type][active ? 1 : 0];
   }
 }
 
