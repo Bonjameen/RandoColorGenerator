@@ -177,7 +177,7 @@ const controlSearchClick = function () {
       colour,
       colours: likes,
     });
-    likesView.slideBtnIn();
+    btnView.slideBtnIn(`like`, colour);
   }
   searchView.focusSearchBar();
   searchView.update({ colour, focused });
