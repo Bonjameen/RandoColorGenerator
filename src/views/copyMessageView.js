@@ -12,10 +12,10 @@ class CopyMessageView extends View {
    * @author Ben Pinner
    */
   close(timeoutFunc = null) {
-    this._parentEl = document.querySelector(`.copy-message`);
-    const message = this._parentEl.querySelector(`.copy-message__aside`);
+    this._parentEl = document.querySelector(`.popup`);
+    const message = this._parentEl.querySelector(`.popup__aside`);
     if (timeoutFunc) clearTimeout(timeoutFunc);
-    message.classList.toggle(`copy-message__aside--active`);
+    message.classList.toggle(`popup__aside--active`);
     message.classList.toggle(`hidden`);
   }
 
@@ -27,13 +27,13 @@ class CopyMessageView extends View {
   _generateMarkup() {
     const colour = this._data.colour;
     const code = this._data.code;
-    this._parentEl = document.querySelector(`.copy-message`);
+    this._parentEl = document.querySelector(`.popup`);
 
     const markup = `
         <aside 
           class="
-          copy-message__aside 
-          ${code ? `copy-message__aside--active` : `hidden`}" 
+          popup__aside 
+          ${code ? `popup__aside--active` : `hidden`}" 
           style="
           background-color: ${colour.lowerContrastColour.rgb}; 
           color: ${colour.lowerContrastColour.contrastColour};
@@ -42,7 +42,7 @@ class CopyMessageView extends View {
                 <use href="${icons}#icon-double-check"></use>
             </svg>
             <p>${code} copied to clipboard</p>
-            <p class="close">close</p>
+            <p class="popup__close">close</p>
         </aside>`;
     return markup;
   }

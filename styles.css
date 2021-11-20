@@ -44,7 +44,7 @@ svg {
   font-size: 2rem;
 }
 
-.copy-message__aside {
+.popup__aside {
   position: absolute;
   bottom: 5rem;
   left: 50%;
@@ -61,11 +61,11 @@ svg {
   z-index: 2000;
 }
 
-.copy-message__aside--active {
+.popup__aside--active {
   animation: moveInUp 1s ease-out;
 }
 
-.close {
+.popup__close {
   position: absolute;
   right: 2%;
   top: 5%;
@@ -155,7 +155,7 @@ svg {
   width: 31%;
 }
 
-.actions__heart {
+.generator__heart {
   cursor: pointer;
 }
 

@@ -67,7 +67,7 @@ export default class View {
   _renderMessage(message = this._message) {
     const container = document.querySelector(`.copy`);
     const markup = `
-        <div class="copy-message">
+        <div class="popup">
             <div>
                 <svg>
                 <use href="${icons}#icon-double-check"></use>

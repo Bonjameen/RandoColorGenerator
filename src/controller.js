@@ -130,12 +130,17 @@ const controlPanelSlide = function (type) {
 const controlColourCodeClick = function (code) {
   const colour = model.state.colour;
   const data = { colour, code };
+  if (model.state.copyMessageTimeout) {
+    copyMessageView.close(model.state.copyMessageTimeout);
+    model.state.copyMessageTimeout = null;
+  }
   copyMessageView.update(data);
   model.state.copyMessageTimeout = setTimeout(copyMessageView.close, 6000);
 };
 
 const controlCloseMessageClick = function () {
   copyMessageView.close(model.state.copyMessageTimeout);
+  model.state.copyMessageTimeout = null;
 };
 
 const controlLike = function () {
